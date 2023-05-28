@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?><font-family xmlns:app="http://schemas.android.com/apk/res-auto">
+    <font app:font="@font/ubuntubold" app:fontWeight="700"/>
+    <font app:font="@font/ubuntumedium" app:fontWeight="500"/>
+    <font app:font="@font/ubunturegular" app:fontWeight="400"/>
+    <font app:font="@font/ubuntulight" app:fontWeight="300"/>
+</font-family>
