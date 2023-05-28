@@ -108,5 +108,17 @@
         android:textColor="@color/colorButtonText"
         android:textSize="20sp" />
 
+    <TextView
+        android:id="@+id/alreadyHaveAnAccountTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_gravity="center_horizontal"
+        android:fontFamily="@font/ubunturegular"
+        android:text="Don't have an account? Sign Up."
+        android:textColor="@android:color/white"
+        android:textSize="15sp"
+        android:layout_marginBottom="20dp"/>
+
 
 </LinearLayout>
