@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary">
 
     <LinearLayout
         android:id="@+id/imageTitleLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/colorPrimary"
-        android:gravity="center_vertical"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="16dp">
+        android:paddingTop="20dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp">
 
         <ImageView
             android:layout_width="45dp"
@@ -35,8 +36,57 @@
 
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/squaresLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@id/imageTitleLayout"
+        android:layout_marginTop="16dp"
+        android:padding="25dp">
 
+        <!-- Square 1 -->
+        <ImageView
+            android:layout_width="10dp"
+            android:layout_height="130dp"
+            android:layout_weight="1"
+            android:src="@drawable/purplee_home_square"
+            android:layout_marginRight="15dp"/>
 
+        <!-- Square 2 -->
+        <ImageView
+            android:layout_width="10dp"
+            android:layout_height="130dp"
+            android:src="@drawable/yellow_home_square"
+            android:layout_weight="1" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/squaresLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@id/squaresLayout"
+        android:layout_marginTop="16dp"
+        android:padding="25dp">
+
+        <!-- Square 1 -->
+        <ImageView
+            android:layout_width="10dp"
+            android:layout_height="130dp"
+            android:layout_weight="1"
+            android:src="@drawable/teal_home_square"
+            android:layout_marginRight="15dp"/>
+
+        <!-- Square 2 -->
+        <ImageView
+            android:layout_width="10dp"
+            android:layout_height="130dp"
+            android:src="@drawable/blue_home_square"
+            android:layout_weight="1" />
+
+    </LinearLayout>
 
 
 </RelativeLayout>
