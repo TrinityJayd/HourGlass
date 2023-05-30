@@ -55,7 +55,8 @@
             android:text="Time Allocation by Category"
             android:textColor="@android:color/white"
             android:textSize="20sp"
-            android:layout_marginBottom="20dp"/>
+            android:layout_marginBottom="10dp"/>
+
 
         <LinearLayout
             android:id="@+id/filterLayout"
@@ -74,7 +75,7 @@
                 android:fontFamily="@font/ubuntumedium"
                 android:inputType="text"
                 android:singleLine="false"
-                android:textColor="@android:color/white"/>
+                android:textColor="@color/white"/>
 
             <Button
                 android:id="@+id/datePickerButton"
@@ -86,7 +87,7 @@
                 android:paddingHorizontal="25dp"
                 android:text="Select Date"
                 android:textAllCaps="false"
-                android:textColor="@color/colorButtonText"
+                android:textColor="@color/white"
                 android:textSize="16sp" />
 
         </LinearLayout>
