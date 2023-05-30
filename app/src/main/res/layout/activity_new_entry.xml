@@ -1,31 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
     android:gravity="center"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:paddingLeft="20dp"
+    android:paddingTop="20dp">
 
     <LinearLayout
         android:id="@+id/imageTitleLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingLeft="20dp"
-        android:paddingTop="20dp">
+        android:layout_marginBottom="15dp"
+        android:orientation="horizontal">
 
         <ImageView
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginRight="10dp"
-            android:src="@drawable/purple_icon_circle"/>
+            android:src="@drawable/purple_icon_circle" />
 
         <TextView
             android:id="@+id/titleTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="85dp"
+            android:layout_marginRight="95dp"
             android:fontFamily="@font/ubuntumedium"
             android:text="New Entry"
             android:textColor="@android:color/white"
@@ -37,5 +37,127 @@
             android:src="@drawable/img_image25" />
 
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/taskNameTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/ubunturegular"
+        android:text="Full Name"
+        android:textColor="@android:color/white"
+        android:textSize="20sp" />
+
+    <EditText
+        android:id="@+id/editTextTaskName"
+        android:layout_width="307dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:layout_marginBottom="15dp"
+        android:backgroundTint="#FFFFFF"
+        android:ems="10"
+        android:fontFamily="@font/ubunturegular"
+        android:inputType="text"
+        android:singleLine="false"
+        android:textColor="#FFFFFF" />
+
+    <!-- add a combo box for different categories-->
+    <TextView
+        android:id="@+id/categoryTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:fontFamily="@font/ubunturegular"
+        android:text="Category"
+        android:textColor="@android:color/white"
+        android:textSize="20sp" />
+
+    <Spinner
+        android:id="@+id/spinnerCategory"
+        android:layout_width="307dp"
+        android:layout_height="35dp"
+        android:layout_gravity="left"
+        android:layout_marginBottom="5dp"
+        android:background="@drawable/spinner_background"
+        android:ems="10"
+        android:fontFamily="@font/ubunturegular"
+        android:inputType="text"
+        android:singleLine="false"
+        android:textColor="@android:color/white" />
+
+    <Button
+        android:id="@+id/buttonNewCategory"
+        android:layout_width="wrap_content"
+        android:layout_height="28dp"
+        android:layout_gravity="center"
+        android:layout_marginLeft="40dp"
+        android:layout_marginBottom="10dp"
+        android:background="@color/colorButtonText"
+        android:fontFamily="@font/ubunturegular"
+        android:text="+ New Category"
+        android:textAllCaps="false"
+        android:textColor="@android:color/white"
+        android:textSize="14sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="10dp">
+
+        <TextView
+            android:id="@+id/dateTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/ubunturegular"
+            android:text="Date"
+            android:textColor="@android:color/white"
+            android:textSize="20sp"
+            android:layout_marginRight="140dp" />
+
+        <Button
+            android:id="@+id/datePickerButton"
+            android:layout_width="125dp"
+            android:layout_height="35dp"
+            android:background="@drawable/spinner_background"
+            android:fontFamily="@font/ubunturegular"
+            android:onClick="openDatePicker"
+            android:text="Select Date"
+            android:textAllCaps="false"
+            android:textColor="@color/colorButtonText"
+            />
+
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/notesTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/ubunturegular"
+        android:text="Description"
+        android:textColor="@android:color/white"
+        android:textSize="20sp" />
+
+    <EditText
+        android:id="@+id/editTextNotes"
+        android:layout_width="307dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:layout_marginBottom="15dp"
+        android:backgroundTint="#FFFFFF"
+        android:ems="10"
+        android:fontFamily="@font/ubunturegular"
+        android:inputType="text"
+        android:singleLine="false"
+        android:textColor="#FFFFFF" />
+
 
 </LinearLayout>
