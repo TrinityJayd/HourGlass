@@ -10,13 +10,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:paddingLeft="20dp"
-        android:paddingTop="20dp"
-        android:paddingRight="20dp">
+        android:paddingHorizontal="20dp"
+        android:paddingTop="20dp">
 
         <ImageView
-            android:layout_width="45dp"
-            android:layout_height="37dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_marginRight="10dp"
             android:src="@drawable/img_16370431" />
 
@@ -31,155 +30,40 @@
             android:textSize="34sp" />
 
         <ImageView
-            android:layout_width="45dp"
-            android:layout_height="37dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:src="@drawable/img_image25" />
 
     </LinearLayout>
 
-    <!--    square layout-->
     <LinearLayout
-        android:id="@+id/squaresLayout"
+        android:id="@+id/imageLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/imageTitleLayout"
-        android:layout_marginTop="16dp"
         android:orientation="horizontal"
-        android:padding="25dp">
+        android:paddingHorizontal="35dp">
 
-        <!-- Square 1 -->
-        <LinearLayout
-            android:layout_width="10dp"
-            android:layout_height="135dp"
-            android:layout_marginRight="25dp"
-            android:layout_weight="1"
-            android:background="@drawable/purplee_home_square"
-            android:gravity="center"
-            android:orientation="vertical">
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.7"
+            android:layout_marginRight="30dp"
+            android:src="@drawable/purplee_home_square" />
 
-            <ImageView
-                android:layout_width="45dp"
-                android:layout_height="0dp"
-                android:layout_marginBottom="-22dp"
-                android:layout_weight="1"
-                android:scaleType="centerInside"
-                android:src="@drawable/img_image15" />
-
-            <TextView
-                android:id="@+id/newEntryTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/ubuntubold"
-                android:paddingLeft="5dp"
-                android:text="New Entry"
-                android:textColor="@android:color/white"
-                android:textSize="20sp" />
-
-        </LinearLayout>
-
-        <!--square 2-->
-        <LinearLayout
-            android:layout_width="10dp"
-            android:layout_height="135dp"
-            android:layout_marginRight="25dp"
-            android:layout_weight="1"
-            android:background="@drawable/yellow_home_square"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <ImageView
-                android:layout_width="50dp"
-                android:layout_height="0dp"
-                android:layout_marginBottom="-22dp"
-                android:layout_weight="1"
-                android:scaleType="centerInside"
-                android:src="@drawable/img" />
-
-            <TextView
-                android:id="@+id/yourEntriesTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/ubuntubold"
-                android:paddingLeft="5dp"
-                android:text="Your Entries"
-                android:textColor="@android:color/white"
-                android:textSize="20sp" />
-
-        </LinearLayout>
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.7"
+            android:src="@drawable/yellow_home_square" />
 
     </LinearLayout>
 
-    <!--    square layout 2-->
-    <LinearLayout
-        android:id="@+id/squaresLayout2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/squaresLayout"
-        android:layout_marginTop="16dp"
-        android:orientation="horizontal"
-        android:padding="25dp">
 
-        <!-- Square 1 -->
-        <LinearLayout
-            android:layout_width="10dp"
-            android:layout_height="135dp"
-            android:layout_marginRight="25dp"
-            android:layout_weight="1"
-            android:background="@drawable/teal_home_square"
-            android:gravity="center"
-            android:orientation="vertical">
 
-            <ImageView
-                android:layout_width="65dp"
-                android:layout_height="0dp"
-                android:layout_marginBottom="-22dp"
-                android:layout_weight="1"
-                android:scaleType="centerInside"
-                android:src="@drawable/img_1" />
 
-            <TextView
-                android:id="@+id/goalsTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/ubuntubold"
-                android:paddingLeft="5dp"
-                android:text="Goals"
-                android:textColor="@android:color/white"
-                android:textSize="20sp" />
-
-        </LinearLayout>
-
-        <!--square 2-->
-        <LinearLayout
-            android:layout_width="10dp"
-            android:layout_height="135dp"
-            android:layout_marginRight="25dp"
-            android:layout_weight="1"
-            android:background="@drawable/blue_home_square"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <ImageView
-                android:layout_width="65dp"
-                android:layout_height="0dp"
-                android:layout_marginBottom="-22dp"
-                android:layout_weight="1"
-                android:scaleType="centerInside"
-                android:src="@drawable/img_image21" />
-
-            <TextView
-                android:id="@+id/analyticsTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/ubuntubold"
-                android:paddingLeft="5dp"
-                android:text="Analytics"
-                android:textColor="@android:color/white"
-                android:textSize="20sp" />
-
-        </LinearLayout>
-
-    </LinearLayout>
 
 
 </RelativeLayout>

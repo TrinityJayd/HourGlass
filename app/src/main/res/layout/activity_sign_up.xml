@@ -6,8 +6,8 @@
     android:background="@color/colorPrimary"
     android:gravity="left"
     android:orientation="vertical"
-    android:paddingLeft="30dp"
-    android:paddingTop="30dp">
+    android:paddingHorizontal="30dp"
+    android:paddingVertical="30dp">
 
     <TextView
         android:id="@+id/titleTextView"
@@ -34,7 +34,6 @@
         android:id="@+id/fullnameTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="left"
         android:layout_marginTop="8dp"
         android:fontFamily="@font/ubunturegular"
         android:text="Full Name"
@@ -43,15 +42,14 @@
 
     <EditText
         android:id="@+id/editTextFullName"
-        android:layout_width="307dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="left"
         android:ems="10"
         android:fontFamily="@font/ubunturegular"
         android:inputType="text"
         android:singleLine="false"
-        android:textColor="#FFFFFF"
-        android:backgroundTint="#FFFFFF"
+        android:textColor="@android:color/white"
+        android:backgroundTint="@android:color/white"
         android:layout_marginBottom="15dp"/>
 
 
@@ -59,7 +57,6 @@
         android:id="@+id/emailTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="left"
         android:layout_marginTop="8dp"
         android:fontFamily="@font/ubunturegular"
         android:text="Email"
@@ -68,22 +65,20 @@
 
     <EditText
         android:id="@+id/editTextEmailAddress"
-        android:layout_width="307dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="left"
         android:ems="10"
         android:fontFamily="@font/ubunturegular"
         android:inputType="textEmailAddress"
         android:singleLine="false"
-        android:textColor="#FFFFFF"
-        android:backgroundTint="#FFFFFF"
+        android:textColor="@android:color/white"
+        android:backgroundTint="@android:color/white"
         android:layout_marginBottom="15dp"/>
 
     <TextView
         android:id="@+id/passwordTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="left"
         android:layout_marginTop="8dp"
         android:fontFamily="@font/ubunturegular"
         android:text="Password"
@@ -92,20 +87,18 @@
 
     <EditText
         android:id="@+id/editTextPassword"
-        android:layout_width="307dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="left"
         android:ems="10"
         android:inputType="textPassword"
-        android:textColor="#FFFFFF"
-        android:backgroundTint="#FFFFFF"
+        android:textColor="@android:color/white"
+        android:backgroundTint="@android:color/white"
         android:layout_marginBottom="15dp"/>
 
     <TextView
         android:id="@+id/confirmPasswordTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="left"
         android:layout_marginTop="8dp"
         android:fontFamily="@font/ubunturegular"
         android:text="Confirm Password"
@@ -114,21 +107,19 @@
 
     <EditText
         android:id="@+id/editTextConfirmPassword"
-        android:layout_width="307dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="left"
         android:ems="10"
         android:inputType="textPassword"
-        android:textColor="#FFFFFF"
-        android:backgroundTint="#FFFFFF"
+        android:textColor="@android:color/white"
+        android:backgroundTint="@android:color/white"
         android:layout_marginBottom="15dp"/>
 
     <Button
         android:id="@+id/loginButton"
-        android:layout_width="331dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
-        android:layout_marginBottom="5dp"
         android:background="@drawable/submit_button"
         android:fontFamily="@font/ubuntumedium"
         android:text="Sign Up"
@@ -136,17 +127,18 @@
         android:textColor="@color/colorButtonText"
         android:textSize="20sp" />
 
-    <TextView
+    <Button
         android:id="@+id/alreadyHaveAnAccountTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:layout_marginLeft="60dp"
+        android:layout_gravity="center"
+        android:background="@color/colorPrimary"
+        android:textAllCaps="false"
         android:fontFamily="@font/ubunturegular"
         android:text="Don't have an account? Sign Up."
         android:textColor="@android:color/white"
-        android:textSize="15sp"
-        android:layout_marginBottom="20dp"/>
+        android:textSize="17sp" />
 
 
 </LinearLayout>
