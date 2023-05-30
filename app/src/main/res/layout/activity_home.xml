@@ -2,7 +2,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary">
+    android:background="@color/colorPrimary"
+    android:paddingHorizontal="20dp"
+    android:paddingVertical="20dp">
 
     <!--    title bar-->
     <LinearLayout
@@ -10,8 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:paddingHorizontal="20dp"
-        android:paddingTop="20dp">
+        android:layout_marginBottom="40dp">
 
         <ImageView
             android:layout_width="40dp"
@@ -42,27 +43,24 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/imageTitleLayout"
         android:orientation="horizontal"
-        android:paddingHorizontal="35dp">
+        android:paddingHorizontal="10dp">
 
         <ImageView
-            android:id="@+id/imageView1"
+            android:id="@+id/newEntryImageView"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="0.7"
-            android:layout_marginRight="30dp"
-            android:src="@drawable/purplee_home_square" />
+            android:layout_weight="1"
+            android:src="@drawable/purplee_home_square"
+            android:layout_marginRight="40dp"/>
 
         <ImageView
-            android:id="@+id/imageView2"
+            android:id="@+id/yourEntryImageView"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="0.7"
+            android:layout_weight="1"
             android:src="@drawable/yellow_home_square" />
 
     </LinearLayout>
-
-
-
 
 
 

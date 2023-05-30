@@ -11,14 +11,15 @@
 
     <!-- Insert image into square -->
     <item
-        android:bottom="10dp"
-        android:left="10dp"
-        android:right="10dp"
-        android:top="10dp">
-        <bitmap
-            android:gravity="center"
-            android:src="@drawable/img_1" />
-    </item>
+        android:drawable="@drawable/img_1"
+        android:gravity="center"
+        android:width="70dp"
+        android:height="70dp"
+        android:bottom="45dp"
+        android:left="35dp"
+        android:right="35dp"
+        android:top="35dp" />
+
 
 
 
