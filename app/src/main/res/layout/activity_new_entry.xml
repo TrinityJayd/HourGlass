@@ -235,7 +235,7 @@
         android:layout_marginTop="30dp"
         android:background="@drawable/submit_button"
         android:fontFamily="@font/ubuntumedium"
-        android:text="Login"
+        android:text="Save"
         android:textAllCaps="false"
         android:textColor="@color/colorButtonText"
         android:textSize="20sp" />
