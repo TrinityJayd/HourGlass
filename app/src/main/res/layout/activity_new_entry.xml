@@ -11,9 +11,8 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="25dp"
         android:orientation="horizontal"
-        android:paddingLeft="20dp"
-        android:paddingTop="20dp"
-        android:paddingRight="20dp">
+        android:paddingHorizontal="20dp"
+        android:paddingTop="20dp">
 
         <ImageView
             android:layout_width="40dp"
@@ -43,7 +42,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingLeft="40dp">
+        android:paddingHorizontal="40dp">
 
     <TextView
         android:id="@+id/taskNameTextView"
@@ -58,16 +57,16 @@
 
     <EditText
         android:id="@+id/editTextTaskName"
-        android:layout_width="307dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="left"
         android:layout_marginBottom="25dp"
-        android:backgroundTint="#FFFFFF"
+        android:backgroundTint="@android:color/white"
         android:ems="10"
         android:fontFamily="@font/ubunturegular"
         android:inputType="text"
         android:singleLine="false"
-        android:textColor="#FFFFFF" />
+        android:textColor="@android:color/white" />
 
     <!-- add a combo box for different categories-->
     <TextView
@@ -84,10 +83,10 @@
 
     <Spinner
         android:id="@+id/spinnerCategory"
-        android:layout_width="307dp"
-        android:layout_height="35dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingVertical="10dp"
         android:layout_gravity="left"
-        android:layout_marginBottom="5dp"
         android:background="@drawable/spinner_background"
         android:ems="10"
         android:fontFamily="@font/ubunturegular"
@@ -98,16 +97,16 @@
     <Button
         android:id="@+id/buttonNewCategory"
         android:layout_width="wrap_content"
-        android:layout_height="28dp"
-        android:layout_gravity="center"
-        android:layout_marginLeft="40dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:layout_marginRight="10dp"
         android:layout_marginBottom="20dp"
         android:background="@color/colorButtonText"
         android:fontFamily="@font/ubunturegular"
         android:text="+ New Category"
         android:textAllCaps="false"
         android:textColor="@android:color/white"
-        android:textSize="14sp" />
+        android:textSize="17sp" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -128,14 +127,16 @@
 
         <Button
             android:id="@+id/datePickerButton"
-            android:layout_width="125dp"
-            android:layout_height="35dp"
+            android:layout_width="wrap_content"
+            android:paddingHorizontal="25dp"
+            android:layout_height="wrap_content"
             android:background="@drawable/spinner_background"
-            android:fontFamily="@font/ubunturegular"
+            android:fontFamily="@font/ubuntumedium"
             android:onClick="openDatePicker"
             android:text="Select Date"
             android:textAllCaps="false"
             android:textColor="@color/colorButtonText"
+            android:textSize="17sp"
             />
 
     </LinearLayout>
@@ -159,8 +160,10 @@
 
     <Spinner
         android:id="@+id/hoursSpinner"
-        android:layout_width="80dp"
-        android:layout_height="35dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingVertical="6dp"
+        android:paddingHorizontal="10dp"
         android:layout_gravity="left"
         android:layout_marginRight="10dp"
         android:layout_marginBottom="5dp"
@@ -173,8 +176,10 @@
 
     <Spinner
         android:id="@+id/minutesSpinner"
-        android:layout_width="80dp"
-        android:layout_height="35dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingVertical="6dp"
+        android:paddingHorizontal="10dp"
         android:layout_gravity="left"
         android:layout_marginBottom="5dp"
         android:background="@drawable/spinner_background"
@@ -202,30 +207,30 @@
         android:layout_width="307dp"
         android:layout_height="wrap_content"
         android:layout_gravity="left"
-        android:layout_marginBottom="15dp"
-        android:backgroundTint="#FFFFFF"
+        android:layout_marginBottom="10dp"
+        android:backgroundTint="@android:color/white"
         android:ems="10"
         android:fontFamily="@font/ubunturegular"
         android:inputType="text"
         android:singleLine="false"
-        android:textColor="#FFFFFF" />
+        android:textColor="@android:color/white" />
 
     <Button
         android:id="@+id/upploadButton"
         android:layout_width="wrap_content"
-        android:layout_height="28dp"
+        android:layout_height="wrap_content"
         android:layout_gravity="left"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="8dp"
         android:background="@color/colorButtonText"
         android:fontFamily="@font/ubunturegular"
         android:text="Upload Image (Optional) 📎"
         android:textAllCaps="false"
         android:textColor="@android:color/white"
-        android:textSize="14sp" />
+        android:textSize="16sp" />
 
     <Button
         android:id="@+id/saveButton"
-        android:layout_width="329dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:background="@drawable/submit_button"
@@ -233,8 +238,7 @@
         android:text="Login"
         android:textAllCaps="false"
         android:textColor="@color/colorButtonText"
-        android:textSize="20sp"
-        android:layout_gravity="left"/>
+        android:textSize="20sp" />
 
     </LinearLayout>
 
