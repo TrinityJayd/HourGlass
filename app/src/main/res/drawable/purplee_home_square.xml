@@ -11,7 +11,7 @@
 
     <!-- Insert image into square -->
     <item
-        android:drawable="@drawable/img_image15"
+        android:drawable="@drawable/new_entry"
         android:gravity="center"
         android:width="70dp"
         android:height="70dp"

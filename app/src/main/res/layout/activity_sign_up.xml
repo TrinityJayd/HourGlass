@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
-    android:gravity="left"
     android:orientation="vertical"
     android:paddingHorizontal="30dp"
     android:paddingVertical="30dp">
@@ -13,22 +11,22 @@
         android:id="@+id/titleTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp"
         android:fontFamily="@font/ubuntumedium"
         android:text="Sign Up"
         android:textColor="@android:color/white"
-        android:textSize="34sp"
-        android:layout_marginBottom="15dp"/>
+        android:textSize="34sp" />
 
     <TextView
         android:id="@+id/subtitleTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:layout_marginBottom="20dp"
         android:fontFamily="@font/ubunturegular"
         android:text="Create a new account."
         android:textColor="@android:color/white"
-        android:textSize="20sp"
-        android:layout_marginBottom="20dp"/>
+        android:textSize="20sp" />
 
     <TextView
         android:id="@+id/fullnameTextView"
@@ -36,6 +34,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:fontFamily="@font/ubunturegular"
+        android:labelFor="@id/editTextFullName"
         android:text="Full Name"
         android:textColor="@android:color/white"
         android:textSize="20sp" />
@@ -44,13 +43,14 @@
         android:id="@+id/editTextFullName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp"
+        android:autofillHints="name"
+        android:backgroundTint="@android:color/white"
         android:ems="10"
         android:fontFamily="@font/ubunturegular"
         android:inputType="text"
         android:singleLine="false"
-        android:textColor="@android:color/white"
-        android:backgroundTint="@android:color/white"
-        android:layout_marginBottom="15dp"/>
+        android:textColor="@android:color/white" />
 
 
     <TextView
@@ -59,6 +59,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:fontFamily="@font/ubunturegular"
+        android:labelFor="@id/editTextEmailAddress"
         android:text="Email"
         android:textColor="@android:color/white"
         android:textSize="20sp" />
@@ -67,13 +68,14 @@
         android:id="@+id/editTextEmailAddress"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp"
+        android:autofillHints="emailAddress"
+        android:backgroundTint="@android:color/white"
         android:ems="10"
         android:fontFamily="@font/ubunturegular"
         android:inputType="textEmailAddress"
         android:singleLine="false"
-        android:textColor="@android:color/white"
-        android:backgroundTint="@android:color/white"
-        android:layout_marginBottom="15dp"/>
+        android:textColor="@android:color/white" />
 
     <TextView
         android:id="@+id/passwordTextView"
@@ -81,6 +83,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:fontFamily="@font/ubunturegular"
+        android:labelFor="@id/editTextPassword"
         android:text="Password"
         android:textColor="@android:color/white"
         android:textSize="20sp" />
@@ -89,11 +92,11 @@
         android:id="@+id/editTextPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp"
+        android:backgroundTint="@android:color/white"
         android:ems="10"
         android:inputType="textPassword"
-        android:textColor="@android:color/white"
-        android:backgroundTint="@android:color/white"
-        android:layout_marginBottom="15dp"/>
+        android:textColor="@android:color/white" />
 
     <TextView
         android:id="@+id/confirmPasswordTextView"
@@ -101,6 +104,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:fontFamily="@font/ubunturegular"
+        android:labelFor="@id/editTextConfirmPassword"
         android:text="Confirm Password"
         android:textColor="@android:color/white"
         android:textSize="20sp" />
@@ -109,16 +113,17 @@
         android:id="@+id/editTextConfirmPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp"
+        android:backgroundTint="@android:color/white"
         android:ems="10"
         android:inputType="textPassword"
-        android:textColor="@android:color/white"
-        android:backgroundTint="@android:color/white"
-        android:layout_marginBottom="15dp"/>
+        android:textColor="@android:color/white" />
 
     <Button
-        android:id="@+id/loginButton"
+        android:id="@+id/signUpButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="50dp"
         android:layout_marginTop="30dp"
         android:background="@drawable/submit_button"
         android:fontFamily="@font/ubuntumedium"
@@ -128,17 +133,17 @@
         android:textSize="20sp" />
 
     <Button
-        android:id="@+id/alreadyHaveAnAccountTextView"
+        android:id="@+id/signInButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:layout_gravity="center"
+        android:layout_marginTop="8dp"
         android:background="@color/colorPrimary"
-        android:textAllCaps="false"
         android:fontFamily="@font/ubunturegular"
-        android:text="Don't have an account? Sign Up."
+        android:text="Already have an account? Sign In."
+        android:textAllCaps="false"
         android:textColor="@android:color/white"
-        android:textSize="17sp" />
+        android:textSize="16sp" />
 
 
 </LinearLayout>

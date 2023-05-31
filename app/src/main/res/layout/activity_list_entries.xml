@@ -17,23 +17,27 @@
         <ImageView
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_marginRight="10dp"
+            android:layout_marginEnd="10dp"
+            android:contentDescription="Entries"
             android:src="@drawable/yellow_icon_circle" />
 
         <TextView
             android:id="@+id/titleTextView"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginRight="80dp"
+            android:layout_weight="1"
             android:fontFamily="@font/ubuntumedium"
             android:text="Your Entries"
             android:textColor="@android:color/white"
             android:textSize="34sp" />
 
         <ImageView
+            android:id="@+id/homeImageView"
             android:layout_width="45dp"
             android:layout_height="37dp"
-            android:src="@drawable/img_image25" />
+            android:layout_gravity="end"
+            android:contentDescription="Home"
+            android:src="@drawable/home" />
 
     </LinearLayout>
 
@@ -49,24 +53,24 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
 
+            android:layout_marginEnd="40dp"
             android:fontFamily="@font/ubunturegular"
             android:text="Task Name"
             android:textColor="@android:color/white"
-            android:textSize="17sp"
-            android:layout_marginRight="40dp"/>
+            android:textSize="17sp" />
 
         <Spinner
             android:id="@+id/categorySpinner"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:paddingHorizontal="25dp"
+            android:layout_marginEnd="40dp"
             android:background="@drawable/spinner_background"
             android:ems="10"
             android:fontFamily="@font/ubuntumedium"
             android:inputType="text"
+            android:paddingHorizontal="25dp"
             android:singleLine="false"
-            android:textColor="@color/white"
-            android:layout_marginRight="40dp"/>
+            android:textColor="@color/white" />
 
         <Button
             android:id="@+id/datePickerButton"
@@ -82,8 +86,6 @@
             android:textSize="16sp" />
 
     </LinearLayout>
-
-
 
 
 </LinearLayout>

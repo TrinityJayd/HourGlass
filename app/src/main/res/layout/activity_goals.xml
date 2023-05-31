@@ -17,23 +17,27 @@
         <ImageView
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_marginRight="10dp"
+            android:layout_marginEnd="10dp"
+            android:contentDescription="Target"
             android:src="@drawable/teal_icon_circle" />
 
         <TextView
             android:id="@+id/titleTextView"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginRight="180dp"
+            android:layout_weight="1"
             android:fontFamily="@font/ubuntumedium"
             android:text="Goals"
             android:textColor="@android:color/white"
             android:textSize="34sp" />
 
         <ImageView
+            android:id="@+id/homeImageView"
             android:layout_width="45dp"
             android:layout_height="37dp"
-            android:src="@drawable/img_image25" />
+            android:layout_gravity="end"
+            android:contentDescription="Home"
+            android:src="@drawable/home" />
 
     </LinearLayout>
 
@@ -48,42 +52,40 @@
             android:id="@+id/timeAllocatedTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="left"
             android:layout_marginTop="8dp"
+            android:layout_marginBottom="20dp"
             android:fontFamily="@font/ubunturegular"
             android:text="Set Your Daily Goals!"
             android:textColor="@android:color/white"
-            android:textSize="20sp"
-            android:layout_marginBottom="20dp"/>
+            android:textSize="20sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:padding="16dp"
-            >
+            android:padding="16dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Minimum Hours:"
-                android:textSize="16dp"
-                android:textColor="@android:color/white"
+                android:layout_marginEnd="10dp"
                 android:fontFamily="@font/ubunturegular"
-                android:layout_marginRight="10dp"/>
+                android:labelFor="@id/minimumGoalEditText"
+                android:text="Minimum Hours:"
+                android:textColor="@android:color/white"
+                android:textSize="16sp" />
 
             <EditText
                 android:id="@+id/minimumGoalEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:backgroundTint="@android:color/white"
+                android:fontFamily="@font/ubunturegular"
                 android:inputType="number"
                 android:maxLength="2"
+                android:padding="20dp"
                 android:textColor="@android:color/white"
-                android:textSize="16dp"
-                android:fontFamily="@font/ubunturegular"
-                android:backgroundTint="@android:color/white"
-                android:padding="20dp"/>
-
+                android:textSize="16sp" />
 
 
         </LinearLayout>
@@ -94,26 +96,27 @@
             android:orientation="horizontal"
             android:padding="16dp">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Maximum Hours:"
-            android:textSize="16dp"
-            android:textColor="@android:color/white"
-            android:fontFamily="@font/ubunturegular"
-            android:layout_marginRight="10dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:fontFamily="@font/ubunturegular"
+                android:labelFor="@id/maximumGoalEditText"
+                android:text="Maximum Hours:"
+                android:textColor="@android:color/white"
+                android:textSize="16sp" />
 
-        <EditText
-            android:id="@+id/maximumGoalEditText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="number"
-            android:maxLength="2"
-            android:textColor="@android:color/white"
-            android:textSize="16dp"
-            android:padding="15dp"
-            android:fontFamily="@font/ubunturegular"
-            android:backgroundTint="@android:color/white"/>
+            <EditText
+                android:id="@+id/maximumGoalEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@android:color/white"
+                android:fontFamily="@font/ubunturegular"
+                android:inputType="number"
+                android:maxLength="2"
+                android:padding="15dp"
+                android:textColor="@android:color/white"
+                android:textSize="16sp" />
 
         </LinearLayout>
 
@@ -121,19 +124,18 @@
             android:id="@+id/saveButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingHorizontal="70dp"
+            android:layout_gravity="end"
             android:layout_marginTop="30dp"
-            android:layout_gravity="right"
-            android:layout_marginRight="20dp"
+            android:layout_marginEnd="20dp"
             android:background="@drawable/submit_button"
             android:fontFamily="@font/ubuntumedium"
+            android:paddingHorizontal="70dp"
             android:text="Save"
             android:textAllCaps="false"
             android:textColor="@color/colorButtonText"
             android:textSize="17sp" />
 
     </LinearLayout>
-
 
 
 </LinearLayout>
