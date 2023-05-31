@@ -87,7 +87,7 @@
         android:backgroundTint="@android:color/white" />
 
     <Button
-        android:id="@+id/forgotPasswordTextView"
+        android:id="@+id/forgotPasswordButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="right"
@@ -112,10 +112,9 @@
         android:textSize="20sp" />
 
     <Button
-        android:id="@+id/alreadyHaveAnAccountTextView"
+        android:id="@+id/noAccountButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
         android:layout_gravity="center_horizontal"
         android:fontFamily="@font/ubunturegular"
         android:text="Don't have an account? Sign Up."
