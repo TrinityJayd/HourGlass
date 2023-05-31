@@ -1,9 +1,89 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ListEntries">
+    android:background="@color/colorPrimary"
+    android:orientation="vertical"
+    android:paddingHorizontal="20dp">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <LinearLayout
+        android:id="@+id/imageTitleLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="25dp"
+        android:orientation="horizontal"
+        android:paddingTop="20dp">
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/yellow_icon_circle" />
+
+        <TextView
+            android:id="@+id/titleTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="80dp"
+            android:fontFamily="@font/ubuntumedium"
+            android:text="Your Entries"
+            android:textColor="@android:color/white"
+            android:textSize="34sp" />
+
+        <ImageView
+            android:layout_width="45dp"
+            android:layout_height="37dp"
+            android:src="@drawable/img_image25" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/filterLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/taskNameTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+
+            android:fontFamily="@font/ubunturegular"
+            android:text="Task Name"
+            android:textColor="@android:color/white"
+            android:textSize="17sp"
+            android:layout_marginRight="40dp"/>
+
+        <Spinner
+            android:id="@+id/categorySpinner"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:paddingHorizontal="25dp"
+            android:background="@drawable/spinner_background"
+            android:ems="10"
+            android:fontFamily="@font/ubuntumedium"
+            android:inputType="text"
+            android:singleLine="false"
+            android:textColor="@color/white"
+            android:layout_marginRight="40dp"/>
+
+        <Button
+            android:id="@+id/datePickerButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/spinner_background"
+            android:fontFamily="@font/ubuntumedium"
+            android:onClick="openDatePicker"
+            android:paddingHorizontal="25dp"
+            android:text="Date"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
+
+
+
+</LinearLayout>

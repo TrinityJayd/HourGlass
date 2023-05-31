@@ -1,18 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".MainActivity"
+    android:theme="@style/Theme.AppCompat"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
     android:gravity="center"
     android:orientation="vertical"
     android:paddingTop="16dp"
-    android:paddingBottom="16dp"
-    android:paddingLeft="60dp"
-    android:paddingRight="60dp">
-
-
-<!--    assign the width of the image to be responsive to the screen size-->
+    android:paddingBottom="16dp">
 
     <ImageView
         android:id="@+id/logoImageView"
@@ -51,18 +48,16 @@
         android:background="@drawable/rounded_square"
         android:elevation="8dp"
         android:orientation="vertical"
-        android:paddingTop="16dp"
-        android:paddingBottom="16dp"
-        android:paddingLeft="40dp"
-        android:paddingRight="40dp">
+        android:paddingVertical="16dp"
+        android:paddingHorizontal="40dp"
+        android:layout_marginHorizontal="40dp">
 
         <Button
             android:id="@+id/loginButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="15dp"
-            android:layout_marginBottom="15dp"
+            android:layout_marginVertical="15dp"
             android:background="@drawable/title_buttons"
             android:elevation="4dp"
             android:fontFamily="@font/ubuntumedium"

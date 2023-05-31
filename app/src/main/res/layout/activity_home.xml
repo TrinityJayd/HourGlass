@@ -4,7 +4,8 @@
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
     android:paddingHorizontal="20dp"
-    android:paddingVertical="20dp">
+    android:paddingVertical="20dp"
+    >
 
     <!--    title bar-->
     <LinearLayout

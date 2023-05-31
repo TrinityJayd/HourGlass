@@ -56,9 +56,84 @@
             android:textSize="20sp"
             android:layout_marginBottom="20dp"/>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="16dp"
+            >
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Minimum Hours:"
+                android:textSize="16dp"
+                android:textColor="@android:color/white"
+                android:fontFamily="@font/ubunturegular"
+                android:layout_marginRight="10dp"/>
+
+            <EditText
+                android:id="@+id/minimumGoalEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:maxLength="2"
+                android:textColor="@android:color/white"
+                android:textSize="16dp"
+                android:fontFamily="@font/ubunturegular"
+                android:backgroundTint="@android:color/white"
+                android:padding="20dp"/>
+
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="16dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Maximum Hours:"
+            android:textSize="16dp"
+            android:textColor="@android:color/white"
+            android:fontFamily="@font/ubunturegular"
+            android:layout_marginRight="10dp"/>
+
+        <EditText
+            android:id="@+id/maximumGoalEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:maxLength="2"
+            android:textColor="@android:color/white"
+            android:textSize="16dp"
+            android:padding="15dp"
+            android:fontFamily="@font/ubunturegular"
+            android:backgroundTint="@android:color/white"/>
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/saveButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="70dp"
+            android:layout_marginTop="30dp"
+            android:layout_gravity="right"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/submit_button"
+            android:fontFamily="@font/ubuntumedium"
+            android:text="Save"
+            android:textAllCaps="false"
+            android:textColor="@color/colorButtonText"
+            android:textSize="17sp" />
 
     </LinearLayout>
+
 
 
 </LinearLayout>

@@ -44,201 +44,191 @@
         android:orientation="vertical"
         android:paddingHorizontal="40dp">
 
-    <TextView
-        android:id="@+id/taskNameTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="left"
-        android:layout_marginTop="8dp"
-        android:fontFamily="@font/ubunturegular"
-        android:text="Task Name"
-        android:textColor="@android:color/white"
-        android:textSize="20sp" />
-
-    <EditText
-        android:id="@+id/editTextTaskName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="left"
-        android:layout_marginBottom="25dp"
-        android:backgroundTint="@android:color/white"
-        android:ems="10"
-        android:fontFamily="@font/ubunturegular"
-        android:inputType="text"
-        android:singleLine="false"
-        android:textColor="@android:color/white" />
-
-    <!-- add a combo box for different categories-->
-    <TextView
-        android:id="@+id/categoryTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="left"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="12dp"
-        android:fontFamily="@font/ubunturegular"
-        android:text="Category"
-        android:textColor="@android:color/white"
-        android:textSize="20sp" />
-
-    <Spinner
-        android:id="@+id/spinnerCategory"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingVertical="10dp"
-        android:layout_gravity="left"
-        android:background="@drawable/spinner_background"
-        android:ems="10"
-        android:fontFamily="@font/ubunturegular"
-        android:inputType="text"
-        android:singleLine="false"
-        android:textColor="@android:color/white" />
-
-    <Button
-        android:id="@+id/buttonNewCategory"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="right"
-        android:layout_marginRight="10dp"
-        android:layout_marginBottom="20dp"
-        android:background="@color/colorButtonText"
-        android:fontFamily="@font/ubunturegular"
-        android:text="+ New Category"
-        android:textAllCaps="false"
-        android:textColor="@android:color/white"
-        android:textSize="17sp" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginBottom="30dp">
-
         <TextView
-            android:id="@+id/dateTextView"
+            android:id="@+id/taskNameTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity=""
+            android:layout_marginTop="8dp"
             android:fontFamily="@font/ubunturegular"
-            android:text="Date"
+            android:text="Task Name"
             android:textColor="@android:color/white"
-            android:textSize="20sp"
-            android:layout_marginRight="140dp" />
+            android:textSize="20sp" />
 
-        <Button
-            android:id="@+id/datePickerButton"
-            android:layout_width="wrap_content"
-            android:paddingHorizontal="25dp"
-            android:layout_height="wrap_content"
-            android:background="@drawable/spinner_background"
-            android:fontFamily="@font/ubuntumedium"
-            android:onClick="openDatePicker"
-            android:text="Select Date"
-            android:textAllCaps="false"
-            android:textColor="@color/colorButtonText"
-            android:textSize="17sp"
+        <EditText
+            android:id="@+id/editTextTaskName"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginBottom="18dp"
+            android:backgroundTint="@android:color/white"
+            android:ems="10"
+            android:fontFamily="@font/ubunturegular"
+            android:inputType="text"
+            android:singleLine="false"
+            android:textColor="@android:color/white"
             />
 
-    </LinearLayout>
+        <!-- add a combo box for different categories-->
+        <TextView
+            android:id="@+id/categoryTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="12dp"
+            android:fontFamily="@font/ubunturegular"
+            android:text="Category"
+            android:textColor="@android:color/white"
+            android:textSize="20sp" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginBottom="20dp">
+        <Spinner
+            android:id="@+id/spinnerCategory"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:background="@drawable/spinner_background"
+            android:ems="10"
+            android:fontFamily="@font/ubunturegular"
+            android:inputType="text"
+            android:singleLine="false"
+            android:textColor="@android:color/white" />
 
-    <TextView
-        android:id="@+id/timeTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:fontFamily="@font/ubunturegular"
-        android:text="Time (hh:mm)"
-        android:textColor="@android:color/white"
-        android:textSize="20sp"
-        android:layout_marginRight="20dp"/>
+        <Button
+            android:id="@+id/buttonNewCategory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="20dp"
+            android:background="@color/colorButtonText"
+            android:fontFamily="@font/ubunturegular"
+            android:text="+ New Category"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white"
+            android:textSize="17sp" />
 
-    <Spinner
-        android:id="@+id/hoursSpinner"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingVertical="6dp"
-        android:paddingHorizontal="10dp"
-        android:layout_gravity="left"
-        android:layout_marginRight="10dp"
-        android:layout_marginBottom="5dp"
-        android:background="@drawable/spinner_background"
-        android:ems="10"
-        android:fontFamily="@font/ubunturegular"
-        android:inputType="text"
-        android:singleLine="false"
-        android:textColor="@android:color/white" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="30dp"
+            android:orientation="horizontal">
 
-    <Spinner
-        android:id="@+id/minutesSpinner"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingVertical="6dp"
-        android:paddingHorizontal="10dp"
-        android:layout_gravity="left"
-        android:layout_marginBottom="5dp"
-        android:background="@drawable/spinner_background"
-        android:ems="10"
-        android:fontFamily="@font/ubunturegular"
-        android:inputType="text"
-        android:singleLine="false"
-        android:textColor="@android:color/white" />
-    </LinearLayout>
+            <TextView
+                android:id="@+id/dateTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="140dp"
+                android:fontFamily="@font/ubunturegular"
+                android:text="Date"
+                android:textColor="@android:color/white"
+                android:textSize="20sp" />
+
+            <Button
+                android:id="@+id/datePickerButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/spinner_background"
+                android:fontFamily="@font/ubuntumedium"
+                android:onClick="openDatePicker"
+                android:paddingHorizontal="25dp"
+                android:text="Select Date"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="17sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/timeTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginRight="20dp"
+                android:fontFamily="@font/ubunturegular"
+                android:text="Time (hh:mm)"
+                android:textColor="@android:color/white"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/hoursEditText"
+                android:layout_width="68dp"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@android:color/white"
+                android:fontFamily="@font/ubunturegular"
+                android:inputType="number"
+                android:maxLength="2"
+                android:padding="20dp"
+                android:textColor="@android:color/white"
+                android:textSize="16sp"
+                android:layout_marginRight="15dp"
+                android:hint="hh"
+                android:textColorHint="@color/white"/>
+
+            <EditText
+                android:id="@+id/minutesEditText"
+                android:layout_width="68dp"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@android:color/white"
+                android:fontFamily="@font/ubunturegular"
+                android:inputType="number"
+                android:maxLength="2"
+                android:padding="20dp"
+                android:textColor="@android:color/white"
+                android:textSize="16sp"
+                android:hint="mm"
+                android:textColorHint="@color/white"/>
+        </LinearLayout>
 
 
-    <TextView
-        android:id="@+id/notesTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="left"
-        android:layout_marginTop="8dp"
-        android:fontFamily="@font/ubunturegular"
-        android:text="Description"
-        android:textColor="@android:color/white"
-        android:textSize="20sp" />
+        <TextView
+            android:id="@+id/notesTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/ubunturegular"
+            android:text="Description"
+            android:textColor="@android:color/white"
+            android:textSize="20sp" />
 
-    <EditText
-        android:id="@+id/editTextNotes"
-        android:layout_width="307dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="left"
-        android:layout_marginBottom="10dp"
-        android:backgroundTint="@android:color/white"
-        android:ems="10"
-        android:fontFamily="@font/ubunturegular"
-        android:inputType="text"
-        android:singleLine="false"
-        android:textColor="@android:color/white" />
+        <EditText
+            android:id="@+id/editTextNotes"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_marginBottom="10dp"
+            android:backgroundTint="@android:color/white"
+            android:ems="10"
+            android:fontFamily="@font/ubunturegular"
+            android:inputType="text"
+            android:singleLine="false"
+            android:textColor="@android:color/white" />
 
-    <Button
-        android:id="@+id/upploadButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="left"
-        android:layout_marginBottom="8dp"
-        android:background="@color/colorButtonText"
-        android:fontFamily="@font/ubunturegular"
-        android:text="Upload Image (Optional) 📎"
-        android:textAllCaps="false"
-        android:textColor="@android:color/white"
-        android:textSize="16sp" />
+        <Button
+            android:id="@+id/upploadButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:background="@color/colorButtonText"
+            android:fontFamily="@font/ubunturegular"
+            android:text="Upload Image (Optional) 📎"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white"
+            android:textSize="16sp" />
 
-    <Button
-        android:id="@+id/saveButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:background="@drawable/submit_button"
-        android:fontFamily="@font/ubuntumedium"
-        android:text="Save"
-        android:textAllCaps="false"
-        android:textColor="@color/colorButtonText"
-        android:textSize="20sp" />
+        <Button
+            android:id="@+id/saveButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/submit_button"
+            android:fontFamily="@font/ubuntumedium"
+            android:text="Save"
+            android:textAllCaps="false"
+            android:textColor="@color/colorButtonText"
+            android:textSize="20sp" />
 
     </LinearLayout>
 
