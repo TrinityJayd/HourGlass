@@ -4,7 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
-    android:gravity="left"
     android:orientation="vertical"
     android:paddingHorizontal="30dp"
     android:paddingVertical="30dp">
@@ -38,7 +37,8 @@
         android:fontFamily="@font/ubunturegular"
         android:text="Full Name"
         android:textColor="@android:color/white"
-        android:textSize="20sp" />
+        android:textSize="20sp"
+        android:labelFor="@id/editTextFullName"/>
 
     <EditText
         android:id="@+id/editTextFullName"
@@ -50,7 +50,8 @@
         android:singleLine="false"
         android:textColor="@android:color/white"
         android:backgroundTint="@android:color/white"
-        android:layout_marginBottom="15dp"/>
+        android:layout_marginBottom="15dp"
+        android:autofillHints="name"/>
 
 
     <TextView
@@ -61,7 +62,8 @@
         android:fontFamily="@font/ubunturegular"
         android:text="Email"
         android:textColor="@android:color/white"
-        android:textSize="20sp" />
+        android:textSize="20sp"
+        android:labelFor="@id/editTextEmailAddress"/>
 
     <EditText
         android:id="@+id/editTextEmailAddress"
@@ -73,7 +75,8 @@
         android:singleLine="false"
         android:textColor="@android:color/white"
         android:backgroundTint="@android:color/white"
-        android:layout_marginBottom="15dp"/>
+        android:layout_marginBottom="15dp"
+        android:autofillHints="emailAddress"/>
 
     <TextView
         android:id="@+id/passwordTextView"
@@ -83,17 +86,18 @@
         android:fontFamily="@font/ubunturegular"
         android:text="Password"
         android:textColor="@android:color/white"
-        android:textSize="20sp" />
+        android:textSize="20sp"
+        android:labelFor="@id/editTextPassword"/>
 
     <EditText
         android:id="@+id/editTextPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp"
+        android:backgroundTint="@android:color/white"
         android:ems="10"
         android:inputType="textPassword"
-        android:textColor="@android:color/white"
-        android:backgroundTint="@android:color/white"
-        android:layout_marginBottom="15dp"/>
+        android:textColor="@android:color/white" />
 
     <TextView
         android:id="@+id/confirmPasswordTextView"
@@ -103,7 +107,8 @@
         android:fontFamily="@font/ubunturegular"
         android:text="Confirm Password"
         android:textColor="@android:color/white"
-        android:textSize="20sp" />
+        android:textSize="20sp"
+        android:labelFor="@id/editTextConfirmPassword"/>
 
     <EditText
         android:id="@+id/editTextConfirmPassword"
@@ -116,7 +121,7 @@
         android:layout_marginBottom="15dp"/>
 
     <Button
-        android:id="@+id/loginButton"
+        android:id="@+id/signUpButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
@@ -125,7 +130,8 @@
         android:text="Sign Up"
         android:textAllCaps="false"
         android:textColor="@color/colorButtonText"
-        android:textSize="20sp" />
+        android:textSize="20sp"
+        android:layout_marginHorizontal="50dp"/>
 
     <Button
         android:id="@+id/alreadyHaveAnAccountTextView"
@@ -138,7 +144,7 @@
         android:fontFamily="@font/ubunturegular"
         android:text="Don't have an account? Sign Up."
         android:textColor="@android:color/white"
-        android:textSize="17sp" />
+        android:textSize="16sp"/>
 
 
 </LinearLayout>

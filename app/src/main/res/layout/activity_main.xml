@@ -19,7 +19,8 @@
         android:adjustViewBounds="true"
         android:maxHeight="250dp"
         android:src="@drawable/img_16370431"
-        android:layout_marginBottom="20dp"/>
+        android:layout_marginBottom="20dp"
+        android:contentDescription="HourGlass Logo"/>
 
     <TextView
         android:id="@+id/titleTextView"
@@ -50,7 +51,7 @@
         android:orientation="vertical"
         android:paddingVertical="16dp"
         android:paddingHorizontal="40dp"
-        android:layout_marginHorizontal="40dp">
+        android:layout_marginHorizontal="60dp">
 
         <Button
             android:id="@+id/loginButton"

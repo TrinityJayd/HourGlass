@@ -17,14 +17,15 @@
         <ImageView
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_marginRight="10dp"
-            android:src="@drawable/purple_icon_circle" />
+            android:layout_marginEnd="10dp"
+            android:src="@drawable/purple_icon_circle"
+            android:contentDescription="New Task"/>
 
         <TextView
             android:id="@+id/titleTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="95dp"
+            android:layout_marginEnd="95dp"
             android:fontFamily="@font/ubuntumedium"
             android:text="New Entry"
             android:textColor="@android:color/white"
@@ -33,7 +34,8 @@
         <ImageView
             android:layout_width="45dp"
             android:layout_height="37dp"
-            android:src="@drawable/img_image25" />
+            android:src="@drawable/img_image25"
+            android:contentDescription="Home"/>
 
     </LinearLayout>
 
@@ -52,7 +54,8 @@
             android:fontFamily="@font/ubunturegular"
             android:text="Task Name"
             android:textColor="@android:color/white"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:labelFor="@id/editTextTaskName"/>
 
         <EditText
             android:id="@+id/editTextTaskName"
@@ -95,8 +98,8 @@
             android:id="@+id/buttonNewCategory"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:layout_marginRight="10dp"
+            android:layout_gravity="end"
+            android:layout_marginEnd="10dp"
             android:layout_marginBottom="20dp"
             android:background="@color/colorButtonText"
             android:fontFamily="@font/ubunturegular"
@@ -115,7 +118,7 @@
                 android:id="@+id/dateTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="140dp"
+                android:layout_marginEnd="140dp"
                 android:fontFamily="@font/ubunturegular"
                 android:text="Date"
                 android:textColor="@android:color/white"
@@ -147,7 +150,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:layout_marginRight="20dp"
+                android:layout_marginEnd="20dp"
                 android:fontFamily="@font/ubunturegular"
                 android:text="Time (hh:mm)"
                 android:textColor="@android:color/white"
@@ -164,7 +167,7 @@
                 android:padding="20dp"
                 android:textColor="@android:color/white"
                 android:textSize="16sp"
-                android:layout_marginRight="15dp"
+                android:layout_marginEnd="15dp"
                 android:hint="hh"
                 android:textColorHint="@color/white"/>
 
@@ -192,7 +195,8 @@
             android:fontFamily="@font/ubunturegular"
             android:text="Description"
             android:textColor="@android:color/white"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:labelFor="@id/editTextNotes"/>
 
         <EditText
             android:id="@+id/editTextNotes"

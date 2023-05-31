@@ -17,14 +17,15 @@
         <ImageView
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_marginRight="10dp"
-            android:src="@drawable/teal_icon_circle" />
+            android:layout_marginEnd="10dp"
+            android:src="@drawable/teal_icon_circle"
+            android:contentDescription="Target"/>
 
         <TextView
             android:id="@+id/titleTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="180dp"
+            android:layout_marginEnd="180dp"
             android:fontFamily="@font/ubuntumedium"
             android:text="Goals"
             android:textColor="@android:color/white"
@@ -33,7 +34,8 @@
         <ImageView
             android:layout_width="45dp"
             android:layout_height="37dp"
-            android:src="@drawable/img_image25" />
+            android:src="@drawable/img_image25"
+            android:contentDescription="Home"/>
 
     </LinearLayout>
 
@@ -48,7 +50,6 @@
             android:id="@+id/timeAllocatedTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="left"
             android:layout_marginTop="8dp"
             android:fontFamily="@font/ubunturegular"
             android:text="Set Your Daily Goals!"
@@ -67,10 +68,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Minimum Hours:"
-                android:textSize="16dp"
+                android:textSize="16sp"
                 android:textColor="@android:color/white"
                 android:fontFamily="@font/ubunturegular"
-                android:layout_marginRight="10dp"/>
+                android:layout_marginEnd="10dp"
+                android:labelFor="@id/minimumGoalEditText"/>
 
             <EditText
                 android:id="@+id/minimumGoalEditText"
@@ -79,7 +81,7 @@
                 android:inputType="number"
                 android:maxLength="2"
                 android:textColor="@android:color/white"
-                android:textSize="16dp"
+                android:textSize="16sp"
                 android:fontFamily="@font/ubunturegular"
                 android:backgroundTint="@android:color/white"
                 android:padding="20dp"/>
@@ -98,10 +100,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Maximum Hours:"
-            android:textSize="16dp"
+            android:textSize="16sp"
             android:textColor="@android:color/white"
             android:fontFamily="@font/ubunturegular"
-            android:layout_marginRight="10dp"/>
+            android:layout_marginEnd="10dp"
+            android:labelFor="@id/maximumGoalEditText"/>
 
         <EditText
             android:id="@+id/maximumGoalEditText"
@@ -110,7 +113,7 @@
             android:inputType="number"
             android:maxLength="2"
             android:textColor="@android:color/white"
-            android:textSize="16dp"
+            android:textSize="16sp"
             android:padding="15dp"
             android:fontFamily="@font/ubunturegular"
             android:backgroundTint="@android:color/white"/>
@@ -123,8 +126,8 @@
             android:layout_height="wrap_content"
             android:paddingHorizontal="70dp"
             android:layout_marginTop="30dp"
-            android:layout_gravity="right"
-            android:layout_marginRight="20dp"
+            android:layout_gravity="end"
+            android:layout_marginEnd="20dp"
             android:background="@drawable/submit_button"
             android:fontFamily="@font/ubuntumedium"
             android:text="Save"
