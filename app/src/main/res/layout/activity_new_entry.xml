@@ -18,8 +18,8 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginEnd="10dp"
-            android:src="@drawable/purple_icon_circle"
-            android:contentDescription="New Task"/>
+            android:contentDescription="New Task"
+            android:src="@drawable/purple_icon_circle" />
 
         <TextView
             android:id="@+id/titleTextView"
@@ -32,11 +32,12 @@
             android:textSize="34sp" />
 
         <ImageView
+            android:id="@+id/homeImageView"
             android:layout_width="45dp"
             android:layout_height="37dp"
-            android:src="@drawable/img_image25"
+            android:layout_gravity="end"
             android:contentDescription="Home"
-            android:layout_gravity="end"/>
+            android:src="@drawable/img_image25" />
 
     </LinearLayout>
 
@@ -53,10 +54,10 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:fontFamily="@font/ubunturegular"
+            android:labelFor="@id/editTextTaskName"
             android:text="Task Name"
             android:textColor="@android:color/white"
-            android:textSize="20sp"
-            android:labelFor="@id/editTextTaskName"/>
+            android:textSize="20sp" />
 
         <EditText
             android:id="@+id/editTextTaskName"
@@ -68,8 +69,7 @@
             android:fontFamily="@font/ubunturegular"
             android:inputType="text"
             android:singleLine="false"
-            android:textColor="@android:color/white"
-            />
+            android:textColor="@android:color/white" />
 
         <!-- add a combo box for different categories-->
         <TextView
@@ -87,16 +87,16 @@
             android:id="@+id/spinnerCategory"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="16dp"
             android:background="@drawable/spinner_background"
             android:ems="10"
             android:fontFamily="@font/ubunturegular"
             android:inputType="text"
+            android:padding="16dp"
             android:singleLine="false"
             android:textColor="@android:color/white" />
 
         <Button
-            android:id="@+id/buttonNewCategory"
+            android:id="@+id/newCategoryButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
@@ -161,16 +161,16 @@
                 android:id="@+id/hoursEditText"
                 android:layout_width="68dp"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="15dp"
                 android:backgroundTint="@android:color/white"
                 android:fontFamily="@font/ubunturegular"
+                android:hint="hh"
                 android:inputType="number"
                 android:maxLength="2"
                 android:padding="20dp"
                 android:textColor="@android:color/white"
-                android:textSize="16sp"
-                android:layout_marginEnd="15dp"
-                android:hint="hh"
-                android:textColorHint="@color/white"/>
+                android:textColorHint="@color/white"
+                android:textSize="16sp" />
 
             <EditText
                 android:id="@+id/minutesEditText"
@@ -178,13 +178,13 @@
                 android:layout_height="wrap_content"
                 android:backgroundTint="@android:color/white"
                 android:fontFamily="@font/ubunturegular"
+                android:hint="mm"
                 android:inputType="number"
                 android:maxLength="2"
                 android:padding="20dp"
                 android:textColor="@android:color/white"
-                android:textSize="16sp"
-                android:hint="mm"
-                android:textColorHint="@color/white"/>
+                android:textColorHint="@color/white"
+                android:textSize="16sp" />
         </LinearLayout>
 
 
@@ -194,10 +194,10 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:fontFamily="@font/ubunturegular"
+            android:labelFor="@id/editTextNotes"
             android:text="Description"
             android:textColor="@android:color/white"
-            android:textSize="20sp"
-            android:labelFor="@id/editTextNotes"/>
+            android:textSize="20sp" />
 
         <EditText
             android:id="@+id/editTextNotes"

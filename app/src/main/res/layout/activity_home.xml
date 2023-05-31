@@ -4,8 +4,7 @@
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
     android:paddingHorizontal="20dp"
-    android:paddingVertical="20dp"
-    >
+    android:paddingVertical="20dp">
 
     <!--    title bar-->
     <LinearLayout
@@ -19,8 +18,8 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginEnd="10dp"
-            android:src="@drawable/img_16370431"
-            android:contentDescription="HourGlass Logo"/>
+            android:contentDescription="HourGlass Logo"
+            android:src="@drawable/img_16370431" />
 
         <TextView
             android:id="@+id/titleTextView"
@@ -35,9 +34,9 @@
         <ImageView
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:src="@drawable/img_image25"
+            android:layout_gravity="end"
             android:contentDescription="Home"
-            android:layout_gravity="end"/>
+            android:src="@drawable/img_image25" />
 
     </LinearLayout>
 
@@ -47,10 +46,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/imageTitleLayout"
-        android:orientation="horizontal"
-        android:paddingHorizontal="30dp"
         android:layout_marginBottom="30dp"
-        android:baselineAligned="false">
+        android:baselineAligned="false"
+        android:orientation="horizontal"
+        android:paddingHorizontal="30dp">
 
         <LinearLayout
             android:id="@+id/newEntryButton"
@@ -102,9 +101,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/imageLayout"
+        android:baselineAligned="false"
         android:orientation="horizontal"
-        android:paddingHorizontal="30dp"
-        android:baselineAligned="false">
+        android:paddingHorizontal="30dp">
 
         <LinearLayout
             android:id="@+id/goalsButton"

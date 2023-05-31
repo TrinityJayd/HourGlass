@@ -17,5 +17,13 @@ class SignUp : AppCompatActivity() {
             setContentView(R.layout.activity_home)
         }
 
+        //get sign in button
+        val signInButton = findViewById<Button>(R.id.signInButton)
+        //set on click listener
+        signInButton.setOnClickListener {
+            //go to sign in page
+            setContentView(R.layout.activity_login)
+        }
+
     }
 }
