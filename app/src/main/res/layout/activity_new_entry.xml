@@ -37,7 +37,7 @@
             android:layout_height="37dp"
             android:layout_gravity="end"
             android:contentDescription="Home"
-            android:src="@drawable/img_image25" />
+            android:src="@drawable/home" />
 
     </LinearLayout>
 

@@ -17,7 +17,7 @@
         android:contentDescription="HourGlass Logo"
         android:maxHeight="200dp"
         android:scaleType="fitCenter"
-        android:src="@drawable/img_16370431" />
+        android:src="@drawable/logo" />
 
     <TextView
         android:id="@+id/titleTextView"

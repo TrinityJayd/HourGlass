@@ -16,7 +16,7 @@ class NewEntry : AppCompatActivity() {
         //set on click listener
         home.setOnClickListener {
             //create intent to go to home page
-            val intent = Intent(this, MainActivity::class.java)
+            val intent = Intent(this, Home::class.java)
             //start activity
             startActivity(intent)
         }
@@ -36,7 +36,7 @@ class NewEntry : AppCompatActivity() {
         //set on click listener
         save.setOnClickListener {
             //create intent to go to home page
-            val intent = Intent(this, MainActivity::class.java)
+            val intent = Intent(this, Home::class.java)
             //start activity
             startActivity(intent)
         }

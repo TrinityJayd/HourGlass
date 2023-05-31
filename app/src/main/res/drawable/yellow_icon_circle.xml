@@ -11,7 +11,7 @@
 
     <!-- place the image inside the circle and make it a circle and center it -->
     <item
-        android:drawable="@drawable/img"
+        android:drawable="@drawable/entries"
         android:gravity="center"
         android:width="40dp"
         android:height="40dp"
