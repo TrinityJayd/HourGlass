@@ -6,12 +6,21 @@
     android:background="@color/colorPrimary"
     android:gravity="center"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:paddingTop="16dp"
+    android:paddingBottom="16dp"
+    android:paddingLeft="60dp"
+    android:paddingRight="60dp">
+
+
+<!--    assign the width of the image to be responsive to the screen size-->
 
     <ImageView
         android:id="@+id/logoImageView"
-        android:layout_width="234dp"
-        android:layout_height="171dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scaleType="fitCenter"
+        android:adjustViewBounds="true"
+        android:maxHeight="250dp"
         android:src="@drawable/img_16370431"
         android:layout_marginBottom="20dp"/>
 
@@ -22,7 +31,7 @@
         android:fontFamily="@font/ubuntumedium"
         android:text="HourGlass"
         android:textColor="@android:color/white"
-        android:textSize="34sp" />
+        android:textSize="40sp" />
 
     <TextView
         android:id="@+id/subtitleTextView"
@@ -32,45 +41,49 @@
         android:fontFamily="@font/ubunturegular"
         android:text="Track your time like a pro"
         android:textColor="@android:color/white"
-        android:textSize="20sp"
-        android:layout_marginBottom="80dp"/>
+        android:textSize="25sp"
+        android:layout_marginBottom="60dp"/>
 
     <LinearLayout
-        android:layout_width="322dp"
-        android:layout_height="159dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:background="@drawable/rounded_square"
         android:elevation="8dp"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp"
+        android:paddingLeft="40dp"
+        android:paddingRight="40dp">
 
         <Button
             android:id="@+id/loginButton"
-            android:layout_width="237dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
             android:background="@drawable/title_buttons"
             android:elevation="4dp"
             android:fontFamily="@font/ubuntumedium"
             android:text="Login"
             android:textAllCaps="false"
             android:textColor="@color/colorButtonText"
-            android:textSize="20sp" />
+            android:textSize="25sp" />
 
         <Button
             android:id="@+id/signupButton"
-            android:layout_width="237dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="15dp"
             android:background="@drawable/title_buttons"
             android:elevation="4dp"
             android:fontFamily="@font/ubuntumedium"
             android:text="Sign Up"
             android:textAllCaps="false"
             android:textColor="@color/colorButtonText"
-            android:textSize="20sp" />
+            android:textSize="25sp" />
 
     </LinearLayout>
 

@@ -1,31 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
-    android:gravity="center"
     android:orientation="vertical">
 
     <LinearLayout
         android:id="@+id/imageTitleLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="25dp"
         android:orientation="horizontal"
-        android:paddingLeft="20dp"
+        android:paddingHorizontal="20dp"
         android:paddingTop="20dp">
 
         <ImageView
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginRight="10dp"
-            android:src="@drawable/purple_icon_circle"/>
+            android:src="@drawable/purple_icon_circle" />
 
         <TextView
             android:id="@+id/titleTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="85dp"
+            android:layout_marginRight="95dp"
             android:fontFamily="@font/ubuntumedium"
             android:text="New Entry"
             android:textColor="@android:color/white"
@@ -35,6 +34,211 @@
             android:layout_width="45dp"
             android:layout_height="37dp"
             android:src="@drawable/img_image25" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/formLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingHorizontal="40dp">
+
+    <TextView
+        android:id="@+id/taskNameTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/ubunturegular"
+        android:text="Task Name"
+        android:textColor="@android:color/white"
+        android:textSize="20sp" />
+
+    <EditText
+        android:id="@+id/editTextTaskName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:layout_marginBottom="25dp"
+        android:backgroundTint="@android:color/white"
+        android:ems="10"
+        android:fontFamily="@font/ubunturegular"
+        android:inputType="text"
+        android:singleLine="false"
+        android:textColor="@android:color/white" />
+
+    <!-- add a combo box for different categories-->
+    <TextView
+        android:id="@+id/categoryTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="12dp"
+        android:fontFamily="@font/ubunturegular"
+        android:text="Category"
+        android:textColor="@android:color/white"
+        android:textSize="20sp" />
+
+    <Spinner
+        android:id="@+id/spinnerCategory"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingVertical="10dp"
+        android:layout_gravity="left"
+        android:background="@drawable/spinner_background"
+        android:ems="10"
+        android:fontFamily="@font/ubunturegular"
+        android:inputType="text"
+        android:singleLine="false"
+        android:textColor="@android:color/white" />
+
+    <Button
+        android:id="@+id/buttonNewCategory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="20dp"
+        android:background="@color/colorButtonText"
+        android:fontFamily="@font/ubunturegular"
+        android:text="+ New Category"
+        android:textAllCaps="false"
+        android:textColor="@android:color/white"
+        android:textSize="17sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="30dp">
+
+        <TextView
+            android:id="@+id/dateTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity=""
+            android:fontFamily="@font/ubunturegular"
+            android:text="Date"
+            android:textColor="@android:color/white"
+            android:textSize="20sp"
+            android:layout_marginRight="140dp" />
+
+        <Button
+            android:id="@+id/datePickerButton"
+            android:layout_width="wrap_content"
+            android:paddingHorizontal="25dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/spinner_background"
+            android:fontFamily="@font/ubuntumedium"
+            android:onClick="openDatePicker"
+            android:text="Select Date"
+            android:textAllCaps="false"
+            android:textColor="@color/colorButtonText"
+            android:textSize="17sp"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="20dp">
+
+    <TextView
+        android:id="@+id/timeTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/ubunturegular"
+        android:text="Time (hh:mm)"
+        android:textColor="@android:color/white"
+        android:textSize="20sp"
+        android:layout_marginRight="20dp"/>
+
+    <Spinner
+        android:id="@+id/hoursSpinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingVertical="6dp"
+        android:paddingHorizontal="10dp"
+        android:layout_gravity="left"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="5dp"
+        android:background="@drawable/spinner_background"
+        android:ems="10"
+        android:fontFamily="@font/ubunturegular"
+        android:inputType="text"
+        android:singleLine="false"
+        android:textColor="@android:color/white" />
+
+    <Spinner
+        android:id="@+id/minutesSpinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingVertical="6dp"
+        android:paddingHorizontal="10dp"
+        android:layout_gravity="left"
+        android:layout_marginBottom="5dp"
+        android:background="@drawable/spinner_background"
+        android:ems="10"
+        android:fontFamily="@font/ubunturegular"
+        android:inputType="text"
+        android:singleLine="false"
+        android:textColor="@android:color/white" />
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/notesTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/ubunturegular"
+        android:text="Description"
+        android:textColor="@android:color/white"
+        android:textSize="20sp" />
+
+    <EditText
+        android:id="@+id/editTextNotes"
+        android:layout_width="307dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:layout_marginBottom="10dp"
+        android:backgroundTint="@android:color/white"
+        android:ems="10"
+        android:fontFamily="@font/ubunturegular"
+        android:inputType="text"
+        android:singleLine="false"
+        android:textColor="@android:color/white" />
+
+    <Button
+        android:id="@+id/upploadButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:layout_marginBottom="8dp"
+        android:background="@color/colorButtonText"
+        android:fontFamily="@font/ubunturegular"
+        android:text="Upload Image (Optional) 📎"
+        android:textAllCaps="false"
+        android:textColor="@android:color/white"
+        android:textSize="16sp" />
+
+    <Button
+        android:id="@+id/saveButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/submit_button"
+        android:fontFamily="@font/ubuntumedium"
+        android:text="Save"
+        android:textAllCaps="false"
+        android:textColor="@color/colorButtonText"
+        android:textSize="20sp" />
 
     </LinearLayout>
 
