@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".Goals"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".Goals">
 
     <LinearLayout
         android:id="@+id/imageTitleLayout"
@@ -79,11 +79,12 @@
 
             <EditText
                 android:id="@+id/minimumGoalEditText"
-                android:layout_width="match_parent"
+                android:layout_width="80dp"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@android:color/white"
                 android:fontFamily="@font/ubunturegular"
                 android:inputType="number"
+                android:maxWidth="80dp"
                 android:maxLength="2"
                 android:padding="20dp"
                 android:textColor="@android:color/white"
@@ -110,7 +111,7 @@
 
             <EditText
                 android:id="@+id/maximumGoalEditText"
-                android:layout_width="match_parent"
+                android:layout_width="80dp"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@android:color/white"
                 android:fontFamily="@font/ubunturegular"
