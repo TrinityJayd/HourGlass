@@ -4,19 +4,20 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
+import android.widget.EditText
+import android.widget.LinearLayout
+import android.widget.Toast
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 
 class Login : AppCompatActivity() {
+
+    private lateinit var auth: FirebaseAuth
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-
-        //get login button
-        val loginButton = findViewById<Button>(R.id.loginButton)
-        //set on click listener to home activity
-        loginButton.setOnClickListener {
-            val intent = Intent(this, Home::class.java)
-            startActivity(intent)
-        }
 
         //get forgot password button
         val forgotPasswordButton = findViewById<Button>(R.id.forgotPasswordButton)
@@ -34,6 +35,43 @@ class Login : AppCompatActivity() {
             startActivity(intent)
         }
 
+        val loginButton = findViewById<Button>(R.id.loginButton)
+        //set on click listener to home activity
+        loginButton.setOnClickListener {
+            //get email and password
+            val email = findViewById<EditText>(R.id.editTextEmailAddress)
+            val password = findViewById<EditText>(R.id.editTextPassword)
+
+            if (email.text.toString().isNullOrBlank()) {
+                email.error = "Please enter an email"
+                return@setOnClickListener
+            } else if (password.text.toString().isNullOrBlank()) {
+                password.error = "Please enter a password"
+                return@setOnClickListener
+            } else {
+                val emailText = email.text.toString()
+                val passwordText = password.text.toString()
+                auth = Firebase.auth
+                auth.signInWithEmailAndPassword(emailText, passwordText)
+                    .addOnCompleteListener(this) { task ->
+                        if (task.isSuccessful) {
+                            val user = auth.currentUser
+                            val intent = Intent(this, Home::class.java)
+                            startActivity(intent)
+                        } else {
+                            Toast.makeText(
+                                baseContext,
+                                "Authentication failed.",
+                                Toast.LENGTH_SHORT,
+                            ).show()
+
+                        }
+                    }
+
+            }
+
+
+        }
 
 
     }
