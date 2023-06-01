@@ -42,13 +42,19 @@ class Login : AppCompatActivity() {
             val email = findViewById<EditText>(R.id.editTextEmailAddress)
             val password = findViewById<EditText>(R.id.editTextPassword)
 
+
+            val validationMethods = ValidationMethods()
+
             if (email.text.toString().isNullOrBlank()) {
-                email.error = "Please enter an email"
+                email.error = "Please enter an email."
                 return@setOnClickListener
             } else if (password.text.toString().isNullOrBlank()) {
-                password.error = "Please enter a password"
+                password.error = "Please enter a password."
                 return@setOnClickListener
-            } else {
+            } else if(!validationMethods.isEmailValid(email.text.toString())){
+                email.error = "Please enter a valid email."
+                return@setOnClickListener
+            }else {
                 val emailText = email.text.toString()
                 val passwordText = password.text.toString()
                 auth = Firebase.auth

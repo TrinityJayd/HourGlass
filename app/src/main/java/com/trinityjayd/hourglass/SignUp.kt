@@ -21,7 +21,6 @@ class SignUp : AppCompatActivity() {
         setContentView(R.layout.activity_sign_up)
 
 
-
         val password = findViewById<EditText>(R.id.editTextPassword)
         password.transformationMethod = PasswordTransformationMethod()
 
@@ -36,10 +35,15 @@ class SignUp : AppCompatActivity() {
 
             val email = findViewById<EditText>(R.id.editTextEmailAddress)
 
-            if(fullname.text.toString().isNullOrBlank()){
+            val validationMethods = ValidationMethods()
+
+            if (fullname.text.toString().isNullOrBlank()) {
                 fullname.error = "Please enter your full name"
                 return@setOnClickListener
-            } else if(email.text.toString().isNullOrBlank()){
+            } else if (!validationMethods.onlyLetters(fullname.text.toString())) {
+                fullname.error = "Please enter a valid name"
+                return@setOnClickListener
+            } else if (email.text.toString().isNullOrBlank()) {
                 email.error = "Please enter an email"
                 return@setOnClickListener
             } else if (password.text.toString().isNullOrBlank()) {
@@ -48,8 +52,15 @@ class SignUp : AppCompatActivity() {
             } else if (confirmPassword.text.toString().isNullOrBlank()) {
                 confirmPassword.error = "Please confirm your password"
                 return@setOnClickListener
-            }else if(!password.text.toString().equals(confirmPassword.text.toString())){
+            } else if (!password.text.toString().equals(confirmPassword.text.toString())) {
                 confirmPassword.error = "Passwords do not match"
+                return@setOnClickListener
+            } else if (!validationMethods.isEmailValid(email.text.toString())) {
+                email.error = "Please enter a valid email."
+                return@setOnClickListener
+            } else if (!validationMethods.isPasswordValid(password.text.toString())) {
+                password.error =
+                    "Passwords must be at least 8 characters long and contain at least one number, one uppercase letter, one lowercase letter, one special character and cannot contain spaces."
                 return@setOnClickListener
             } else {
                 val emailText = email.text.toString()
