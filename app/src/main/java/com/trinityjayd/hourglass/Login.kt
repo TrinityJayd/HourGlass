@@ -3,6 +3,7 @@ package com.trinityjayd.hourglass
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.method.PasswordTransformationMethod
 import android.widget.Button
 import android.widget.EditText
 import android.widget.LinearLayout
@@ -35,12 +36,14 @@ class Login : AppCompatActivity() {
             startActivity(intent)
         }
 
+        val password = findViewById<EditText>(R.id.editTextPassword)
+        password.transformationMethod = PasswordTransformationMethod()
+
         val loginButton = findViewById<Button>(R.id.loginButton)
         //set on click listener to home activity
         loginButton.setOnClickListener {
             //get email and password
             val email = findViewById<EditText>(R.id.editTextEmailAddress)
-            val password = findViewById<EditText>(R.id.editTextPassword)
 
 
             val validationMethods = ValidationMethods()
