@@ -25,7 +25,10 @@ class TotalHours : AppCompatActivity() {
             startActivity(intent)
         }
 
-        //get date button
+        //Code Attribution
+        //Author: Coding Demos
+        //Date: 22/02/2018
+        //https://www.codingdemos.com/android-datepicker-button/
         val date = findViewById<Button>(R.id.datePickerButton)
         //set on click listener
         date.setOnClickListener(View.OnClickListener {

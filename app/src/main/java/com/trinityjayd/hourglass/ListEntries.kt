@@ -24,6 +24,10 @@ class ListEntries : AppCompatActivity() {
             startActivity(intent)
         }
 
+        //Code Attribution
+        //Author: Coding Demos
+        //Date: 22/02/2018
+        //https://www.codingdemos.com/android-datepicker-button/
         val date = findViewById<Button>(R.id.datePickerButton)
         date.setOnClickListener(View.OnClickListener {
             val calendar: Calendar = Calendar.getInstance()
