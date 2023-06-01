@@ -24,7 +24,7 @@ class NewEntry : AppCompatActivity() {
         //Date: 22/02/2018
         //https://www.codingdemos.com/android-datepicker-button/
         val date = findViewById<Button>(R.id.datePickerButton)
-        date.setOnClickListener(View.OnClickListener {
+        date.setOnClickListener {
             val calendar: Calendar = Calendar.getInstance()
             val year: Int = calendar.get(Calendar.YEAR)
             val month: Int = calendar.get(Calendar.MONTH)
@@ -37,7 +37,7 @@ class NewEntry : AppCompatActivity() {
                 }, year, month, dayOfMonth
             )
             datePickerDialog.show()
-        })
+        }
 
         //get home image view
         val home = findViewById<ImageView>(R.id.homeImageView)
