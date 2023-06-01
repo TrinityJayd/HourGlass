@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:paddingHorizontal="20dp"
+    android:paddingBottom="20dp">
 
     <LinearLayout
         android:id="@+id/imageTitleLayout"
@@ -11,7 +13,6 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="25dp"
         android:orientation="horizontal"
-        android:paddingHorizontal="20dp"
         android:paddingTop="20dp">
 
         <ImageView
@@ -45,8 +46,9 @@
         android:id="@+id/formLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/imageTitleLayout"
         android:orientation="vertical"
-        android:paddingHorizontal="40dp">
+        android:paddingHorizontal="20dp">
 
         <TextView
             android:id="@+id/taskNameTextView"
@@ -62,12 +64,13 @@
         <EditText
             android:id="@+id/editTextTaskName"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginBottom="18dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="25dp"
             android:backgroundTint="@android:color/white"
             android:ems="10"
             android:fontFamily="@font/ubunturegular"
             android:inputType="text"
+            android:minHeight="48dp"
             android:singleLine="false"
             android:textColor="@android:color/white" />
 
@@ -93,7 +96,8 @@
             android:inputType="text"
             android:padding="16dp"
             android:singleLine="false"
-            android:textColor="@android:color/white" />
+            android:textColor="@android:color/white"
+            android:layout_marginBottom="10dp"/>
 
         <Button
             android:id="@+id/newCategoryButton"
@@ -117,9 +121,10 @@
 
             <TextView
                 android:id="@+id/dateTextView"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="140dp"
+                android:layout_marginTop="10dp"
+                android:layout_weight="1"
                 android:fontFamily="@font/ubunturegular"
                 android:text="Date"
                 android:textColor="@android:color/white"
@@ -129,9 +134,9 @@
                 android:id="@+id/datePickerButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="end"
                 android:background="@drawable/spinner_background"
                 android:fontFamily="@font/ubuntumedium"
-                android:onClick="openDatePicker"
                 android:paddingHorizontal="25dp"
                 android:text="Select Date"
                 android:textAllCaps="false"
@@ -143,7 +148,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="30dp"
             android:orientation="horizontal">
 
             <TextView
@@ -203,7 +208,7 @@
             android:id="@+id/editTextNotes"
             android:layout_width="match_parent"
             android:layout_height="52dp"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="20dp"
             android:backgroundTint="@android:color/white"
             android:ems="10"
             android:fontFamily="@font/ubunturegular"
@@ -215,26 +220,28 @@
             android:id="@+id/upploadButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
+            android:layout_marginBottom="15dp"
             android:background="@color/colorButtonText"
             android:fontFamily="@font/ubunturegular"
             android:text="Upload Image (Optional) 📎"
             android:textAllCaps="false"
             android:textColor="@android:color/white"
             android:textSize="16sp" />
-
-        <Button
-            android:id="@+id/saveButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/submit_button"
-            android:fontFamily="@font/ubuntumedium"
-            android:text="Save"
-            android:textAllCaps="false"
-            android:textColor="@color/colorButtonText"
-            android:textSize="20sp" />
-
     </LinearLayout>
 
-</LinearLayout>
+    <Button
+        android:id="@+id/saveButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/submit_button"
+        android:fontFamily="@font/ubuntumedium"
+        android:paddingHorizontal="40dp"
+        android:text="Save"
+        android:textAllCaps="false"
+        android:textColor="@color/colorButtonText"
+        android:textSize="20sp" />
+
+</RelativeLayout>

@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ImageView
+import android.widget.LinearLayout
 
 class Analytics : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -16,6 +17,14 @@ class Analytics : AppCompatActivity() {
         home.setOnClickListener {
             //create intent to go to home activity
             val intent = Intent(this, Home::class.java)
+            startActivity(intent)
+        }
+
+        //get total time layout
+        val totalTime = findViewById<LinearLayout>(R.id.totalTimeLayout)
+        //set on click listener
+        totalTime.setOnClickListener {
+            val intent = Intent(this, TotalHours::class.java)
             startActivity(intent)
         }
 
