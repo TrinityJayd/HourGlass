@@ -54,28 +54,37 @@ class Login : AppCompatActivity() {
             } else if (password.text.toString().isNullOrBlank()) {
                 password.error = "Please enter a password."
                 return@setOnClickListener
-            } else if(!validationMethods.isEmailValid(email.text.toString())){
+            } else if (!validationMethods.isEmailValid(email.text.toString())) {
                 email.error = "Please enter a valid email."
                 return@setOnClickListener
-            }else {
+            } else {
                 val emailText = email.text.toString()
                 val passwordText = password.text.toString()
-                auth = Firebase.auth
-                auth.signInWithEmailAndPassword(emailText, passwordText)
-                    .addOnCompleteListener(this) { task ->
-                        if (task.isSuccessful) {
-                            val user = auth.currentUser
-                            val intent = Intent(this, Home::class.java)
-                            startActivity(intent)
-                        } else {
-                            Toast.makeText(
-                                baseContext,
-                                "Authentication failed.",
-                                Toast.LENGTH_SHORT,
-                            ).show()
+                val firebaseVal = FirebaseValidation()
 
-                        }
+                firebaseVal.isUserExistsWithEmail(emailText) { exists ->
+                    if (exists) {
+                        auth = Firebase.auth
+                        auth.signInWithEmailAndPassword(emailText, passwordText)
+                            .addOnCompleteListener(this) { task ->
+                                if (task.isSuccessful) {
+                                    val user = auth.currentUser
+                                    val intent = Intent(this, Home::class.java)
+                                    startActivity(intent)
+                                } else {
+                                    Toast.makeText(
+                                        baseContext,
+                                        "Authentication failed.",
+                                        Toast.LENGTH_SHORT,
+                                    ).show()
+
+                                }
+                            }
+                    } else {
+                        email.error = "User with this email does not exist"
                     }
+                }
+
 
             }
 
