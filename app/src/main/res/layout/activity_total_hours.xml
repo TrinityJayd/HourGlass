@@ -69,9 +69,10 @@
 
             <Spinner
                 android:id="@+id/categorySpinner"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_marginEnd="110dp"
+                android:layout_marginEnd="20dp"
+                android:layout_weight="1"
                 android:background="@drawable/spinner_background"
                 android:ems="10"
                 android:fontFamily="@font/ubuntumedium"
@@ -84,9 +85,9 @@
                 android:id="@+id/datePickerButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="end"
                 android:background="@drawable/spinner_background"
                 android:fontFamily="@font/ubuntumedium"
-                android:onClick="openDatePicker"
                 android:paddingHorizontal="25dp"
                 android:text="Select Date"
                 android:textAllCaps="false"

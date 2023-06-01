@@ -1,10 +1,14 @@
 package com.trinityjayd.hourglass
 
+import android.app.DatePickerDialog
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
 import android.widget.ImageView
+import androidx.appcompat.app.AppCompatActivity
+import java.util.Calendar
+
 
 class NewEntry : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,6 +44,22 @@ class NewEntry : AppCompatActivity() {
             //start activity
             startActivity(intent)
         }
+
+        //get date button
+        val date = findViewById<Button>(R.id.datePickerButton)
+        date.setOnClickListener(View.OnClickListener {
+            val calendar: Calendar = Calendar.getInstance()
+            val year: Int = calendar.get(Calendar.YEAR)
+            val month: Int = calendar.get(Calendar.MONTH)
+            val dayOfMonth: Int = calendar.get(Calendar.DAY_OF_MONTH)
+
+            val datePickerDialog = DatePickerDialog(this@NewEntry,
+                { datePicker, year, month, day ->
+                    date.text = day.toString() + "/" + (month + 1) + "/" + year
+                }, year, month, dayOfMonth
+            )
+            datePickerDialog.show()
+        })
 
 
     }
