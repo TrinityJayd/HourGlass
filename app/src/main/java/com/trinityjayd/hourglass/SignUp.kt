@@ -9,7 +9,12 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+import com.trinityjayd.hourglass.dbmanagement.UserDbManagement
+import com.trinityjayd.hourglass.models.User
 
 
 class SignUp : AppCompatActivity() {
@@ -63,6 +68,7 @@ class SignUp : AppCompatActivity() {
                     "Passwords must be at least 8 characters long and contain at least one number, one uppercase letter, one lowercase letter, one special character and cannot contain spaces."
                 return@setOnClickListener
             } else {
+                val fullName = fullname.text.toString()
                 val emailText = email.text.toString()
                 val passwordText = password.text.toString()
                 auth = Firebase.auth
@@ -70,7 +76,16 @@ class SignUp : AppCompatActivity() {
                     .addOnCompleteListener(this) { task ->
                         if (task.isSuccessful) {
                             val user = auth.currentUser
-                            setContentView(R.layout.activity_home)
+
+                            //create an object of the userdbmanagement class
+                            val userDbManagement = UserDbManagement()
+
+                            //create a user object
+                            val newUser = User(user!!.uid, fullName)
+                            userDbManagement.addUserToDatabase(newUser)
+
+                            val intent = Intent(this, Home::class.java)
+                            startActivity(intent)
                         } else {
                             Toast.makeText(
                                 baseContext,
