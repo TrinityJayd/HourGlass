@@ -9,12 +9,13 @@ import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.Spinner
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import java.util.Calendar
 
 
 class NewEntry : AppCompatActivity() {
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_new_entry)
@@ -88,11 +89,7 @@ class NewEntry : AppCompatActivity() {
                     parent: AdapterView<*>,
                     view: View, position: Int, id: Long
                 ) {
-                    Toast.makeText(
-                        this@NewEntry,
-                        "Selected" + " " +
-                                "" + languages[position], Toast.LENGTH_SHORT
-                    ).show()
+                    //set variable to selected item
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>) {
@@ -103,4 +100,8 @@ class NewEntry : AppCompatActivity() {
 
 
     }
+
+
+
+
 }
