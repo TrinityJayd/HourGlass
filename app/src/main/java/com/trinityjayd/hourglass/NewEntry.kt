@@ -1,6 +1,7 @@
 package com.trinityjayd.hourglass
 
 import android.app.DatePickerDialog
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -217,6 +218,7 @@ class NewEntry : AppCompatActivity() {
 
 
     }
+
 
 
 
