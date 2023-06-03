@@ -137,9 +137,7 @@ class NewEntry : AppCompatActivity() {
                     uid
                 )
 
-                //create object of entry management
-                val entryManagement = EntryManagement()
-                entryManagement.addEntryToDatabase(entry)
+                EntryManagement().addEntryToDatabase(entry)
 
                 //create intent to go to home page
                 val intent = Intent(this, Home::class.java)
@@ -194,7 +192,7 @@ class NewEntry : AppCompatActivity() {
                 //loop through each category
                 for (ds in dataSnapshot.children) {
                     //get category name
-                    val categoryName = ds.child("categoryName").getValue(String::class.java)
+                    val categoryName = ds.child("name").getValue(String::class.java)
                     //add category name to array list
                     categories.add(categoryName!!)
                 }

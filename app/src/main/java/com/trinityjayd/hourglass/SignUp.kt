@@ -77,12 +77,9 @@ class SignUp : AppCompatActivity() {
                         if (task.isSuccessful) {
                             val user = auth.currentUser
 
-                            //create an object of the userdbmanagement class
-                            val userDbManagement = UserDbManagement()
-
                             //create a user object
                             val newUser = User(user!!.uid, fullName)
-                            userDbManagement.addUserToDatabase(newUser)
+                            UserDbManagement().addUserToDatabase(newUser)
 
                             val intent = Intent(this, Home::class.java)
                             startActivity(intent)
