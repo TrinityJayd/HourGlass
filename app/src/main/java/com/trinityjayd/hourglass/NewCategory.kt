@@ -5,14 +5,21 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
+import android.widget.EditText
 import android.widget.ImageView
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
+import com.trinityjayd.hourglass.dbmanagement.CategoryMangement
+import com.trinityjayd.hourglass.models.Category
 import yuku.ambilwarna.AmbilWarnaDialog
 
 class NewCategory : AppCompatActivity() {
 
     private var pickColor : Button? = null
-
     private var defaultColor = 0
+    private lateinit var auth: FirebaseAuth
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_new_category)
@@ -31,24 +38,36 @@ class NewCategory : AppCompatActivity() {
         val save = findViewById<Button>(R.id.saveButton)
         //set on click listener
         save.setOnClickListener {
-            //create intent to go to home page
-            val intent = Intent(this, Home::class.java)
-            //start activity
-            startActivity(intent)
+            //get category name
+            val categoryName = findViewById<EditText>(R.id.editTextCategoryName)
+
+            if(categoryName.text.toString().isNullOrBlank()){
+                categoryName.error = "Category name cannot be blank"
+                return@setOnClickListener
+            }else if (defaultColor == 0){
+                pickColor?.error = "Please pick a color"
+                return@setOnClickListener
+            }else{
+                auth = Firebase.auth
+                val user = auth.currentUser!!
+                val uid = user.uid
+
+                val category = Category(categoryName.text.toString(), defaultColor, uid)
+                //save category to database
+                CategoryMangement().saveCategory(category)
+
+                //create intent to go to home page
+                val intent = Intent(this, Home::class.java)
+                //start activity
+                startActivity(intent)
+            }
         }
 
-
-        //get pick color button
         pickColor = findViewById(R.id.pickColorButton)
 
-        // button open the AmbilWanra color picker dialog.
         pickColor?.setOnClickListener(
             object : View.OnClickListener {
                 override fun onClick(v: View?) {
-                    // to make code look cleaner the color
-                    // picker dialog functionality are
-                    // handled in openColorPickerDialogue()
-                    // function
                     openColorPickerDialogue()
                 }
             })

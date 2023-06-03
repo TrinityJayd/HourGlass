@@ -22,7 +22,7 @@ class ValidationMethods {
     }
 
     fun isPasswordValid(password: String): Boolean {
-        val passwordRegex = Regex("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=!])(?=\\S+$).{8,}$")
+        val passwordRegex = Regex("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9]).{8,}$")
         return password.matches(passwordRegex)
     }
 
