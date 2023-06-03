@@ -85,7 +85,7 @@ class NewEntry : AppCompatActivity() {
                 //display error message
                 Toast.makeText(this, "Please select a category.", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
-            } else if (date.text.toString().isNullOrBlank()) {
+            } else if (date.text.toString().isNullOrBlank() || date.text.toString() == "Select Date") {
                 date.error = "Please select a date."
                 return@setOnClickListener
             } else if (hours.text.toString().isNullOrBlank()) {
@@ -177,23 +177,22 @@ class NewEntry : AppCompatActivity() {
 
     //create function that populates the spinner with the categories from the database
     private fun populateCategories(){
-        //get the categories from the realtime database where the user id is the same as the current user
-        val database = Firebase.database
-        val myRef = database.getReference("categories")
+        //get the category names from the children of the logged in user's uid from the realtime database where the user id is the same as the current user
         val user = auth.currentUser!!
         val uid = user.uid
-        val query = myRef.orderByChild("uid").equalTo(uid)
-        query.addValueEventListener(object : ValueEventListener {
+        val database = Firebase.database
+        val myRef = database.getReference("categories/$uid")
+        myRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 //create array list of categories
                 val categories = ArrayList<String>()
                 //add select category to array list
                 categories.add("Select Category")
-                //loop through each category
-                for (ds in dataSnapshot.children) {
-                    //get category name
-                    val categoryName = ds.child("name").getValue(String::class.java)
-                    //add category name to array list
+                //loop through each category in the database
+                for (category in dataSnapshot.children) {
+                    //get the category name
+                    val categoryName = category.child("name").getValue(String::class.java)
+                    //add the category name to the array list
                     categories.add(categoryName!!)
                 }
                 //get spinner
@@ -201,31 +200,21 @@ class NewEntry : AppCompatActivity() {
                 //create array adapter
                 val adapter = ArrayAdapter(
                     this@NewEntry,
-                    R.layout.spinner_list, categories
+                    R.layout.spinner_list,
+                    categories
                 )
+                //set drop down view resource
+                adapter.setDropDownViewResource(R.layout.spinner_list)
                 //set adapter
                 spinner.adapter = adapter
-
-                spinner.onItemSelectedListener = object :
-                    AdapterView.OnItemSelectedListener {
-                    override fun onItemSelected(
-                        parent: AdapterView<*>,
-                        view: View, position: Int, id: Long
-                    ) {
-                        //set variable to selected item
-                    }
-
-                    override fun onNothingSelected(parent: AdapterView<*>) {
-                        // write code to perform some action
-                    }
-                }
             }
 
             override fun onCancelled(error: DatabaseError) {
                 // Failed to read value
-                Log.w("Error", "Failed to read value.", error.toException())
+                Log.w("NewEntry", "Failed to read value.", error.toException())
             }
         })
+
 
     }
 

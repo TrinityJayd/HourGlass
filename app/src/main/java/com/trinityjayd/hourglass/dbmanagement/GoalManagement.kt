@@ -8,9 +8,13 @@ class GoalManagement {
     private var database = Firebase.database.reference
 
     fun addGoalToDatabase(goal: Goal) {
-        val goalKey = database.push().key // Generate a unique key for the entry
-        if (goalKey != null) {
-            database.child("goals").child(goalKey).setValue(goal)
-        }
+        database.child("goals").child(goal.uid).setValue(goal)
+
     }
+
+    //update goal
+    fun updateGoal(goal: Goal) {
+        database.child("goals").child(goal.uid).setValue(goal)
+    }
+
 }

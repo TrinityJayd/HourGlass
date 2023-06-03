@@ -57,7 +57,7 @@ class NewCategory : AppCompatActivity() {
                 CategoryMangement().saveCategory(category)
 
                 //create intent to go to home page
-                val intent = Intent(this, Home::class.java)
+                val intent = Intent(this, NewEntry::class.java)
                 //start activity
                 startActivity(intent)
             }

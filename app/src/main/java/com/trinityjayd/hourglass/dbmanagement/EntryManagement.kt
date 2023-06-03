@@ -10,7 +10,7 @@ class EntryManagement {
     fun addEntryToDatabase(entry : Entry){
         val entryKey = database.push().key // Generate a unique key for the entry
         if (entryKey != null) {
-            database.child("entries").child(entryKey).setValue(entry)
+            database.child("entries").child(entry.uid).child(entryKey).setValue(entry)
         }
     }
 }
