@@ -10,7 +10,7 @@ class CategoryMangement {
     fun saveCategory(category: Category){
         val categoryKey = database.push().key // Generate a unique key for the entry
         if (categoryKey != null) {
-            database.child("categories").child(categoryKey).setValue(category)
+            database.child("categories").child(category.uid).child(categoryKey).setValue(category)
         }
     }
 

@@ -3,11 +3,16 @@ package com.trinityjayd.hourglass
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Editable
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.trinityjayd.hourglass.dbmanagement.GoalManagement
 import com.trinityjayd.hourglass.models.Goal
@@ -19,6 +24,14 @@ class Goals : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_goals)
+
+        auth = Firebase.auth
+        //get min hours edit text
+        val minHours = findViewById<EditText>(R.id.minimumGoalEditText)
+        //get max hours edit text
+        val maxHours = findViewById<EditText>(R.id.maximumGoalEditText)
+
+        populateGoalTextViews(auth.currentUser!!.uid, minHours, maxHours)
 
         //get home image view
         val home = findViewById<ImageView>(R.id.homeImageView)
@@ -34,10 +47,7 @@ class Goals : AppCompatActivity() {
         val save = findViewById<Button>(R.id.saveButton)
         //set on click listener
         save.setOnClickListener {
-            //get min hours edit text
-            val minHours = findViewById<EditText>(R.id.minimumGoalEditText)
-            //get max hours edit text
-            val maxHours = findViewById<EditText>(R.id.maximumGoalEditText)
+
 
             if (minHours.text.toString().isNullOrBlank()) {
                 minHours.error = "Please enter a minimum goal"
@@ -69,7 +79,7 @@ class Goals : AppCompatActivity() {
                 val currentDate = java.util.Calendar.getInstance().time
                 val date = currentDate.toString()
 
-                auth = Firebase.auth
+
                 val user = auth.currentUser!!
                 val uid = user.uid
 
@@ -92,4 +102,27 @@ class Goals : AppCompatActivity() {
 
         }
     }
+
+    private fun populateGoalTextViews(uid : String, minEditText: EditText, maxEditText : EditText) {
+        val database = Firebase.database.reference
+        //get the goal where the user id is the current user
+        val goalReference = database.child("goals").child(uid)
+
+
+        goalReference.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    val goal = dataSnapshot.getValue(Goal::class.java)
+                    // Assuming you have TextViews for displaying the minimum and maximum hours
+                    minEditText.text = Editable.Factory.getInstance().newEditable(goal?.minHours.toString())
+                    maxEditText.text = Editable.Factory.getInstance().newEditable(goal?.maxHours.toString())
+                }
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {
+                return
+            }
+        })
+    }
+
 }

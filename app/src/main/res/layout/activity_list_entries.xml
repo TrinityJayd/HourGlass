@@ -79,5 +79,17 @@
 
     </LinearLayout>
 
+<!--    add recycler view-->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/entriesRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="20dp"
+        android:background="@color/colorButtonText"
+        android:padding="10dp"
+        android:scrollbars="vertical"
+        android:visibility="visible" />
+
+
 
 </LinearLayout>

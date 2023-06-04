@@ -53,31 +53,6 @@
         android:paddingHorizontal="20dp">
 
         <TextView
-            android:id="@+id/taskNameTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:fontFamily="@font/ubunturegular"
-            android:labelFor="@id/editTextTaskName"
-            android:text="Task Name"
-            android:textColor="@android:color/white"
-            android:textSize="20sp" />
-
-        <EditText
-            android:id="@+id/editTextTaskName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="25dp"
-            android:backgroundTint="@android:color/white"
-            android:ems="10"
-            android:fontFamily="@font/ubunturegular"
-            android:inputType="text"
-            android:minHeight="48dp"
-            android:singleLine="false"
-            android:textColor="@android:color/white" />
-
-        <!-- add a combo box for different categories-->
-        <TextView
             android:id="@+id/categoryTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -107,13 +82,40 @@
             android:layout_height="wrap_content"
             android:layout_gravity="end"
             android:layout_marginEnd="10dp"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="10dp"
             android:background="@color/colorButtonText"
             android:fontFamily="@font/ubunturegular"
             android:text="+ New Category"
             android:textAllCaps="false"
             android:textColor="@android:color/white"
             android:textSize="17sp" />
+
+        <TextView
+            android:id="@+id/taskNameTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/ubunturegular"
+            android:labelFor="@id/editTextTaskName"
+            android:text="Task Name"
+            android:textColor="@android:color/white"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/editTextTaskName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:backgroundTint="@android:color/white"
+            android:ems="10"
+            android:fontFamily="@font/ubunturegular"
+            android:inputType="text"
+            android:minHeight="48dp"
+            android:singleLine="false"
+            android:textColor="@android:color/white" />
+
+        <!-- add a combo box for different categories-->
+
 
         <LinearLayout
             android:layout_width="match_parent"

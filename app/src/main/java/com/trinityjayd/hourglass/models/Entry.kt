@@ -1,8 +1,5 @@
 package com.trinityjayd.hourglass.models
 
-import java.sql.Time
-import java.util.Date
-
 data class Entry(
     val taskName: String,
     val category: String,
@@ -10,5 +7,6 @@ data class Entry(
     val hours: Int,
     val minutes: Int,
     val taskDescription: String,
+    val imageKey: String?,
     val uid: String
 )
