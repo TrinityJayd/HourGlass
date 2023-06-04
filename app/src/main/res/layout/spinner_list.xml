@@ -7,4 +7,5 @@
     android:textColor="@android:color/white"
     android:textSize="18sp"
     android:background="@color/colorButtonText"
+    android:fontFamily="@font/ubuntumedium"
     />

@@ -10,7 +10,7 @@ import android.widget.ImageView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-import com.trinityjayd.hourglass.dbmanagement.CategoryMangement
+import com.trinityjayd.hourglass.dbmanagement.CategoryManagement
 import com.trinityjayd.hourglass.models.Category
 import yuku.ambilwarna.AmbilWarnaDialog
 
@@ -40,6 +40,10 @@ class NewCategory : AppCompatActivity() {
         save.setOnClickListener {
             //get category name
             val categoryName = findViewById<EditText>(R.id.editTextCategoryName)
+            val categoryManagement = CategoryManagement()
+            auth = Firebase.auth
+            val user = auth.currentUser!!
+            val uid = user.uid
 
             if(categoryName.text.toString().isNullOrBlank()){
                 categoryName.error = "Category name cannot be blank"
@@ -48,18 +52,22 @@ class NewCategory : AppCompatActivity() {
                 pickColor?.error = "Please pick a color"
                 return@setOnClickListener
             }else{
-                auth = Firebase.auth
-                val user = auth.currentUser!!
-                val uid = user.uid
+                categoryManagement.isCategoryExists(uid, categoryName.text.toString()) { exists ->
+                    if (exists) {
+                        categoryName.error = "Category with the same name already exists"
+                        return@isCategoryExists
+                    } else {
+                        val category = Category(categoryName.text.toString(), defaultColor, uid)
+                        //save category to database
+                        categoryManagement.saveCategory(category)
 
-                val category = Category(categoryName.text.toString(), defaultColor, uid)
-                //save category to database
-                CategoryMangement().saveCategory(category)
+                        //create intent to go to home page
+                        val intent = Intent(this, NewEntry::class.java)
+                        //start activity
+                        startActivity(intent)
+                    }
+                }
 
-                //create intent to go to home page
-                val intent = Intent(this, NewEntry::class.java)
-                //start activity
-                startActivity(intent)
             }
         }
 
