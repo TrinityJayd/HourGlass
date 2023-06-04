@@ -21,7 +21,9 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.trinityjayd.hourglass.dbmanagement.EntryManagement
 import com.trinityjayd.hourglass.models.Entry
+import java.text.SimpleDateFormat
 import java.util.Calendar
+import java.util.Locale
 
 class ListEntries : AppCompatActivity() {
 
@@ -63,7 +65,7 @@ class ListEntries : AppCompatActivity() {
         //get filter button
         val filter = findViewById<Button>(R.id.filterButton)
         //set on click listener
-        filter.setOnClickListener{
+        filter.setOnClickListener {
             //get start date
             val startDate = findViewById<Button>(R.id.startDateButton)
             //get end date
@@ -71,17 +73,38 @@ class ListEntries : AppCompatActivity() {
             //get category
             val category = findViewById<Spinner>(R.id.spinnerCategory)
 
+            if (startDate.text.toString() != "Start Date" && endDate.text.toString() != "End Date") {
+                val startDateText = startDate.text.toString()
+                val endDateText = endDate.text.toString()
+
+                val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+                val startDateObj = dateFormat.parse(startDateText)
+                val endDateObj = dateFormat.parse(endDateText)
+
+                if (startDateObj.after(endDateObj)) {
+                    startDate.error = "Start date must be before end date"
+                    endDate.error = "End date must be after start date"
+                    return@setOnClickListener
+                }
+            }
+            startDate.error = null
+            endDate.error = null
             val entryManagement = EntryManagement()
-            entryManagement.filterEntries(uid, category.selectedItem.toString(), startDate.text.toString(), endDate.text.toString()) { entries ->
+
+            entryManagement.filterEntries(
+                uid,
+                category.selectedItem.toString(),
+                startDate.text.toString(),
+                endDate.text.toString()
+            ) { entries ->
                 entryAdapter.updateEntries(entries)
-                startDate.text = "Start Date"
-                endDate.text = "End Date"
-                category.setSelection(0)
+
             }
 
-
+            startDate.text = "Start Date"
+            endDate.text = "End Date"
+            category.setSelection(0)
         }
-
 
 
     }
@@ -109,9 +132,7 @@ class ListEntries : AppCompatActivity() {
                 val spinner = findViewById<Spinner>(R.id.spinnerCategory)
                 //create array adapter
                 val adapter = ArrayAdapter(
-                    this@ListEntries,
-                    R.layout.spinner_list,
-                    categories
+                    this@ListEntries, R.layout.spinner_list, categories
                 )
                 //set drop down view resource
                 adapter.setDropDownViewResource(R.layout.spinner_list)
@@ -129,7 +150,7 @@ class ListEntries : AppCompatActivity() {
     }
 
     //code start date and end date button
-    private fun dateButtons(){
+    private fun dateButtons() {
         //Code Attribution
         //Author: Coding Demos
         //Date: 22/02/2018
@@ -141,8 +162,8 @@ class ListEntries : AppCompatActivity() {
             val month: Int = calendar.get(Calendar.MONTH)
             val dayOfMonth: Int = calendar.get(Calendar.DAY_OF_MONTH)
 
-            val datePickerDialog = DatePickerDialog(this@ListEntries,
-                { datePicker, year, month, day ->
+            val datePickerDialog = DatePickerDialog(
+                this@ListEntries, { datePicker, year, month, day ->
                     startDate.text = day.toString() + "/" + (month + 1) + "/" + year
                 }, year, month, dayOfMonth
             )
@@ -156,15 +177,14 @@ class ListEntries : AppCompatActivity() {
             val month: Int = calendar.get(Calendar.MONTH)
             val dayOfMonth: Int = calendar.get(Calendar.DAY_OF_MONTH)
 
-            val datePickerDialog = DatePickerDialog(this@ListEntries,
-                { datePicker, year, month, day ->
+            val datePickerDialog = DatePickerDialog(
+                this@ListEntries, { datePicker, year, month, day ->
                     endDate.text = day.toString() + "/" + (month + 1) + "/" + year
                 }, year, month, dayOfMonth
             )
             datePickerDialog.show()
         })
     }
-
 
 
 }
