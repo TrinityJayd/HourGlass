@@ -10,20 +10,45 @@ import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.Spinner
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+import com.trinityjayd.hourglass.dbmanagement.EntryManagement
+import com.trinityjayd.hourglass.models.Entry
 import java.util.Calendar
 
 class ListEntries : AppCompatActivity() {
 
     private lateinit var auth: FirebaseAuth
+    private lateinit var entryAdapter: EntryAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_list_entries)
+
+
+        auth = Firebase.auth
+        populateCategories()
+
+        val user = auth.currentUser!!
+        val uid = user.uid
+
+
+        val entryRecyclerView = findViewById<RecyclerView>(R.id.entriesRecyclerView)
+        entryRecyclerView.layoutManager = LinearLayoutManager(this)
+
+        val entryAdapter = EntryAdapter(emptyList()) // Create an empty adapter
+        entryRecyclerView.adapter = entryAdapter
+
+        val entryManagement = EntryManagement()
+        entryManagement.getAllEntriesForUser(uid) { entries ->
+            entryAdapter.updateEntries(entries)
+        }
 
         //get home image view
         val home = findViewById<ImageView>(R.id.homeImageView)
@@ -55,7 +80,7 @@ class ListEntries : AppCompatActivity() {
         })
     }
 
-    private fun populateCategories(){
+    private fun populateCategories() {
         //get the category names from the children of the logged in user's uid from the realtime database where the user id is the same as the current user
         val user = auth.currentUser!!
         val uid = user.uid
@@ -96,4 +121,9 @@ class ListEntries : AppCompatActivity() {
 
 
     }
+
+
+
 }
+
+

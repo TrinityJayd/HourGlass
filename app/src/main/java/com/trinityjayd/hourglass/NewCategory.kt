@@ -10,7 +10,7 @@ import android.widget.ImageView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-import com.trinityjayd.hourglass.dbmanagement.CategoryMangement
+import com.trinityjayd.hourglass.dbmanagement.CategoryManagement
 import com.trinityjayd.hourglass.models.Category
 import yuku.ambilwarna.AmbilWarnaDialog
 
@@ -54,7 +54,7 @@ class NewCategory : AppCompatActivity() {
 
                 val category = Category(categoryName.text.toString(), defaultColor, uid)
                 //save category to database
-                CategoryMangement().saveCategory(category)
+                CategoryManagement().saveCategory(category)
 
                 //create intent to go to home page
                 val intent = Intent(this, NewEntry::class.java)
