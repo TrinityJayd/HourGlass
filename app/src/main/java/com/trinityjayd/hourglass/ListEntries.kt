@@ -26,7 +26,6 @@ import java.util.Calendar
 class ListEntries : AppCompatActivity() {
 
     private lateinit var auth: FirebaseAuth
-    private lateinit var entryAdapter: EntryAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_list_entries)
@@ -34,6 +33,7 @@ class ListEntries : AppCompatActivity() {
 
         auth = Firebase.auth
         populateCategories()
+        dateButtons()
 
         val user = auth.currentUser!!
         val uid = user.uid
@@ -60,24 +60,30 @@ class ListEntries : AppCompatActivity() {
             startActivity(intent)
         }
 
-        //Code Attribution
-        //Author: Coding Demos
-        //Date: 22/02/2018
-        //https://www.codingdemos.com/android-datepicker-button/
-        val date = findViewById<Button>(R.id.datePickerButton)
-        date.setOnClickListener(View.OnClickListener {
-            val calendar: Calendar = Calendar.getInstance()
-            val year: Int = calendar.get(Calendar.YEAR)
-            val month: Int = calendar.get(Calendar.MONTH)
-            val dayOfMonth: Int = calendar.get(Calendar.DAY_OF_MONTH)
+        //get filter button
+        val filter = findViewById<Button>(R.id.filterButton)
+        //set on click listener
+        filter.setOnClickListener{
+            //get start date
+            val startDate = findViewById<Button>(R.id.startDateButton)
+            //get end date
+            val endDate = findViewById<Button>(R.id.endDateButton)
+            //get category
+            val category = findViewById<Spinner>(R.id.spinnerCategory)
 
-            val datePickerDialog = DatePickerDialog(this@ListEntries,
-                { datePicker, year, month, day ->
-                    date.text = day.toString() + "/" + (month + 1) + "/" + year
-                }, year, month, dayOfMonth
-            )
-            datePickerDialog.show()
-        })
+            val entryManagement = EntryManagement()
+            entryManagement.filterEntries(uid, category.selectedItem.toString(), startDate.text.toString(), endDate.text.toString()) { entries ->
+                entryAdapter.updateEntries(entries)
+                startDate.text = "Start Date"
+                endDate.text = "End Date"
+                category.setSelection(0)
+            }
+
+
+        }
+
+
+
     }
 
     private fun populateCategories() {
@@ -91,7 +97,7 @@ class ListEntries : AppCompatActivity() {
                 //create array list of categories
                 val categories = ArrayList<String>()
                 //add select category to array list
-                categories.add("Select Category")
+                categories.add("All")
                 //loop through each category in the database
                 for (category in dataSnapshot.children) {
                     //get the category name
@@ -120,6 +126,43 @@ class ListEntries : AppCompatActivity() {
         })
 
 
+    }
+
+    //code start date and end date button
+    private fun dateButtons(){
+        //Code Attribution
+        //Author: Coding Demos
+        //Date: 22/02/2018
+        //https://www.codingdemos.com/android-datepicker-button/
+        val startDate = findViewById<Button>(R.id.startDateButton)
+        startDate.setOnClickListener(View.OnClickListener {
+            val calendar: Calendar = Calendar.getInstance()
+            val year: Int = calendar.get(Calendar.YEAR)
+            val month: Int = calendar.get(Calendar.MONTH)
+            val dayOfMonth: Int = calendar.get(Calendar.DAY_OF_MONTH)
+
+            val datePickerDialog = DatePickerDialog(this@ListEntries,
+                { datePicker, year, month, day ->
+                    startDate.text = day.toString() + "/" + (month + 1) + "/" + year
+                }, year, month, dayOfMonth
+            )
+            datePickerDialog.show()
+        })
+
+        val endDate = findViewById<Button>(R.id.endDateButton)
+        endDate.setOnClickListener(View.OnClickListener {
+            val calendar: Calendar = Calendar.getInstance()
+            val year: Int = calendar.get(Calendar.YEAR)
+            val month: Int = calendar.get(Calendar.MONTH)
+            val dayOfMonth: Int = calendar.get(Calendar.DAY_OF_MONTH)
+
+            val datePickerDialog = DatePickerDialog(this@ListEntries,
+                { datePicker, year, month, day ->
+                    endDate.text = day.toString() + "/" + (month + 1) + "/" + year
+                }, year, month, dayOfMonth
+            )
+            datePickerDialog.show()
+        })
     }
 
 

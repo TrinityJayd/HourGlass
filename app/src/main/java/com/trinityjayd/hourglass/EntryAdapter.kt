@@ -26,6 +26,7 @@ class EntryAdapter(private var entryList: List<Entry>) :
         val colorBlock: View = itemView.findViewById(R.id.categoryColorView)
         val taskNameTextView: TextView = itemView.findViewById(R.id.taskNameTextView)
         val categoryTextView: TextView = itemView.findViewById(R.id.categoryTextView)
+        val descriptionTextView: TextView = itemView.findViewById(R.id.descriptionTextView)
         val durationTextView: TextView = itemView.findViewById(R.id.durationTextView)
         val dateTextView: TextView = itemView.findViewById(R.id.dateTextView)
         val photoImageView: ImageView = itemView.findViewById(R.id.photoImageView)
@@ -43,6 +44,7 @@ class EntryAdapter(private var entryList: List<Entry>) :
         // Bind data to UI elements
         holder.taskNameTextView.text = entry.taskName
         holder.categoryTextView.text = entry.category
+        holder.descriptionTextView.text = entry.taskDescription
         holder.durationTextView.text = formatDuration(entry.hours, entry.minutes)
         holder.dateTextView.text = entry.date
 

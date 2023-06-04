@@ -43,6 +43,8 @@
 
     </LinearLayout>
 
+
+
     <LinearLayout
         android:id="@+id/filterLayout"
         android:layout_width="match_parent"
@@ -58,7 +60,7 @@
             android:layout_weight="1"
             android:background="@drawable/spinner_background"
             android:ems="10"
-            android:fontFamily="@font/ubunturegular"
+            android:fontFamily="@font/ubuntumedium"
             android:inputType="text"
             android:minHeight="48dp"
             android:paddingHorizontal="16dp"
@@ -67,7 +69,7 @@
             android:textColor="@android:color/white" />
 
         <Button
-            android:id="@+id/datePickerButton"
+            android:id="@+id/startDateButton"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -76,13 +78,44 @@
             android:background="@drawable/spinner_background"
             android:fontFamily="@font/ubuntumedium"
             android:layout_gravity="end"
-            android:paddingHorizontal="25dp"
-            android:text="Date"
+            android:text="Start Date"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:layout_marginEnd="20dp"
+            />
+
+        <Button
+            android:id="@+id/endDateButton"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:minWidth="48dp"
+            android:minHeight="48dp"
+            android:background="@drawable/spinner_background"
+            android:fontFamily="@font/ubuntumedium"
+            android:layout_gravity="end"
+            android:text="End Date"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="18sp" />
 
     </LinearLayout>
+
+<!--    add a filter button-->
+    <Button
+        android:id="@+id/filterButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/spinner_background"
+        android:fontFamily="@font/ubuntumedium"
+        android:paddingHorizontal="30dp"
+        android:text="Filter"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="18sp" />
 
 <!--    add recycler view-->
     <androidx.recyclerview.widget.RecyclerView
