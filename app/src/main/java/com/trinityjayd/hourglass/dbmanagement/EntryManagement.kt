@@ -7,10 +7,16 @@ import com.trinityjayd.hourglass.models.Entry
 class EntryManagement {
     private var database = Firebase.database.reference
 
+
     fun addEntryToDatabase(entry : Entry){
-        val entryKey = database.push().key // Generate a unique key for the entry
+        var entryKey = database.push().key // Generate a unique key for the entry
         if (entryKey != null) {
-            database.child("entries").child(entry.uid).child(entryKey).setValue(entry)
+            database.child("entries").child(entry.uid).child(entryKey!!).setValue(entry)
         }
     }
+
+
+
+
+
 }

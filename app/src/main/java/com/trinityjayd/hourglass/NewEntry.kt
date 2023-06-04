@@ -1,18 +1,21 @@
 package com.trinityjayd.hourglass
 
+import android.app.Activity
 import android.app.DatePickerDialog
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.provider.OpenableColumns
 import android.util.Log
-import android.view.View
-import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -21,14 +24,20 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.StorageReference
+import com.google.firebase.storage.ktx.storage
 import com.trinityjayd.hourglass.dbmanagement.EntryManagement
 import com.trinityjayd.hourglass.models.Entry
 import java.util.Calendar
+import java.util.UUID
 
 
 class NewEntry : AppCompatActivity() {
 
     private lateinit var auth: FirebaseAuth
+    private lateinit var storageRef: StorageReference
+    private var filePath: String? = ""
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,12 +71,9 @@ class NewEntry : AppCompatActivity() {
 
         //get save button
         val save = findViewById<Button>(R.id.saveButton)
+
         //set on click listener
         save.setOnClickListener {
-
-            //create object of validation methods
-            val validationMethods = ValidationMethods()
-
             //get task name edit test
             val taskName = findViewById<EditText>(R.id.editTextTaskName)
             val category = findViewById<Spinner>(R.id.spinnerCategory)
@@ -86,7 +92,9 @@ class NewEntry : AppCompatActivity() {
                 //display error message
                 Toast.makeText(this, "Please select a category.", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
-            } else if (date.text.toString().isNullOrBlank() || date.text.toString() == "Select Date") {
+            } else if (date.text.toString()
+                    .isNullOrBlank() || date.text.toString() == "Select Date"
+            ) {
                 date.error = "Please select a date."
                 return@setOnClickListener
             } else if (hours.text.toString().isNullOrBlank()) {
@@ -135,10 +143,14 @@ class NewEntry : AppCompatActivity() {
                     hoursInt,
                     minutesInt,
                     descriptionText,
+                    filePath,
                     uid
                 )
 
-                EntryManagement().addEntryToDatabase(entry)
+                //create entry management object
+                val entryManagement = EntryManagement()
+
+                entryManagement.addEntryToDatabase(entry)
 
                 //create intent to go to home page
                 val intent = Intent(this, Home::class.java)
@@ -149,12 +161,25 @@ class NewEntry : AppCompatActivity() {
 
         }
 
-
+        val picture = findViewById<Button>(R.id.pictureButton)
+        picture.setOnClickListener {
+            //Code Attribution
+            //Android – Upload an Image on Firebase Storage with Kotlin
+            //Author: GeeksforGeeks
+            //Link: https://www.geeksforgeeks.org/android-upload-an-image-on-firebase-storage-with-kotlin/
+            storageRef = Firebase.storage.reference
+            val galleryIntent = Intent(Intent.ACTION_PICK)
+            // here item is type of image
+            galleryIntent.type = "image/*"
+            // ActivityResultLauncher callback
+            imagePickerActivityResult.launch(galleryIntent)
+        }
 
     }
 
     private fun createDatePickerDialog() {
         //Code Attribution
+        //Android Date Picker Dialog Example
         //Author: Coding Demos
         //Date: 22/02/2018
         //https://www.codingdemos.com/android-datepicker-button/
@@ -177,7 +202,7 @@ class NewEntry : AppCompatActivity() {
     }
 
     //create function that populates the spinner with the categories from the database
-    private fun populateCategories(){
+    private fun populateCategories() {
         //get the category names from the children of the logged in user's uid from the realtime database where the user id is the same as the current user
         val user = auth.currentUser!!
         val uid = user.uid
@@ -218,6 +243,60 @@ class NewEntry : AppCompatActivity() {
 
 
     }
+
+    //Code Attribution
+    //Android – Upload an Image on Firebase Storage with Kotlin
+    //Author: GeeksforGeeks
+    //Link: https://www.geeksforgeeks.org/android-upload-an-image-on-firebase-storage-with-kotlin/
+
+    private var imagePickerActivityResult: ActivityResultLauncher<Intent> =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result != null && result.resultCode == Activity.RESULT_OK) {
+                val imageUri: Uri? = result.data?.data
+                if (imageUri != null) {
+                    val sd = getFileName(applicationContext, imageUri)
+                    val user = auth.currentUser
+                    val uid = user?.uid
+                    if (uid != null) {
+                        filePath = "file/$sd"
+                        val uploadTask = storageRef.child(uid).child(filePath!!).putFile(imageUri)
+                        uploadTask.addOnSuccessListener {
+                            Toast.makeText(
+                                applicationContext,
+                                "Image Uploaded!",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }.addOnFailureListener {
+                            Toast.makeText(applicationContext, "Image Upload Failed!", Toast.LENGTH_SHORT)
+                                .show()
+                        }
+                    }
+                }
+            } else {
+                // User cancelled the image selection
+                Toast.makeText(applicationContext, "Image selection cancelled", Toast.LENGTH_SHORT)
+                    .show()
+            }
+        }
+
+
+    private fun getFileName(context: Context, uri: Uri): String? {
+        if (uri.scheme == "content") {
+            val cursor = context.contentResolver.query(uri, null, null, null, null)
+            cursor.use {
+                if (cursor != null && cursor.moveToFirst()) {
+                    val displayNameColumnIndex = cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME)
+                    if (displayNameColumnIndex >= 0) {
+                        return cursor.getString(displayNameColumnIndex)
+                    }
+                }
+            }
+        }
+        return uri.path?.lastIndexOf('/')?.let { uri.path?.substring(it + 1) }
+    }
+
+    //Code Attribution End
+
 
 
 
