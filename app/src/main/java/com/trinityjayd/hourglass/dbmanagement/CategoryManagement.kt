@@ -1,5 +1,6 @@
 package com.trinityjayd.hourglass.dbmanagement
 
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
@@ -27,6 +28,28 @@ class CategoryManagement {
                     callback(false)
                 }
             })
+    }
+
+    fun getCategoryColor(category: String, callback: (Int) -> Unit) {
+        //get current user
+        val uid = Firebase.auth.currentUser?.uid ?: return
+        val database = Firebase.database.reference
+        val categoryReference = database.child("categories").child(uid).child(category)
+
+        categoryReference.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    val category = dataSnapshot.getValue(Category::class.java)
+                    category?.let {
+                        callback.invoke(it.color)
+                    }
+                }
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {
+                // Handle database error
+            }
+        })
     }
 
 

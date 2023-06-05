@@ -15,6 +15,7 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
+import com.trinityjayd.hourglass.dbmanagement.CategoryManagement
 import com.trinityjayd.hourglass.models.Category
 import com.trinityjayd.hourglass.models.Entry
 import java.util.Locale
@@ -48,7 +49,10 @@ class EntryAdapter(private var entryList: List<Entry>) :
         holder.durationTextView.text = formatDuration(entry.hours, entry.minutes)
         holder.dateTextView.text = entry.date
 
-        getCategoryColor(entry.category) { color ->
+        //get category management instance
+        val categoryManagement = CategoryManagement()
+
+        categoryManagement.getCategoryColor(entry.category) { color ->
             holder.colorBlock.setBackgroundColor(color)
         }
 
@@ -74,27 +78,7 @@ class EntryAdapter(private var entryList: List<Entry>) :
         return entryList.size
     }
 
-    private fun getCategoryColor(category: String, callback: (Int) -> Unit) {
-        //get current user
-        val uid = Firebase.auth.currentUser?.uid ?: return
-        val database = Firebase.database.reference
-        val categoryReference = database.child("categories").child(uid).child(category)
 
-        categoryReference.addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                if (dataSnapshot.exists()) {
-                    val category = dataSnapshot.getValue(Category::class.java)
-                    category?.let {
-                        callback.invoke(it.color)
-                    }
-                }
-            }
-
-            override fun onCancelled(databaseError: DatabaseError) {
-                // Handle database error
-            }
-        })
-    }
 
     fun updateEntries(entries: List<Entry>) {
         entryList = entries

@@ -52,7 +52,7 @@ class EntryManagement {
                 var isStartDateMatch = true
                 var isEndDateMatch = true
 
-                if (categoryName != "All" && entry.category != categoryName) {
+                if (categoryName != "All" && entry.category != categoryName && categoryName != "Category") {
                     isCategoryMatch = false // Filter out entries with category not matching the specified name
                 }
 
@@ -71,6 +71,38 @@ class EntryManagement {
             callback(filteredEntries)
         }
     }
+
+    fun calculateTotalTimeByCategory(uid: String, categoryName: String, startDate: String, endDate: String, callback: (Map<String, Pair<Int, Int>>) -> Unit) {
+        filterEntries(uid, categoryName, startDate, endDate) { filteredEntries ->
+            val totalTimeByCategory = mutableMapOf<String, Pair<Int, Int>>()
+
+            for (entry in filteredEntries) {
+                val category = entry.category
+                var categoryColor = 0
+                CategoryManagement().getCategoryColor(entry.category) { color ->
+                    categoryColor = color
+                }
+                val hours = entry.hours
+                val minutes = entry.minutes
+
+                val existingTotal = totalTimeByCategory[category]
+                if (existingTotal != null) {
+                    val (existingHours, existingMinutes) = existingTotal
+                    val newHours = existingHours + hours
+                    val newMinutes = existingMinutes + minutes
+                    totalTimeByCategory[category] = Pair(newHours, newMinutes)
+                } else {
+                    totalTimeByCategory[category] = Pair(hours, minutes)
+                }
+            }
+
+            callback(totalTimeByCategory)
+        }
+    }
+
+
+
+
 
 
 
