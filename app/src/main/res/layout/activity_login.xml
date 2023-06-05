@@ -112,14 +112,14 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="10dp"
+        android:layout_marginBottom="15dp"
         android:background="@drawable/submit_button"
         android:fontFamily="@font/ubuntumedium"
         android:paddingHorizontal="50dp"
         android:text="Login"
         android:textAllCaps="false"
         android:textColor="@color/colorButtonText"
-        android:textSize="20sp"
-        android:layout_marginBottom="15dp"/>
+        android:textSize="20sp" />
 
     <Button
         android:id="@+id/noAccountButton"

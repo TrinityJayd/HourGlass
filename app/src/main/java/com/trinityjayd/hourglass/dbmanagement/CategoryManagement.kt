@@ -12,10 +12,12 @@ class CategoryManagement {
     private var database = Firebase.database.reference
 
     fun saveCategory(category: Category) {
+        //save category to database
         database.child("categories").child(category.uid).child(category.name).setValue(category)
     }
 
     fun isCategoryExists(uid: String, categoryName: String, callback: (Boolean) -> Unit) {
+        //check if category exists already with the same name
         database.child("categories").child(uid).child(categoryName)
             .addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
@@ -36,6 +38,7 @@ class CategoryManagement {
         val database = Firebase.database.reference
         val categoryReference = database.child("categories").child(uid).child(category)
 
+        //get category color
         categoryReference.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 if (dataSnapshot.exists()) {

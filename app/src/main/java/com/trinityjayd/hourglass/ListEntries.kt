@@ -2,7 +2,6 @@ package com.trinityjayd.hourglass
 
 import android.app.DatePickerDialog
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -10,6 +9,7 @@ import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.Spinner
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
@@ -20,7 +20,6 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.trinityjayd.hourglass.dbmanagement.EntryManagement
-import com.trinityjayd.hourglass.models.Entry
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
@@ -28,19 +27,19 @@ import java.util.Locale
 class ListEntries : AppCompatActivity() {
 
     private lateinit var auth: FirebaseAuth
+    private lateinit var uid: String
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_list_entries)
 
-
         auth = Firebase.auth
+        val user = auth.currentUser!!
+        uid = user.uid
+
         populateCategories()
         dateButtons()
 
-        val user = auth.currentUser!!
-        val uid = user.uid
-
-
+        //get recycler view
         val entryRecyclerView = findViewById<RecyclerView>(R.id.entriesRecyclerView)
         entryRecyclerView.layoutManager = LinearLayoutManager(this)
 
@@ -48,6 +47,7 @@ class ListEntries : AppCompatActivity() {
         entryRecyclerView.adapter = entryAdapter
 
         val entryManagement = EntryManagement()
+        //get all entries for the logged in user
         entryManagement.getAllEntriesForUser(uid) { entries ->
             entryAdapter.updateEntries(entries)
         }
@@ -73,34 +73,44 @@ class ListEntries : AppCompatActivity() {
             //get category
             val category = findViewById<Spinner>(R.id.spinnerCategory)
 
+            //check if start date and end date are not the default values
             if (startDate.text.toString() != "Start Date" && endDate.text.toString() != "End Date") {
                 val startDateText = startDate.text.toString()
                 val endDateText = endDate.text.toString()
 
+                //format the dates
                 val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
                 val startDateObj = dateFormat.parse(startDateText)
                 val endDateObj = dateFormat.parse(endDateText)
 
-                if (startDateObj.after(endDateObj)) {
-                    startDate.error = "Start date must be before end date"
-                    endDate.error = "End date must be after start date"
-                    return@setOnClickListener
+                //check if start date is after end date
+                if (startDateObj != null) {
+                    if (startDateObj.after(endDateObj)) {
+                        startDate.error = "Start date must be before end date"
+                        endDate.error = "End date must be after start date"
+                        return@setOnClickListener
+                    }
                 }
             }
+            //remove errors
             startDate.error = null
             endDate.error = null
+
             val entryManagement = EntryManagement()
 
+            //filter entries
             entryManagement.filterEntries(
                 uid,
                 category.selectedItem.toString(),
                 startDate.text.toString(),
                 endDate.text.toString()
             ) { entries ->
+                //update entries in adapter
                 entryAdapter.updateEntries(entries)
 
             }
 
+            //reset filter text
             startDate.text = "Start Date"
             endDate.text = "End Date"
             category.setSelection(0)
@@ -111,8 +121,6 @@ class ListEntries : AppCompatActivity() {
 
     private fun populateCategories() {
         //get the category names from the children of the logged in user's uid from the realtime database where the user id is the same as the current user
-        val user = auth.currentUser!!
-        val uid = user.uid
         val database = Firebase.database
         val myRef = database.getReference("categories/$uid")
         myRef.addValueEventListener(object : ValueEventListener {

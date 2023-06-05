@@ -10,6 +10,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -29,7 +30,6 @@ class TotalHours : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
 
     private lateinit var category: Spinner
-    private lateinit var color: View
     private lateinit var startDate: Button
     private lateinit var endDate: Button
 
@@ -38,6 +38,7 @@ class TotalHours : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_total_hours)
 
+        //get auth instance
         auth = Firebase.auth
         val user = auth.currentUser!!
         val uid = user.uid
@@ -59,14 +60,21 @@ class TotalHours : AppCompatActivity() {
         //set on click listener
         filterButton.setOnClickListener {
 
-            if (startDate.text.toString() != "Start Date" && endDate.text.toString() != "End Date") {
+            //check if category is selected
+            if(category.selectedItem.toString() == "Category"){
+                Toast.makeText(this, "Please select a category", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }else if (startDate.text.toString() != "Start Date" && endDate.text.toString() != "End Date") {
+                //save start date and end date
                 val startDateText = startDate.text.toString()
                 val endDateText = endDate.text.toString()
 
+                // Format the date strings into Date objects
                 val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
                 val startDateObj = dateFormat.parse(startDateText)
                 val endDateObj = dateFormat.parse(endDateText)
 
+                // Check if the start date is before the end date
                 if (startDateObj != null) {
                     if (startDateObj.after(endDateObj)) {
                         startDate.error = "Start date must be before end date"
@@ -75,10 +83,13 @@ class TotalHours : AppCompatActivity() {
                     }
                 }
             }
+            //set error to null
             startDate.error = null
             endDate.error = null
+
             val entryManagement = EntryManagement()
 
+            //get total time by category
             entryManagement.calculateTotalTimeByCategory(
                 uid,
                 category.selectedItem.toString(),
@@ -86,6 +97,7 @@ class TotalHours : AppCompatActivity() {
                 endDate.text.toString()
             ) { totalTimeByCategory ->
                 for ((category, totalTime) in totalTimeByCategory) {
+                    // Get the total time in hours and minutes
                     val hours = totalTime.first
                     val minutes = totalTime.second
 
@@ -98,15 +110,18 @@ class TotalHours : AppCompatActivity() {
                     // Set the text values
                     categoryTextView.text = category
 
+                    // Set the background color of the category color view
                     CategoryManagement().getCategoryColor(category) { color ->
                         categoryColorView.setBackgroundColor(color)
                     }
 
+                    // Set the hours and minutes text views
                     hoursTextView.text = hours.toString() + " hour/s"
                     minutesTextView.text = minutes.toString() + " minute/s"
 
                 }
             }
+            //reset the filter text
             startDate.text = "Start Date"
             endDate.text = "End Date"
             category.setSelection(0)

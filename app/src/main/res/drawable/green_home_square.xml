@@ -4,21 +4,21 @@
     <!-- Square Shape Drawable -->
     <item>
         <shape android:shape="rectangle">
-            <solid android:color="@color/pink_square" />
+            <solid android:color="@color/green_square" />
             <corners android:radius="10dp" />
         </shape>
     </item>
 
     <!-- Insert image into square -->
     <item
-        android:drawable="@drawable/settings"
+        android:drawable="@drawable/timer"
         android:gravity="center"
         android:width="70dp"
         android:height="70dp"
         android:bottom="45dp"
         android:left="35dp"
         android:right="35dp"
-        android:top="30dp" />
+        android:top="35dp" />
 
 
 

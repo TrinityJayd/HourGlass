@@ -28,7 +28,10 @@ import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.ktx.storage
 import com.trinityjayd.hourglass.dbmanagement.EntryManagement
 import com.trinityjayd.hourglass.models.Entry
+import java.text.SimpleDateFormat
 import java.util.Calendar
+import java.util.Date
+import java.util.Locale
 import java.util.UUID
 
 
@@ -47,6 +50,27 @@ class NewEntry : AppCompatActivity() {
 
         populateCategories()
         createDatePickerDialog()
+
+        //get date picker button
+        val date = findViewById<Button>(R.id.datePickerButton)
+        //get current date
+        val currentDate = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(Date())
+        //set current date to the selected date
+        date.text = currentDate
+
+        //get hours and minutes edit text
+        val hours = findViewById<EditText>(R.id.hoursEditText)
+        val minutes = findViewById<EditText>(R.id.minutesEditText)
+
+        val intent = intent
+        //check if intent has extra
+        //if it does, it means that the user has just used the timer
+        //the hours and minutes will be set to the values from the timer
+        if (intent.hasExtra("hours") && intent.hasExtra("minutes")) {
+            //set hours and minutes
+            hours.setText(intent.getStringExtra("hours"))
+            minutes.setText(intent.getStringExtra("minutes"))
+        }
 
 
         //get home image view
@@ -76,52 +100,64 @@ class NewEntry : AppCompatActivity() {
         save.setOnClickListener {
             //get task name edit test
             val taskName = findViewById<EditText>(R.id.editTextTaskName)
+            //get category spinner
             val category = findViewById<Spinner>(R.id.spinnerCategory)
+            //get date picker button
             val date = findViewById<Button>(R.id.datePickerButton)
-            val hours = findViewById<EditText>(R.id.hoursEditText)
-            val minutes = findViewById<EditText>(R.id.minutesEditText)
+            //get description edit text
             val description = findViewById<EditText>(R.id.editTextNotes)
 
+            //check if task name is blank
             if (taskName.text.toString().isNullOrBlank()) {
                 taskName.error = "Please enter a task name."
                 return@setOnClickListener
             } else if (taskName.text.toString().length > 50) {
+                //task name is too long
                 taskName.error = "Please enter a task name less than 50 characters."
                 return@setOnClickListener
             } else if (category.selectedItem.toString() == "Select Category") {
-                //display error message
+                //no category selected
                 Toast.makeText(this, "Please select a category.", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
-            } else if (date.text.toString()
-                    .isNullOrBlank() || date.text.toString() == "Select Date"
-            ) {
-                date.error = "Please select a date."
-                return@setOnClickListener
-            } else if (hours.text.toString().isNullOrBlank()) {
+            }else if (hours.text.toString().isNullOrBlank()) {
+                //no hours entered
                 hours.error = "Please enter hours."
                 return@setOnClickListener
             } else if (hours.text.toString().toInt() > 24) {
+                //hours entered is greater than 24
                 hours.error = "Please enter hours less than 24."
                 return@setOnClickListener
             } else if (hours.text.toString().toInt() < 0) {
+                //hours entered is less than 0
                 hours.error = "Please enter hours greater than 0."
                 return@setOnClickListener
             } else if (minutes.text.toString().isNullOrBlank()) {
+                //no minutes entered
                 minutes.error = "Please enter minutes."
                 return@setOnClickListener
             } else if (minutes.text.toString().toInt() > 60) {
+                //minutes entered is greater than 60
                 minutes.error = "Please enter minutes less than 60."
                 return@setOnClickListener
             } else if (minutes.text.toString().toInt() < 0) {
+                //minutes entered is less than 0
                 minutes.error = "Please enter minutes greater than 0."
                 return@setOnClickListener
-            } else if (description.text.toString().isNullOrBlank()) {
-                //set description to blank
-                description.setText("")
+            } else if(hours.text.toString().toInt() == 0 && minutes.text.toString().toInt() == 0 ){
+                //hours and minutes are both 0
+                Toast.makeText(this, "Please enter hours or minutes greater than 0.", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+            else if (description.text.toString().isNullOrBlank()) {
+                //no description entered
+                description.error = "Please enter a description."
+                return@setOnClickListener
             } else if (description.text.toString().length > 100) {
-                description.error = "Please enter a description less than 1000 characters."
+                //description is too long
+                description.error = "Please enter a description less than 100 characters."
                 return@setOnClickListener
             } else {
+                //all fields are valid
                 val taskNameText = taskName.text.toString()
                 val selectedCategory = category.selectedItem.toString()
                 val selectedDate = date.text.toString()
@@ -131,7 +167,7 @@ class NewEntry : AppCompatActivity() {
                 val minutesInt = minutesText.toInt()
                 val descriptionText = description.text.toString()
 
-
+                //get current user
                 val user = auth.currentUser!!
                 val uid = user.uid
 
@@ -143,6 +179,7 @@ class NewEntry : AppCompatActivity() {
                     hoursInt,
                     minutesInt,
                     descriptionText,
+                    //this file path links to the file name in firebase storage
                     filePath,
                     uid
                 )
@@ -150,6 +187,7 @@ class NewEntry : AppCompatActivity() {
                 //create entry management object
                 val entryManagement = EntryManagement()
 
+                //add entry to database
                 entryManagement.addEntryToDatabase(entry)
 
                 //create intent to go to home page
@@ -193,7 +231,8 @@ class NewEntry : AppCompatActivity() {
             val datePickerDialog = DatePickerDialog(
                 this@NewEntry,
                 { datePicker, year, month, day ->
-                    date.text = day.toString() + "/" + (month + 1) + "/" + year
+                    val formattedDate = String.format("%02d/%02d/%04d", day, month + 1, year)
+                    date.text = formattedDate
                 }, year, month, dayOfMonth
             )
             datePickerDialog.show()

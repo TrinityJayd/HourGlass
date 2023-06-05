@@ -15,4 +15,6 @@
     <color name="blue_300">#5da1e1</color>
     <color name="purple_square">#933dbb</color>
     <color name="pink_square">#F0A584</color>
+    <color name="green_square">#62BC2B</color>
+    <color name="light_background">#3A4260</color>
 </resources>

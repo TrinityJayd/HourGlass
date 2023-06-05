@@ -25,13 +25,18 @@ class Goals : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_goals)
 
+        //initialize auth
         auth = Firebase.auth
+        val user = auth.currentUser!!
+        val uid = user.uid
+
         //get min hours edit text
         val minHours = findViewById<EditText>(R.id.minimumGoalEditText)
         //get max hours edit text
         val maxHours = findViewById<EditText>(R.id.maximumGoalEditText)
 
-        populateGoalTextViews(auth.currentUser!!.uid, minHours, maxHours)
+        //populate edit texts with current goals
+        populateGoalTextViews(uid, minHours, maxHours)
 
         //get home image view
         val home = findViewById<ImageView>(R.id.homeImageView)
@@ -47,27 +52,32 @@ class Goals : AppCompatActivity() {
         val save = findViewById<Button>(R.id.saveButton)
         //set on click listener
         save.setOnClickListener {
-
-
+            //check if min hours is empty
             if (minHours.text.toString().isNullOrBlank()) {
                 minHours.error = "Please enter a minimum goal"
                 return@setOnClickListener
             } else if (maxHours.text.toString().isNullOrBlank()) {
+                //check if max hours is empty
                 maxHours.error = "Please enter a maximum goal"
                 return@setOnClickListener
             } else if (minHours.text.toString().toInt() > maxHours.text.toString().toInt()) {
+                //check if min hours is greater than max hours
                 minHours.error = "Minimum goal cannot be greater than maximum goal"
                 return@setOnClickListener
             } else if (minHours.text.toString().toInt() < 0) {
+                //check if min hours is less than 0
                 minHours.error = "Minimum goal cannot be less than 0"
                 return@setOnClickListener
             } else if (maxHours.text.toString().toInt() < 0) {
+                //check if max hours is less than 0
                 maxHours.error = "Maximum goal cannot be less than 0"
                 return@setOnClickListener
             } else if (maxHours.text.toString().toInt() > 24) {
+                //check if max hours is greater than 24
                 maxHours.error = "Maximum goal cannot be greater than 24"
                 return@setOnClickListener
             } else if (minHours.text.toString().toInt() > 24) {
+                //check if min hours is greater than 24
                 minHours.error = "Minimum goal cannot be greater than 24"
                 return@setOnClickListener
             } else {
@@ -76,12 +86,9 @@ class Goals : AppCompatActivity() {
                 //save max hours
                 val maxHours = maxHours.text.toString().toInt()
 
+                //get current date
                 val currentDate = java.util.Calendar.getInstance().time
                 val date = currentDate.toString()
-
-
-                val user = auth.currentUser!!
-                val uid = user.uid
 
                 //create goals object
                 val goals = Goal(
@@ -91,6 +98,7 @@ class Goals : AppCompatActivity() {
                     uid
                 )
 
+                //add goals to database
                 GoalManagement().addGoalToDatabase(goals)
 
                 //create intent to go to home page
@@ -103,7 +111,7 @@ class Goals : AppCompatActivity() {
         }
     }
 
-    private fun populateGoalTextViews(uid : String, minEditText: EditText, maxEditText : EditText) {
+    private fun populateGoalTextViews(uid: String, minEditText: EditText, maxEditText: EditText) {
         val database = Firebase.database.reference
         //get the goal where the user id is the current user
         val goalReference = database.child("goals").child(uid)
@@ -113,9 +121,11 @@ class Goals : AppCompatActivity() {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 if (dataSnapshot.exists()) {
                     val goal = dataSnapshot.getValue(Goal::class.java)
-                    // Assuming you have TextViews for displaying the minimum and maximum hours
-                    minEditText.text = Editable.Factory.getInstance().newEditable(goal?.minHours.toString())
-                    maxEditText.text = Editable.Factory.getInstance().newEditable(goal?.maxHours.toString())
+                    // set the text views to the current goals
+                    minEditText.text =
+                        Editable.Factory.getInstance().newEditable(goal?.minHours.toString())
+                    maxEditText.text =
+                        Editable.Factory.getInstance().newEditable(goal?.maxHours.toString())
                 }
             }
 
