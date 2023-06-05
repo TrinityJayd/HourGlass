@@ -70,10 +70,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
-                android:fontFamily="@font/ubunturegular"
+                android:fontFamily="@font/ubuntumedium"
                 android:text="Time Allocation By Category"
                 android:textColor="@android:color/white"
-                android:textSize="15sp" />
+                android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/subtitleTextView"
@@ -82,7 +82,7 @@
                 android:fontFamily="@font/ubunturegular"
                 android:text="How have you spent your time?"
                 android:textColor="@android:color/white"
-                android:textSize="13sp" />
+                android:textSize="16sp" />
         </LinearLayout>
 
     </LinearLayout>
