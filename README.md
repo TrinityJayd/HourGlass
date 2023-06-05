@@ -2,6 +2,13 @@
 
 HourGlass is an Android Kotlin application that helps users track their time entries and manage their work hours effectively. The app utilizes Firebase Realtime Database for data storage, Firebase Authentication for user login and signup, and Firebase Storage for storing images associated with timesheet entries.
 
+## Students
+
+Trinity Jayd Tiratram ST10083735
+Afsaana Bibi Mahomed ST10083504
+Jessica Leigh De Sousa Caldeira ST10083342
+Mahomed Zafir Haniff ST10083832
+
 ## Table of Contents
 
 - [Features](#features)
