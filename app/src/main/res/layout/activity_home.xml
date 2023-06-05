@@ -105,7 +105,8 @@
         android:layout_below="@id/imageLayout"
         android:baselineAligned="false"
         android:orientation="horizontal"
-        android:paddingHorizontal="30dp">
+        android:paddingHorizontal="30dp"
+        android:layout_marginBottom="30dp">
 
         <LinearLayout
             android:id="@+id/goalsButton"
@@ -151,6 +152,8 @@
         </LinearLayout>
 
     </LinearLayout>
+
+
 
 
 </RelativeLayout>
