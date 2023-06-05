@@ -41,5 +41,13 @@ class Home : AppCompatActivity() {
             //start analytics activity
             startActivity(Intent(this, Analytics::class.java))
         }
+
+        //get timer layout
+        val timer = findViewById<LinearLayout>(R.id.timerLayout)
+        //set onClickListener
+        timer.setOnClickListener {
+            //start timer activity
+            startActivity(Intent(this, Timer::class.java))
+        }
     }
 }

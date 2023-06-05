@@ -28,7 +28,10 @@ import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.ktx.storage
 import com.trinityjayd.hourglass.dbmanagement.EntryManagement
 import com.trinityjayd.hourglass.models.Entry
+import java.text.SimpleDateFormat
 import java.util.Calendar
+import java.util.Date
+import java.util.Locale
 import java.util.UUID
 
 
@@ -47,6 +50,21 @@ class NewEntry : AppCompatActivity() {
 
         populateCategories()
         createDatePickerDialog()
+
+        val date = findViewById<Button>(R.id.datePickerButton)
+        val currentDate = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(Date())
+        date.text = currentDate
+
+        val hours = findViewById<EditText>(R.id.hoursEditText)
+        val minutes = findViewById<EditText>(R.id.minutesEditText)
+
+        val intent = intent
+        //check if intent has extra
+        if (intent.hasExtra("hours") && intent.hasExtra("minutes")) {
+            //set hours and minutes
+            hours.setText(intent.getStringExtra("hours"))
+            minutes.setText(intent.getStringExtra("minutes"))
+        }
 
 
         //get home image view
@@ -78,8 +96,6 @@ class NewEntry : AppCompatActivity() {
             val taskName = findViewById<EditText>(R.id.editTextTaskName)
             val category = findViewById<Spinner>(R.id.spinnerCategory)
             val date = findViewById<Button>(R.id.datePickerButton)
-            val hours = findViewById<EditText>(R.id.hoursEditText)
-            val minutes = findViewById<EditText>(R.id.minutesEditText)
             val description = findViewById<EditText>(R.id.editTextNotes)
 
             if (taskName.text.toString().isNullOrBlank()) {
@@ -92,12 +108,7 @@ class NewEntry : AppCompatActivity() {
                 //display error message
                 Toast.makeText(this, "Please select a category.", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
-            } else if (date.text.toString()
-                    .isNullOrBlank() || date.text.toString() == "Select Date"
-            ) {
-                date.error = "Please select a date."
-                return@setOnClickListener
-            } else if (hours.text.toString().isNullOrBlank()) {
+            }else if (hours.text.toString().isNullOrBlank()) {
                 hours.error = "Please enter hours."
                 return@setOnClickListener
             } else if (hours.text.toString().toInt() > 24) {
@@ -193,7 +204,8 @@ class NewEntry : AppCompatActivity() {
             val datePickerDialog = DatePickerDialog(
                 this@NewEntry,
                 { datePicker, year, month, day ->
-                    date.text = day.toString() + "/" + (month + 1) + "/" + year
+                    val formattedDate = String.format("%02d/%02d/%04d", day, month + 1, year)
+                    date.text = formattedDate
                 }, year, month, dayOfMonth
             )
             datePickerDialog.show()
