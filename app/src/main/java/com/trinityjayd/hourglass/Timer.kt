@@ -134,6 +134,7 @@ class Timer : AppCompatActivity() {
 
 
         //go to new entry page with intent and pass hours and minutes
+        //this will be the duration of the entry
         val intent = Intent(this, NewEntry::class.java).apply {
             putExtra("hours", hoursString)
             putExtra("minutes", minutesString)

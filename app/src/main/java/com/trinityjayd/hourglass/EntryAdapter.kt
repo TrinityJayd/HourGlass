@@ -24,6 +24,7 @@ class EntryAdapter(private var entryList: List<Entry>) :
     RecyclerView.Adapter<EntryAdapter.ViewHolder>() {
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        // UI elements
         val colorBlock: View = itemView.findViewById(R.id.categoryColorView)
         val taskNameTextView: TextView = itemView.findViewById(R.id.taskNameTextView)
         val categoryTextView: TextView = itemView.findViewById(R.id.categoryTextView)
@@ -60,6 +61,7 @@ class EntryAdapter(private var entryList: List<Entry>) :
         if (!entry.imageKey.isNullOrEmpty()) {
             val storageRef = Firebase.storage.reference.child(entry.uid).child(entry.imageKey)
             storageRef.downloadUrl.addOnSuccessListener { imageUrl ->
+                // Load image into image view
                 Glide.with(holder.itemView.context)
                     .load(imageUrl)
                     .into(holder.photoImageView)
@@ -79,13 +81,14 @@ class EntryAdapter(private var entryList: List<Entry>) :
     }
 
 
-
     fun updateEntries(entries: List<Entry>) {
+        // Update entry list and notify adapter of change
         entryList = entries
         notifyDataSetChanged()
     }
 
     private fun formatDuration(hours: Int, minutes: Int): String {
+        // Format duration to HH:MM
         return String.format(Locale.getDefault(), "%02d:%02d", hours, minutes)
     }
 

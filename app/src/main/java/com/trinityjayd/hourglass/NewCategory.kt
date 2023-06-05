@@ -41,17 +41,22 @@ class NewCategory : AppCompatActivity() {
             //get category name
             val categoryName = findViewById<EditText>(R.id.editTextCategoryName)
             val categoryManagement = CategoryManagement()
+
+            //get current user
             auth = Firebase.auth
             val user = auth.currentUser!!
             val uid = user.uid
 
+            //check if category name is blank
             if(categoryName.text.toString().isNullOrBlank()){
                 categoryName.error = "Category name cannot be blank"
                 return@setOnClickListener
             }else if (defaultColor == 0){
+                //check if color is picked
                 pickColor?.error = "Please pick a color"
                 return@setOnClickListener
             }else{
+                //check if category already exists
                 categoryManagement.isCategoryExists(uid, categoryName.text.toString()) { exists ->
                     if (exists) {
                         categoryName.error = "Category with the same name already exists"
@@ -71,8 +76,9 @@ class NewCategory : AppCompatActivity() {
             }
         }
 
+        //get pick color button
         pickColor = findViewById(R.id.pickColorButton)
-
+        //set on click listener
         pickColor?.setOnClickListener(
             object : View.OnClickListener {
                 override fun onClick(v: View?) {

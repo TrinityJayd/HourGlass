@@ -16,6 +16,7 @@ class EntryManagement {
     fun addEntryToDatabase(entry: Entry) {
         var entryKey = database.push().key // Generate a unique key for the entry
         if (entryKey != null) {
+            // Add the entry to the database
             database.child("entries").child(entry.uid).child(entryKey!!).setValue(entry)
         }
     }
@@ -23,6 +24,7 @@ class EntryManagement {
     //get all entries for a user
     fun getAllEntriesForUser(uid: String, callback: (List<Entry>) -> Unit) {
         database.child("entries").child(uid)
+            // Read from the database
             .addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
                     val entries = mutableListOf<Entry>()
@@ -43,7 +45,13 @@ class EntryManagement {
     }
 
 
-    fun filterEntries(uid: String, categoryName: String, startDate: String, endDate: String, callback: (List<Entry>) -> Unit) {
+    fun filterEntries(
+        uid: String,
+        categoryName: String,
+        startDate: String,
+        endDate: String,
+        callback: (List<Entry>) -> Unit
+    ) {
         getAllEntriesForUser(uid) { entries ->
             val filteredEntries = entries.filter { entry ->
                 val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
@@ -53,41 +61,51 @@ class EntryManagement {
                 var isEndDateMatch = true
 
                 if (categoryName != "All" && entry.category != categoryName && categoryName != "Category") {
-                    isCategoryMatch = false // Filter out entries with category not matching the specified name
+                    isCategoryMatch =
+                        false // Filter out entries with category not matching the specified name
                 }
 
                 if (startDate != "Start Date") {
                     val startDateObj = dateFormat.parse(startDate)
-                    isStartDateMatch = entryDate?.after(startDateObj) ?: false || entryDate?.equals(startDateObj) ?: false // Filter entries after the start date
+                    isStartDateMatch =
+                        entryDate?.after(startDateObj) ?: false || entryDate?.equals(startDateObj) ?: false // Filter entries after the start date
                 }
 
                 if (endDate != "End Date") {
                     val endDateObj = dateFormat.parse(endDate)
-                    isEndDateMatch = entryDate?.before(endDateObj) ?: false || entryDate?.equals(endDateObj) ?: false// Filter entries before the end date
+                    isEndDateMatch =
+                        entryDate?.before(endDateObj) ?: false || entryDate?.equals(endDateObj) ?: false// Filter entries before the end date
                 }
 
+                // Return true if all filters match
                 isCategoryMatch && isStartDateMatch && isEndDateMatch
             }
             callback(filteredEntries)
         }
     }
 
-    fun calculateTotalTimeByCategory(uid: String, categoryName: String, startDate: String, endDate: String, callback: (Map<String, Pair<Int, Int>>) -> Unit) {
+    fun calculateTotalTimeByCategory(
+        uid: String,
+        categoryName: String,
+        startDate: String,
+        endDate: String,
+        callback: (Map<String, Pair<Int, Int>>) -> Unit
+    ) {
+        // Get all entries matching the filters
         filterEntries(uid, categoryName, startDate, endDate) { filteredEntries ->
             val totalTimeByCategory = mutableMapOf<String, Pair<Int, Int>>()
 
             for (entry in filteredEntries) {
+                // Get the category and time spent for each entry
                 val category = entry.category
-                var categoryColor = 0
-                CategoryManagement().getCategoryColor(entry.category) { color ->
-                    categoryColor = color
-                }
                 val hours = entry.hours
                 val minutes = entry.minutes
 
+                // Add the time spent to the total time for the category
                 val existingTotal = totalTimeByCategory[category]
                 if (existingTotal != null) {
                     val (existingHours, existingMinutes) = existingTotal
+                    // Add the hours and minutes to the existing total
                     val newHours = existingHours + hours
                     val newMinutes = existingMinutes + minutes
                     totalTimeByCategory[category] = Pair(newHours, newMinutes)
@@ -99,12 +117,6 @@ class EntryManagement {
             callback(totalTimeByCategory)
         }
     }
-
-
-
-
-
-
 
 
 }

@@ -1,16 +1,16 @@
 package com.trinityjayd.hourglass
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.method.PasswordTransformationMethod
 import android.widget.Button
 import android.widget.EditText
-import android.widget.LinearLayout
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import com.trinityjayd.hourglass.dbmanagement.UserDbManagement
 
 class Login : AppCompatActivity() {
 
@@ -48,6 +48,7 @@ class Login : AppCompatActivity() {
 
             val validationMethods = ValidationMethods()
 
+            //check if email and password are empty
             if (email.text.toString().isNullOrBlank()) {
                 email.error = "Please enter an email."
                 return@setOnClickListener
@@ -55,20 +56,23 @@ class Login : AppCompatActivity() {
                 password.error = "Please enter a password."
                 return@setOnClickListener
             } else if (!validationMethods.isEmailValid(email.text.toString())) {
+                //check if email is valid
                 email.error = "Please enter a valid email."
                 return@setOnClickListener
             } else {
                 val emailText = email.text.toString()
                 val passwordText = password.text.toString()
-                val firebaseVal = FirebaseValidation()
+                val userDbManagement = UserDbManagement()
 
-                firebaseVal.isUserExistsWithEmail(emailText) { exists ->
+                //check if user exists in database
+                userDbManagement.isUserExistsWithEmail(emailText) { exists ->
                     if (exists) {
                         auth = Firebase.auth
+                        //sign in user
                         auth.signInWithEmailAndPassword(emailText, passwordText)
                             .addOnCompleteListener(this) { task ->
                                 if (task.isSuccessful) {
-                                    val user = auth.currentUser
+                                    auth.currentUser
                                     val intent = Intent(this, Home::class.java)
                                     startActivity(intent)
                                 } else {

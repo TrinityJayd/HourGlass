@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".NewCategory"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".NewCategory">
 
 
     <LinearLayout
@@ -95,7 +95,7 @@
                 android:id="@+id/pickColorButton"
                 android:layout_width="64dp"
                 android:layout_height="64dp"
-                />
+                android:contentDescription="Color picker" />
 
 
         </LinearLayout>
@@ -106,14 +106,13 @@
             android:layout_height="wrap_content"
             android:layout_gravity="end"
             android:layout_marginTop="30dp"
+            android:background="@drawable/submit_button"
             android:fontFamily="@font/ubuntumedium"
             android:paddingHorizontal="70dp"
             android:text="Save"
             android:textAllCaps="false"
             android:textColor="@color/colorButtonText"
-            android:textSize="17sp"
-            android:background="@drawable/submit_button"
-            />
+            android:textSize="17sp" />
 
 
     </LinearLayout>

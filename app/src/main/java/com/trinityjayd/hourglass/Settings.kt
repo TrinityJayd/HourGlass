@@ -18,6 +18,7 @@ class Settings : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
 
+        //get current user
         auth = Firebase.auth
         val currentUser = auth.currentUser
         val uid = currentUser!!.uid

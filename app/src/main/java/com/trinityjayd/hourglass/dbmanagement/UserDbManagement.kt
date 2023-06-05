@@ -1,5 +1,6 @@
 package com.trinityjayd.hourglass.dbmanagement
 
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
@@ -16,8 +17,24 @@ class UserDbManagement {
         database.child("users").child(user.uid).setValue(user)
     }
 
+    fun isUserExistsWithEmail(email: String, onComplete: (Boolean) -> Unit) {
+        val auth = FirebaseAuth.getInstance()
+        //check if user exists
+        auth.fetchSignInMethodsForEmail(email)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    val signInMethods = task.result?.signInMethods
+                    val userExists = signInMethods != null && signInMethods.isNotEmpty()
+                    onComplete(userExists)
+                } else {
+                    onComplete(false)
+                }
+            }
+    }
+
     //get user name
     fun getUserFullName(uid: String, callback: (String?) -> Unit) {
+        //get users name
         val userRef = database.child("users").child(uid)
         userRef.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -31,4 +48,6 @@ class UserDbManagement {
             }
         })
     }
+
+
 }

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".Home"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
     android:paddingHorizontal="20dp"
-    android:paddingVertical="20dp">
+    android:paddingVertical="20dp"
+    tools:context=".Home">
 
     <!--    title bar-->
     <LinearLayout
@@ -103,10 +103,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/imageLayout"
+        android:layout_marginBottom="30dp"
         android:baselineAligned="false"
         android:orientation="horizontal"
-        android:paddingHorizontal="30dp"
-        android:layout_marginBottom="30dp">
+        android:paddingHorizontal="30dp">
 
         <LinearLayout
             android:id="@+id/goalsButton"
@@ -158,10 +158,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/imageLayout2"
+        android:layout_marginBottom="30dp"
         android:baselineAligned="false"
         android:orientation="horizontal"
-        android:paddingHorizontal="30dp"
-        android:layout_marginBottom="30dp">
+        android:paddingHorizontal="30dp">
 
         <LinearLayout
             android:id="@+id/timerLayout"
@@ -207,8 +207,6 @@
         </LinearLayout>
 
     </LinearLayout>
-
-
 
 
 </RelativeLayout>

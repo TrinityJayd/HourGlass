@@ -8,12 +8,14 @@ class GoalManagement {
     private var database = Firebase.database.reference
 
     fun addGoalToDatabase(goal: Goal) {
+        //add goal to database
         database.child("goals").child(goal.uid).setValue(goal)
 
     }
 
-    //update goal
+
     fun updateGoal(goal: Goal) {
+        //update goal
         database.child("goals").child(goal.uid).setValue(goal)
     }
 
