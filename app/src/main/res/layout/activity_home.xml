@@ -155,19 +155,21 @@
 
     <LinearLayout
         android:id="@+id/imageLayout3"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/imageLayout2"
         android:baselineAligned="false"
         android:orientation="horizontal"
-        android:paddingHorizontal="30dp">
+        android:paddingHorizontal="30dp"
+        android:layout_marginBottom="30dp">
 
         <LinearLayout
             android:id="@+id/timerLayout"
             android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_marginEnd="40dp"
             android:layout_weight="1"
-            android:background="@drawable/pink_home_square"
+            android:background="@drawable/green_home_square"
             android:gravity="center"
             android:orientation="vertical">
 
@@ -183,9 +185,30 @@
 
         </LinearLayout>
 
+        <LinearLayout
+            android:id="@+id/settingsLayout"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/pink_home_square"
+            android:gravity="center"
+            android:orientation="vertical">
 
+            <TextView
+                android:id="@+id/settingsTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="100dp"
+                android:fontFamily="@font/ubuntumedium"
+                android:text="Settings"
+                android:textColor="@android:color/white"
+                android:textSize="20sp" />
+
+        </LinearLayout>
 
     </LinearLayout>
+
+
 
 
 </RelativeLayout>

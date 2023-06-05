@@ -10,6 +10,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -58,6 +59,11 @@ class TotalHours : AppCompatActivity() {
 
         //set on click listener
         filterButton.setOnClickListener {
+
+            if(category.selectedItem.toString() == "Category"){
+                Toast.makeText(this, "Please select a category", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
 
             if (startDate.text.toString() != "Start Date" && endDate.text.toString() != "End Date") {
                 val startDateText = startDate.text.toString()

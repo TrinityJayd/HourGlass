@@ -49,5 +49,14 @@ class Home : AppCompatActivity() {
             //start timer activity
             startActivity(Intent(this, Timer::class.java))
         }
+
+        //get settings layout
+        val settings = findViewById<LinearLayout>(R.id.settingsLayout)
+        //set onClickListener
+        settings.setOnClickListener {
+            //start settings activity
+            startActivity(Intent(this, Settings::class.java))
+        }
+
     }
 }

@@ -126,7 +126,11 @@ class NewEntry : AppCompatActivity() {
             } else if (minutes.text.toString().toInt() < 0) {
                 minutes.error = "Please enter minutes greater than 0."
                 return@setOnClickListener
-            } else if (description.text.toString().isNullOrBlank()) {
+            } else if(hours.text.toString().toInt() == 0 && minutes.text.toString().toInt() == 0 ){
+                Toast.makeText(this, "Please enter hours or minutes greater than 0.", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+            else if (description.text.toString().isNullOrBlank()) {
                 //set description to blank
                 description.setText("")
             } else if (description.text.toString().length > 100) {
