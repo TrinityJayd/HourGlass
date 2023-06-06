@@ -88,38 +88,44 @@ class EntryManagement {
         filterEntries(uid, categoryName, startDate, endDate) { filteredEntries ->
             val totalTimeByCategory = mutableMapOf<String, Pair<Int, Int>>()
 
-            for (entry in filteredEntries) {
-                val category = entry.category
-                var hours = entry.hours
-                var minutes = entry.minutes
+            //if no entries, return 0
+            if (filteredEntries.isEmpty()) {
+                totalTimeByCategory[categoryName] = Pair(0, 0)
+            } else {
+                for (entry in filteredEntries) {
+                    val category = entry.category
+                    var hours = entry.hours
+                    var minutes = entry.minutes
 
-                // Adjust minutes and hours if minutes exceed 60
-                if (minutes >= 60) {
-                    hours += minutes / 60
-                    minutes %= 60
-                }
-
-                val existingTotal = totalTimeByCategory[category]
-                if (existingTotal != null) {
-                    val (existingHours, existingMinutes) = existingTotal
-                    var newHours = existingHours + hours
-                    var newMinutes = existingMinutes + minutes
-
-                    // Adjust minutes and hours if newMinutes exceed 60
-                    if (newMinutes >= 60) {
-                        newHours += newMinutes / 60
-                        newMinutes %= 60
+                    // Adjust minutes and hours if minutes exceed 60
+                    if (minutes >= 60) {
+                        hours += minutes / 60
+                        minutes %= 60
                     }
 
-                    totalTimeByCategory[category] = Pair(newHours, newMinutes)
-                } else {
-                    totalTimeByCategory[category] = Pair(hours, minutes)
+                    val existingTotal = totalTimeByCategory[category]
+                    if (existingTotal != null) {
+                        val (existingHours, existingMinutes) = existingTotal
+                        var newHours = existingHours + hours
+                        var newMinutes = existingMinutes + minutes
+
+                        // Adjust minutes and hours if newMinutes exceed 60
+                        if (newMinutes >= 60) {
+                            newHours += newMinutes / 60
+                            newMinutes %= 60
+                        }
+
+                        totalTimeByCategory[category] = Pair(newHours, newMinutes)
+                    } else {
+                        totalTimeByCategory[category] = Pair(hours, minutes)
+                    }
                 }
             }
 
             callback(totalTimeByCategory)
         }
     }
+
 
 
 
