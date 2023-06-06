@@ -16,7 +16,7 @@ import yuku.ambilwarna.AmbilWarnaDialog
 
 class NewCategory : AppCompatActivity() {
 
-    private var pickColor : Button? = null
+    private var pickColor: Button? = null
     private var defaultColor = 0
     private lateinit var auth: FirebaseAuth
 
@@ -48,14 +48,17 @@ class NewCategory : AppCompatActivity() {
             val uid = user.uid
 
             //check if category name is blank
-            if(categoryName.text.toString().isNullOrBlank()){
+            if (categoryName.text.toString().isNullOrBlank()) {
                 categoryName.error = "Category name cannot be blank"
                 return@setOnClickListener
-            }else if (defaultColor == 0){
+            } else if (categoryName.text.toString().length > 50) {
+                categoryName.error = "Category name cannot be more than 50 characters"
+                return@setOnClickListener
+            } else if (defaultColor == 0) {
                 //check if color is picked
                 pickColor?.error = "Please pick a color"
                 return@setOnClickListener
-            }else{
+            } else {
                 //check if category already exists
                 categoryManagement.isCategoryExists(uid, categoryName.text.toString()) { exists ->
                     if (exists) {
@@ -90,8 +93,8 @@ class NewCategory : AppCompatActivity() {
     }
 
     //Code Attribution
-    //Author: GeeksforGeeks
-    //Link: https://www.geeksforgeeks.org/how-to-create-a-basic-color-picker-tool-in-android/
+//Author: GeeksforGeeks
+//Link: https://www.geeksforgeeks.org/how-to-create-a-basic-color-picker-tool-in-android/
     fun openColorPickerDialogue() {
 
         // the AmbilWarnaDialog callback needs 3 parameters

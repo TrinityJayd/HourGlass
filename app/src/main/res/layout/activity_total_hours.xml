@@ -82,7 +82,9 @@
                 android:minHeight="48dp"
                 android:paddingHorizontal="16dp"
                 android:paddingVertical="10dp"
-                android:singleLine="false"
+                android:singleLine="true"
+                android:maxLines="1"
+                android:ellipsize="end"
                 android:textColor="@android:color/white" />
 
             <Button

@@ -3,7 +3,11 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/colorButtonText"
+    android:ellipsize="end"
     android:fontFamily="@font/ubuntumedium"
     android:padding="10dp"
+    android:maxLines="1"
     android:textColor="@android:color/white"
     android:textSize="18sp" />
+
+
