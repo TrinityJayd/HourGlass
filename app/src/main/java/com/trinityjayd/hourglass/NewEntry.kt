@@ -135,7 +135,7 @@ class NewEntry : AppCompatActivity() {
                 //no minutes entered
                 minutes.error = "Please enter minutes."
                 return@setOnClickListener
-            } else if (minutes.text.toString().toInt() > 60) {
+            } else if (minutes.text.toString().toInt() >= 60) {
                 //minutes entered is greater than 60
                 minutes.error = "Please enter minutes less than 60."
                 return@setOnClickListener

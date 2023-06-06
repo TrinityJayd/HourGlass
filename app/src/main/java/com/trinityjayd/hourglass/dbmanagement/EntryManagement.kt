@@ -84,30 +84,33 @@ class EntryManagement {
         }
     }
 
-    fun calculateTotalTimeByCategory(
-        uid: String,
-        categoryName: String,
-        startDate: String,
-        endDate: String,
-        callback: (Map<String, Pair<Int, Int>>) -> Unit
-    ) {
-        // Get all entries matching the filters
+    fun calculateTotalTimeByCategory(uid: String, categoryName: String, startDate: String, endDate: String, callback: (Map<String, Pair<Int, Int>>) -> Unit) {
         filterEntries(uid, categoryName, startDate, endDate) { filteredEntries ->
             val totalTimeByCategory = mutableMapOf<String, Pair<Int, Int>>()
 
             for (entry in filteredEntries) {
-                // Get the category and time spent for each entry
                 val category = entry.category
-                val hours = entry.hours
-                val minutes = entry.minutes
+                var hours = entry.hours
+                var minutes = entry.minutes
 
-                // Add the time spent to the total time for the category
+                // Adjust minutes and hours if minutes exceed 60
+                if (minutes >= 60) {
+                    hours += minutes / 60
+                    minutes %= 60
+                }
+
                 val existingTotal = totalTimeByCategory[category]
                 if (existingTotal != null) {
                     val (existingHours, existingMinutes) = existingTotal
-                    // Add the hours and minutes to the existing total
-                    val newHours = existingHours + hours
-                    val newMinutes = existingMinutes + minutes
+                    var newHours = existingHours + hours
+                    var newMinutes = existingMinutes + minutes
+
+                    // Adjust minutes and hours if newMinutes exceed 60
+                    if (newMinutes >= 60) {
+                        newHours += newMinutes / 60
+                        newMinutes %= 60
+                    }
+
                     totalTimeByCategory[category] = Pair(newHours, newMinutes)
                 } else {
                     totalTimeByCategory[category] = Pair(hours, minutes)
@@ -117,6 +120,7 @@ class EntryManagement {
             callback(totalTimeByCategory)
         }
     }
+
 
 
 }
