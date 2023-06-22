@@ -64,7 +64,7 @@ class TotalHours : AppCompatActivity() {
             if(category.selectedItem.toString() == "Category"){
                 Toast.makeText(this, "Please select a category", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
-            }else if (startDate.text.toString() != "Start Date" && endDate.text.toString() != "End Date") {
+            }else if (startDate.text.toString() != "Start" && endDate.text.toString() != "End") {
                 //save start date and end date
                 val startDateText = startDate.text.toString()
                 val endDateText = endDate.text.toString()
@@ -122,8 +122,8 @@ class TotalHours : AppCompatActivity() {
                 }
             }
             //reset the filter text
-            startDate.text = "Start Date"
-            endDate.text = "End Date"
+            startDate.text = "Start"
+            endDate.text = "End"
             category.setSelection(0)
 
         }

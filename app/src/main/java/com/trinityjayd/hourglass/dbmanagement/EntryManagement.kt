@@ -65,13 +65,13 @@ class EntryManagement {
                         false // Filter out entries with category not matching the specified name
                 }
 
-                if (startDate != "Start Date") {
+                if (startDate != "Start") {
                     val startDateObj = dateFormat.parse(startDate)
                     isStartDateMatch =
                         entryDate?.after(startDateObj) ?: false || entryDate?.equals(startDateObj) ?: false // Filter entries after the start date
                 }
 
-                if (endDate != "End Date") {
+                if (endDate != "End") {
                     val endDateObj = dateFormat.parse(endDate)
                     isEndDateMatch =
                         entryDate?.before(endDateObj) ?: false || entryDate?.equals(endDateObj) ?: false// Filter entries before the end date

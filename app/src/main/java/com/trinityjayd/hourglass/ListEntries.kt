@@ -74,7 +74,7 @@ class ListEntries : AppCompatActivity() {
             val category = findViewById<Spinner>(R.id.spinnerCategory)
 
             //check if start date and end date are not the default values
-            if (startDate.text.toString() != "Start Date" && endDate.text.toString() != "End Date") {
+            if (startDate.text.toString() != "Start" && endDate.text.toString() != "End") {
                 val startDateText = startDate.text.toString()
                 val endDateText = endDate.text.toString()
 
@@ -111,8 +111,8 @@ class ListEntries : AppCompatActivity() {
             }
 
             //reset filter text
-            startDate.text = "Start Date"
-            endDate.text = "End Date"
+            startDate.text = "Start"
+            endDate.text = "End"
             category.setSelection(0)
         }
 

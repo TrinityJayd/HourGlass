@@ -81,7 +81,7 @@
             android:fontFamily="@font/ubuntumedium"
             android:minWidth="48dp"
             android:minHeight="48dp"
-            android:text="Start Date"
+            android:text="Start"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="18sp" />
@@ -96,7 +96,7 @@
             android:fontFamily="@font/ubuntumedium"
             android:minWidth="48dp"
             android:minHeight="48dp"
-            android:text="End Date"
+            android:text="End"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="18sp" />

@@ -132,7 +132,7 @@
             android:layout_marginEnd="20dp"
             android:background="@drawable/submit_button"
             android:fontFamily="@font/ubuntumedium"
-            android:paddingHorizontal="70dp"
+            android:paddingHorizontal="40dp"
             android:text="Save"
             android:textAllCaps="false"
             android:textColor="@color/colorButtonText"

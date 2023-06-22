@@ -14,7 +14,7 @@
         android:drawable="@drawable/settings"
         android:gravity="center"
         android:width="40dp"
-        android:height="40dp"
+        android:height="43dp"
         android:bottom="10dp"
         android:left="12dp"
         android:right="10dp"
