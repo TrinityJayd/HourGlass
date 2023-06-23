@@ -1,7 +1,6 @@
 package com.trinityjayd.hourglass.dbmanagement
 
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
@@ -20,7 +19,7 @@ class UserDbManagement {
     }
 
     fun isUserExistsWithEmail(email: String, onComplete: (Boolean) -> Unit) {
-        auth = Firebase.auth
+        auth = FirebaseAuth.getInstance()
         //check if user exists
         auth.fetchSignInMethodsForEmail(email)
             .addOnCompleteListener { task ->
