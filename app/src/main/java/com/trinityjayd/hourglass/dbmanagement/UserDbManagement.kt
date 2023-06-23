@@ -1,6 +1,7 @@
 package com.trinityjayd.hourglass.dbmanagement
 
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
@@ -12,19 +13,20 @@ import com.trinityjayd.hourglass.models.User
 
 class UserDbManagement {
     private var database = Firebase.database.reference
+    private lateinit var auth: FirebaseAuth
 
     fun addUserToDatabase(user: User) {
         database.child("users").child(user.uid).setValue(user)
     }
 
     fun isUserExistsWithEmail(email: String, onComplete: (Boolean) -> Unit) {
-        val auth = FirebaseAuth.getInstance()
+        auth = Firebase.auth
         //check if user exists
         auth.fetchSignInMethodsForEmail(email)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     val signInMethods = task.result?.signInMethods
-                    val userExists = signInMethods != null && signInMethods.isNotEmpty()
+                    val userExists = !signInMethods.isNullOrEmpty()
                     onComplete(userExists)
                 } else {
                     onComplete(false)
