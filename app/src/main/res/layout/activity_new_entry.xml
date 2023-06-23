@@ -32,7 +32,7 @@
             android:fontFamily="@font/ubuntumedium"
             android:text="New Entry"
             android:textColor="@android:color/white"
-            android:textSize="34sp" />
+            android:textSize="30sp" />
 
         <ImageView
             android:id="@+id/homeImageView"

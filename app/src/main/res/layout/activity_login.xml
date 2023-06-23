@@ -28,18 +28,18 @@
         android:fontFamily="@font/ubuntumedium"
         android:text="Ready to start?"
         android:textColor="@android:color/white"
-        android:textSize="34sp" />
+        android:textSize="24sp" />
 
     <TextView
         android:id="@+id/subtitleTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:layout_marginBottom="70dp"
+        android:layout_marginBottom="30dp"
         android:fontFamily="@font/ubunturegular"
         android:text="Login to your account."
         android:textColor="@android:color/white"
-        android:textSize="20sp" />
+        android:textSize="18sp" />
 
     <TextView
         android:id="@+id/emailTextView"
@@ -51,7 +51,7 @@
         android:labelFor="@id/editTextEmailAddress"
         android:text="Email"
         android:textColor="@android:color/white"
-        android:textSize="20sp" />
+        android:textSize="18sp" />
 
     <EditText
         android:id="@+id/editTextEmailAddress"
@@ -78,7 +78,7 @@
         android:labelFor="@id/editTextPassword"
         android:text="Password"
         android:textColor="@android:color/white"
-        android:textSize="20sp" />
+        android:textSize="18sp" />
 
     <EditText
         android:id="@+id/editTextPassword"
@@ -104,15 +104,14 @@
         android:text="Forgot Password?"
         android:textAllCaps="false"
         android:textColor="@android:color/white"
-        android:textSize="17sp" />
+        android:textSize="18sp" />
 
     <Button
         android:id="@+id/loginButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="15dp"
+        android:layout_marginVertical="10dp"
         android:background="@drawable/submit_button"
         android:fontFamily="@font/ubuntumedium"
         android:paddingHorizontal="50dp"
