@@ -7,12 +7,12 @@
     android:gravity="center"
     android:orientation="vertical"
     android:paddingHorizontal="45dp"
-    android:paddingVertical="16dp"
+    android:paddingVertical="10dp"
     tools:context=".Login">
 
     <ImageView
         android:id="@+id/logoImageView"
-        android:layout_width="match_parent"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
         android:adjustViewBounds="true"
@@ -104,7 +104,7 @@
         android:text="Forgot Password?"
         android:textAllCaps="false"
         android:textColor="@android:color/white"
-        android:textSize="18sp" />
+        android:textSize="16sp" />
 
     <Button
         android:id="@+id/loginButton"
@@ -118,7 +118,7 @@
         android:text="Login"
         android:textAllCaps="false"
         android:textColor="@color/colorButtonText"
-        android:textSize="20sp" />
+        android:textSize="18sp" />
 
     <Button
         android:id="@+id/noAccountButton"
@@ -130,7 +130,7 @@
         android:text="Don't have an account? Sign Up."
         android:textAllCaps="false"
         android:textColor="@android:color/white"
-        android:textSize="17sp" />
+        android:textSize="16sp" />
 
 
 </LinearLayout>

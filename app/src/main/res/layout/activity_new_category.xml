@@ -60,7 +60,7 @@
             android:labelFor="@id/editTextCategoryName"
             android:text="Category Name"
             android:textColor="@android:color/white"
-            android:textSize="20sp" />
+            android:textSize="16sp" />
 
         <EditText
             android:id="@+id/editTextCategoryName"
@@ -89,7 +89,7 @@
                 android:fontFamily="@font/ubunturegular"
                 android:text="Color"
                 android:textColor="@android:color/white"
-                android:textSize="20sp" />
+                android:textSize="16sp" />
 
             <Button
                 android:id="@+id/pickColorButton"
@@ -108,11 +108,11 @@
             android:layout_marginTop="30dp"
             android:background="@drawable/submit_button"
             android:fontFamily="@font/ubuntumedium"
-            android:paddingHorizontal="70dp"
+            android:paddingHorizontal="40dp"
             android:text="Save"
             android:textAllCaps="false"
             android:textColor="@color/colorButtonText"
-            android:textSize="17sp" />
+            android:textSize="18sp" />
 
 
     </LinearLayout>

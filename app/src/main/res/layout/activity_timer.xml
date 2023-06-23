@@ -70,7 +70,7 @@
             android:fontFamily="@font/ubuntumedium"
             android:onClick="onClickStart"
             android:text="START"
-            android:textSize="20sp" />
+            android:textSize="18sp" />
 
         <Button
             android:id="@+id/stop_button"
@@ -81,7 +81,7 @@
             android:fontFamily="@font/ubuntumedium"
             android:onClick="onClickStop"
             android:text="STOP"
-            android:textSize="20sp" />
+            android:textSize="18sp" />
 
     </LinearLayout>
 
@@ -102,7 +102,7 @@
             android:fontFamily="@font/ubuntumedium"
             android:onClick="onClickReset"
             android:text="RESET"
-            android:textSize="20sp" />
+            android:textSize="18sp" />
 
         <Button
             android:id="@+id/save_button"
@@ -113,7 +113,7 @@
             android:fontFamily="@font/ubuntumedium"
             android:onClick="onClickSave"
             android:text="Save"
-            android:textSize="20sp" />
+            android:textSize="18sp" />
 
     </LinearLayout>
 
