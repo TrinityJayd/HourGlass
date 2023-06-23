@@ -20,17 +20,20 @@ class UserDbManagement {
 
     fun isUserExistsWithEmail(email: String, onComplete: (Boolean) -> Unit) {
         auth = FirebaseAuth.getInstance()
-        //check if user exists
-        auth.fetchSignInMethodsForEmail(email)
-            .addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    val signInMethods = task.result?.signInMethods
-                    val userExists = !signInMethods.isNullOrEmpty()
-                    onComplete(userExists)
-                } else {
+        //check if the user exists
+        auth.fetchSignInMethodsForEmail(email).addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                val signInMethods = task.result?.signInMethods
+                if (signInMethods.isNullOrEmpty()) {
                     onComplete(false)
+                } else {
+                    onComplete(true)
                 }
+            } else {
+                onComplete(false)
             }
+        }
+
     }
 
     //get user name
