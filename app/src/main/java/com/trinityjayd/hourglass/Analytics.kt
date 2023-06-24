@@ -28,6 +28,12 @@ class Analytics : AppCompatActivity() {
             startActivity(intent)
         }
 
+        val hoursPerDay = findViewById<LinearLayout>(R.id.workHoursLayout)
+        hoursPerDay.setOnClickListener {
+            val intent = Intent(this, HoursPerDay::class.java)
+            startActivity(intent)
+        }
+
 
     }
 }
