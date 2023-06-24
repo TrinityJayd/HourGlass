@@ -25,7 +25,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/ubuntubold"
             android:textColor="@color/white"
-            android:textSize="24sp"
+            android:textSize="18sp"
             android:textStyle="bold" />
 
         <TextView
@@ -34,7 +34,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/ubunturegular"
             android:textColor="@color/white"
-            android:textSize="20sp" />
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/descriptionTextView"
@@ -42,7 +42,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/ubunturegular"
             android:textColor="@color/white"
-            android:textSize="20sp" />
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/durationTextView"
@@ -50,7 +50,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/ubunturegular"
             android:textColor="@color/white"
-            android:textSize="20sp" />
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/dateTextView"
@@ -58,7 +58,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/ubunturegular"
             android:textColor="@color/white"
-            android:textSize="20sp" />
+            android:textSize="14sp" />
 
     </LinearLayout>
 

@@ -64,10 +64,10 @@ class Login : AppCompatActivity() {
                 val passwordText = password.text.toString()
                 val userDbManagement = UserDbManagement()
 
+                auth = Firebase.auth
                 //check if user exists in database
-                userDbManagement.isUserExistsWithEmail(emailText) { exists ->
+                userDbManagement.isUserExistsWithEmail(emailText, auth) { exists ->
                     if (exists) {
-                        auth = Firebase.auth
                         //sign in user
                         auth.signInWithEmailAndPassword(emailText, passwordText)
                             .addOnCompleteListener(this) { task ->

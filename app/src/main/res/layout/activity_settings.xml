@@ -31,7 +31,8 @@
             android:fontFamily="@font/ubuntumedium"
             android:text="Settings"
             android:textColor="@android:color/white"
-            android:textSize="34sp" />
+            android:textSize="22sp"
+            android:layout_gravity="center" />
 
         <ImageView
             android:id="@+id/homeImageView"
@@ -51,7 +52,7 @@
         android:fontFamily="@font/ubuntumedium"
         android:text="Your Profile"
         android:textColor="@android:color/white"
-        android:textSize="24sp" />
+        android:textSize="20sp" />
 
     <LinearLayout
         android:id="@+id/profileLayout"
@@ -70,7 +71,7 @@
             android:fontFamily="@font/ubunturegular"
             android:text="Name"
             android:textColor="@android:color/white"
-            android:textSize="20sp" />
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/nameTextView"
@@ -79,7 +80,7 @@
             android:layout_marginBottom="15dp"
             android:fontFamily="@font/ubuntulight"
             android:textColor="@android:color/white"
-            android:textSize="18sp" />
+            android:textSize="14sp" />
 
         <View
             android:layout_width="match_parent"
@@ -95,7 +96,7 @@
             android:fontFamily="@font/ubunturegular"
             android:text="Email"
             android:textColor="@android:color/white"
-            android:textSize="20sp" />
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/emailTextView"
@@ -104,7 +105,7 @@
             android:layout_marginBottom="15dp"
             android:fontFamily="@font/ubuntulight"
             android:textColor="@android:color/white"
-            android:textSize="18sp" />
+            android:textSize="14sp" />
 
         <View
             android:layout_width="match_parent"
@@ -120,12 +121,12 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:background="@drawable/spinner_background"
-        android:fontFamily="@font/ubuntumedium"
+        android:fontFamily="@font/ubunturegular"
         android:paddingHorizontal="50dp"
         android:text="Sign Out"
         android:textAllCaps="false"
         android:textColor="@color/white"
-        android:textSize="20sp" />
+        android:textSize="16sp" />
 
 
 </LinearLayout>

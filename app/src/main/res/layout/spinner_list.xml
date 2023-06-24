@@ -8,6 +8,6 @@
     android:padding="10dp"
     android:maxLines="1"
     android:textColor="@android:color/white"
-    android:textSize="18sp" />
+    android:textSize="15sp" />
 
 

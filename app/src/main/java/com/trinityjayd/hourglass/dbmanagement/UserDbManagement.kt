@@ -13,25 +13,26 @@ import com.trinityjayd.hourglass.models.User
 
 class UserDbManagement {
     private var database = Firebase.database.reference
-    private lateinit var auth: FirebaseAuth
 
     fun addUserToDatabase(user: User) {
         database.child("users").child(user.uid).setValue(user)
     }
 
-    fun isUserExistsWithEmail(email: String, onComplete: (Boolean) -> Unit) {
-        auth = Firebase.auth
-        //check if user exists
-        auth.fetchSignInMethodsForEmail(email)
-            .addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    val signInMethods = task.result?.signInMethods
-                    val userExists = !signInMethods.isNullOrEmpty()
-                    onComplete(userExists)
-                } else {
+    fun isUserExistsWithEmail(email: String, auth : FirebaseAuth, onComplete: (Boolean) -> Unit) {
+        //check if the user exists
+        auth.fetchSignInMethodsForEmail(email).addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                val signInMethods = task.result?.signInMethods
+                if (signInMethods.isNullOrEmpty()) {
                     onComplete(false)
+                } else {
+                    onComplete(true)
                 }
+            } else {
+                onComplete(false)
             }
+        }
+
     }
 
     //get user name

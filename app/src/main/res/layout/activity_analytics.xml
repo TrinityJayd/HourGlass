@@ -12,7 +12,7 @@
         android:id="@+id/imageTitleLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="25dp"
+        android:layout_marginBottom="35dp"
         android:orientation="horizontal"
         android:paddingTop="20dp">
 
@@ -31,7 +31,8 @@
             android:fontFamily="@font/ubuntumedium"
             android:text="Analytics"
             android:textColor="@android:color/white"
-            android:textSize="34sp" />
+            android:textSize="22sp"
+            android:layout_gravity="center"/>
 
         <ImageView
             android:id="@+id/homeImageView"
@@ -55,8 +56,8 @@
 
 
         <ImageView
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:layout_marginEnd="10dp"
             android:contentDescription="Girl Thinking"
             android:src="@drawable/time_allocation" />
@@ -74,7 +75,7 @@
                 android:fontFamily="@font/ubuntumedium"
                 android:text="Time Allocation By Category"
                 android:textColor="@android:color/white"
-                android:textSize="20sp" />
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/subtitleTextView"
@@ -83,7 +84,7 @@
                 android:fontFamily="@font/ubunturegular"
                 android:text="How have you spent your time?"
                 android:textColor="@android:color/white"
-                android:textSize="16sp" />
+                android:textSize="14sp" />
         </LinearLayout>
 
     </LinearLayout>
@@ -100,8 +101,8 @@
 
 
         <ImageView
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:layout_marginEnd="10dp"
             android:contentDescription="Girl Working"
             android:src="@drawable/girl_working" />
@@ -119,7 +120,7 @@
                 android:fontFamily="@font/ubuntumedium"
                 android:text="Work Hours Progress"
                 android:textColor="@android:color/white"
-                android:textSize="20sp" />
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/workHoursSubtitleTextView"
@@ -128,7 +129,7 @@
                 android:fontFamily="@font/ubunturegular"
                 android:text="How efficient is your time management?"
                 android:textColor="@android:color/white"
-                android:textSize="16sp" />
+                android:textSize="14sp" />
         </LinearLayout>
 
     </LinearLayout>
@@ -144,8 +145,8 @@
 
 
         <ImageView
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:layout_marginEnd="10dp"
             android:contentDescription="Goal Banner"
             android:src="@drawable/goal_sign" />
@@ -163,7 +164,7 @@
                 android:fontFamily="@font/ubuntumedium"
                 android:text="Monthly Goal Progress"
                 android:textColor="@android:color/white"
-                android:textSize="20sp" />
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/monthlyGoalSubtitleTextView"
@@ -172,7 +173,7 @@
                 android:fontFamily="@font/ubunturegular"
                 android:text="Are you reaching your goals?"
                 android:textColor="@android:color/white"
-                android:textSize="16sp" />
+                android:textSize="14sp" />
         </LinearLayout>
 
     </LinearLayout>
