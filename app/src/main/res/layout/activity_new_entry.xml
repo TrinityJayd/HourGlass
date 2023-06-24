@@ -32,7 +32,8 @@
             android:fontFamily="@font/ubuntumedium"
             android:text="New Entry"
             android:textColor="@android:color/white"
-            android:textSize="30sp" />
+            android:textSize="22sp"
+            android:layout_gravity="center" />
 
         <ImageView
             android:id="@+id/homeImageView"
@@ -121,7 +122,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="30dp"
+            android:layout_marginBottom="20dp"
             android:orientation="horizontal">
 
             <TextView
@@ -141,7 +142,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
                 android:background="@drawable/spinner_background"
-                android:fontFamily="@font/ubuntumedium"
+                android:fontFamily="@font/ubunturegular"
                 android:paddingHorizontal="25dp"
                 android:text="Select Date"
                 android:textAllCaps="false"
@@ -236,7 +237,7 @@
             android:text="Upload Image (Optional) 📎"
             android:textAllCaps="false"
             android:textColor="@android:color/white"
-            android:textSize="16sp" />
+            android:textSize="14sp" />
     </LinearLayout>
 
     <Button
@@ -247,11 +248,11 @@
         android:layout_alignParentBottom="true"
         android:layout_marginEnd="20dp"
         android:background="@drawable/submit_button"
-        android:fontFamily="@font/ubuntumedium"
+        android:fontFamily="@font/ubunturegular"
         android:paddingHorizontal="40dp"
         android:text="Save"
         android:textAllCaps="false"
         android:textColor="@color/colorButtonText"
-        android:textSize="18sp" />
+        android:textSize="16sp" />
 
 </RelativeLayout>

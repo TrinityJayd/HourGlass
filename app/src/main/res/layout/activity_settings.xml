@@ -31,7 +31,8 @@
             android:fontFamily="@font/ubuntumedium"
             android:text="Settings"
             android:textColor="@android:color/white"
-            android:textSize="30sp" />
+            android:textSize="22sp"
+            android:layout_gravity="center" />
 
         <ImageView
             android:id="@+id/homeImageView"
@@ -120,7 +121,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:background="@drawable/spinner_background"
-        android:fontFamily="@font/ubuntumedium"
+        android:fontFamily="@font/ubunturegular"
         android:paddingHorizontal="50dp"
         android:text="Sign Out"
         android:textAllCaps="false"

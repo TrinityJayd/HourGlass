@@ -132,7 +132,7 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="30dp"
         android:background="@drawable/submit_button"
-        android:fontFamily="@font/ubuntumedium"
+        android:fontFamily="@font/ubunturegular"
         android:paddingHorizontal="50dp"
         android:text="Sign Up"
         android:textAllCaps="false"

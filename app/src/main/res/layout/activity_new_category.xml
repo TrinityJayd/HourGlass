@@ -30,9 +30,10 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:fontFamily="@font/ubuntumedium"
-            android:text="New Category"
+            android:text="Category"
             android:textColor="@android:color/white"
-            android:textSize="30sp" />
+            android:textSize="22sp"
+            android:layout_gravity="center" />
 
         <ImageView
             android:id="@+id/homeImageView"
@@ -107,7 +108,7 @@
             android:layout_gravity="end"
             android:layout_marginTop="30dp"
             android:background="@drawable/submit_button"
-            android:fontFamily="@font/ubuntumedium"
+            android:fontFamily="@font/ubunturegular"
             android:paddingHorizontal="40dp"
             android:text="Save"
             android:textAllCaps="false"

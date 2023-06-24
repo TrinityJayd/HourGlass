@@ -32,7 +32,8 @@
             android:fontFamily="@font/ubuntumedium"
             android:text="Analytics"
             android:textColor="@android:color/white"
-            android:textSize="30sp" />
+            android:textSize="22sp"
+            android:layout_gravity="center" />
 
         <ImageView
             android:id="@+id/homeImageView"
