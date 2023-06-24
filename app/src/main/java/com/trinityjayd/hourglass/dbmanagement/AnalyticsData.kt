@@ -16,73 +16,69 @@ class AnalyticsData {
     private lateinit var startDate : Date
     private lateinit var endDate : Date
 
-    fun getGoals () : Pair<Double, Double> {
+    fun getGoals(callback: (Pair<Float, Float>) -> Unit) {
         val uid = auth.currentUser?.uid
 
-        var minimumGoal = 0.0
-        var maximumGoal = 0.0
+        var minimumGoal = 0.0f
+        var maximumGoal = 0.0f
 
-        //get minimum and maximum goal from database
+        // get minimum and maximum goal from database
         val goalRef = database.child("goals").child(uid.toString())
         goalRef.get().addOnSuccessListener {
-            minimumGoal = it.child("minimumGoal").value.toString().toDouble()
-            maximumGoal = it.child("maximumGoal").value.toString().toDouble()
-        }
+            minimumGoal = it.child("minHours").value.toString().toFloat()
+            maximumGoal = it.child("maxHours").value.toString().toFloat()
 
-        return Pair(minimumGoal, maximumGoal)
+            // Invoke the callback with the retrieved values
+            callback(Pair(minimumGoal, maximumGoal))
+        }
     }
 
-    fun hoursPerDay (start : String, end : String) : ArrayList<Double> {
-        var userEntries = listOf<Entry>()
+
+    fun hoursPerDay(start: String, end: String, onComplete: (ArrayList<Double>) -> Unit) {
         val entryManagement = EntryManagement()
 
         val calendar = Calendar.getInstance()
         val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
 
-        if (start == "Start" && end == "End"){
-            //get current date
+        val startDate: Date
+        val endDate: Date
+
+        if (start == "Start" && end == "End") {
             val currentDate = calendar.time
             val dates = getWeekDates(currentDate)
-
             startDate = dates.first
             endDate = dates.second
-        }else{
+        } else {
             startDate = dateFormat.parse(start)
             endDate = dateFormat.parse(end)
         }
 
         val uid = auth.currentUser?.uid
 
-        entryManagement.filterEntries(
-            uid.toString(),
-            "All",
-            startDate.toString(),
-            endDate.toString()
-        ) { entries ->
-            //update entries in adapter
-            userEntries = entries
+        val formattedStartDate = dateFormat.format(startDate)
+        val formattedEndDate = dateFormat.format(endDate)
 
-        }
+        entryManagement.filterEntries(uid.toString(), "All", formattedStartDate, formattedEndDate) { entries ->
+            val userEntries = entries
+            calendar.time = startDate
+            val hoursPerDay = ArrayList<Double>()
 
-        calendar.time = startDate
-        var hoursPerDay = ArrayList<Double>()
-
-        while (calendar.time.before(endDate)) {
-            var totalHours = 0.0
-            for (entry in userEntries){
-                val entryDate = dateFormat.parse(entry.date)
-                if (calendar.time == entryDate){
-                    totalHours += entry.hours
+            while (calendar.time.before(endDate)) {
+                var totalHours = 0.0
+                for (entry in userEntries) {
+                    val entryDate = dateFormat.parse(entry.date)
+                    if (calendar.time == entryDate) {
+                        totalHours += entry.hours
+                    }
                 }
+                hoursPerDay.add(totalHours)
+                calendar.add(Calendar.DATE, 1)
             }
-            hoursPerDay.add(totalHours)
-            calendar.add(Calendar.DATE, 1)
+
+            onComplete(hoursPerDay)
         }
-
-        return hoursPerDay
-
-
     }
+
 
     fun getWeekDates(date: Date): Pair<Date, Date> {
         val calendar = Calendar.getInstance()
@@ -115,7 +111,7 @@ class AnalyticsData {
 
         val dateFormat = SimpleDateFormat("EEE", Locale.getDefault())
 
-        var dayNames = ArrayList<String>()
+        val dayNames = ArrayList<String>()
 
         while (calendar.time.before(dates.second)) {
             val dayName = dateFormat.format(calendar.time)

@@ -113,7 +113,7 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginVertical="10dp"
         android:background="@drawable/submit_button"
-        android:fontFamily="@font/ubuntumedium"
+        android:fontFamily="@font/ubunturegular"
         android:paddingHorizontal="50dp"
         android:text="Login"
         android:textAllCaps="false"
