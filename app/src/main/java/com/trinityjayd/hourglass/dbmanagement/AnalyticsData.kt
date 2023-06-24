@@ -4,7 +4,6 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.trinityjayd.hourglass.models.Entry
-import com.trinityjayd.hourglass.models.HoursDaily
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
@@ -14,11 +13,11 @@ class AnalyticsData {
 
     private var database = Firebase.database.reference
     private var auth = Firebase.auth
+    private lateinit var startDate : Date
+    private lateinit var endDate : Date
 
-    fun hoursPerDay (startDate : String, endDate : String) : ArrayList<HoursDaily> {
-        val data = ArrayList<HoursDaily>()
+    fun getGoals () : Pair<Double, Double> {
         val uid = auth.currentUser?.uid
-
 
         var minimumGoal = 0.0
         var maximumGoal = 0.0
@@ -30,46 +29,57 @@ class AnalyticsData {
             maximumGoal = it.child("maximumGoal").value.toString().toDouble()
         }
 
+        return Pair(minimumGoal, maximumGoal)
+    }
+
+    fun hoursPerDay (start : String, end : String) : ArrayList<Double> {
         var userEntries = listOf<Entry>()
         val entryManagement = EntryManagement()
-        if (startDate == "Start" && endDate == "End"){
+
+        val calendar = Calendar.getInstance()
+        val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+
+        if (start == "Start" && end == "End"){
             //get current date
-            val calendar = Calendar.getInstance()
             val currentDate = calendar.time
             val dates = getWeekDates(currentDate)
 
-            entryManagement.filterEntries(
-                uid.toString(),
-                "All",
-                dates.first.toString(),
-                dates.second.toString()
-            ) { entries ->
-                //update entries in adapter
-                userEntries = entries
-            }
-
+            startDate = dates.first
+            endDate = dates.second
         }else{
-            val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
-            val start = dateFormat.parse(startDate)
-            val end = dateFormat.parse(endDate)
-
-            entryManagement.filterEntries(
-                uid.toString(),
-                "All",
-                start.toString(),
-                end.toString()
-            ) { entries ->
-                //update entries in adapter
-                userEntries = entries
-            }
+            startDate = dateFormat.parse(start)
+            endDate = dateFormat.parse(end)
         }
 
+        val uid = auth.currentUser?.uid
 
+        entryManagement.filterEntries(
+            uid.toString(),
+            "All",
+            startDate.toString(),
+            endDate.toString()
+        ) { entries ->
+            //update entries in adapter
+            userEntries = entries
 
+        }
 
+        calendar.time = startDate
+        var hoursPerDay = ArrayList<Double>()
 
+        while (calendar.time.before(endDate)) {
+            var totalHours = 0.0
+            for (entry in userEntries){
+                val entryDate = dateFormat.parse(entry.date)
+                if (calendar.time == entryDate){
+                    totalHours += entry.hours
+                }
+            }
+            hoursPerDay.add(totalHours)
+            calendar.add(Calendar.DATE, 1)
+        }
 
-        return data
+        return hoursPerDay
 
 
     }
@@ -97,6 +107,23 @@ class AnalyticsData {
         val endOfWeek = calendar.time
 
         return Pair(startOfWeek, endOfWeek)
+    }
+
+    fun getDayNames (dates : Pair<Date, Date>) : ArrayList<String>{
+        val calendar = Calendar.getInstance()
+        calendar.time = dates.first
+
+        val dateFormat = SimpleDateFormat("EEE", Locale.getDefault())
+
+        var dayNames = ArrayList<String>()
+
+        while (calendar.time.before(dates.second)) {
+            val dayName = dateFormat.format(calendar.time)
+            dayNames.add(dayName)
+            calendar.add(Calendar.DATE, 1)
+        }
+
+        return dayNames
     }
 
 
