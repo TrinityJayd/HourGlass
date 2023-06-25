@@ -34,6 +34,12 @@ class Analytics : AppCompatActivity() {
             startActivity(intent)
         }
 
+        val goalProgress = findViewById<LinearLayout>(R.id.monthlyGoalLayout)
+        goalProgress.setOnClickListener {
+            val intent = Intent(this, GoalProgress::class.java)
+            startActivity(intent)
+        }
+
 
     }
 }

@@ -14,6 +14,7 @@ class AnalyticsData {
     private var auth = Firebase.auth
     private var dayLabels = ArrayList<String>()
 
+
     fun getGoals(callback: (Pair<Float, Float>) -> Unit) {
         val uid = auth.currentUser?.uid
 
@@ -31,6 +32,17 @@ class AnalyticsData {
         }
     }
 
+    fun getMonthlyGoals(callback: (Pair<Float, Float>) -> Unit) {
+        getGoals { goals ->
+            val monthlyMinimumGoal = goals.first * 30
+            val monthlyMaximumGoal = goals.second * 30
+
+            // Invoke the callback with the monthly goals
+            callback(Pair(monthlyMinimumGoal, monthlyMaximumGoal))
+        }
+    }
+
+
 
     fun hoursPerDay(start: String, end: String, onComplete: (ArrayList<Float>) -> Unit) {
         val entryManagement = EntryManagement()
@@ -47,8 +59,8 @@ class AnalyticsData {
             startDate = dates.first
             endDate = dates.second
         } else {
-            startDate = dateFormat.parse(start) as Date
-            endDate = dateFormat.parse(end) as Date
+            startDate = dateFormat.parse(start)
+            endDate = dateFormat.parse(end)
         }
 
         val uid = auth.currentUser?.uid
@@ -101,6 +113,7 @@ class AnalyticsData {
     }
 
 
+
     fun getWeekDates(date: Date): Pair<Date, Date> {
         val calendar = Calendar.getInstance()
         calendar.time = date
@@ -143,12 +156,12 @@ class AnalyticsData {
         return datesStr
     }
 
-    fun getDays(dates : ArrayList<String>) : ArrayList<String> {
+    fun getDays(dates: ArrayList<String>): ArrayList<String> {
         val dayNames = ArrayList<String>()
         val dateFormat = SimpleDateFormat("dd/MMM/yyyy", Locale.getDefault())
         val dayFormat = SimpleDateFormat("EEE", Locale.getDefault())
         for (date in dates) {
-            val day = dayFormat.format(dateFormat.parse(date) as Date)
+            val day = dayFormat.format(dateFormat.parse(date))
             dayNames.add(day)
         }
 
@@ -158,6 +171,7 @@ class AnalyticsData {
     fun getDayLabels(): ArrayList<String> {
         return dayLabels
     }
+
 
 
 }

@@ -19,6 +19,9 @@
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         tools:targetApi="31">
         <activity
+            android:name=".GoalProgress"
+            android:exported="false" />
+        <activity
             android:name=".HoursPerDay"
             android:exported="false" />
         <activity

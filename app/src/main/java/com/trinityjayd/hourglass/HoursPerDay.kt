@@ -3,6 +3,7 @@ package com.trinityjayd.hourglass
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
+import android.widget.Button
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -13,7 +14,9 @@ import com.github.mikephil.charting.data.BarData
 import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
+import com.google.android.material.datepicker.MaterialDatePicker
 import com.trinityjayd.hourglass.dbmanagement.AnalyticsData
+import java.util.Calendar
 
 class HoursPerDay : AppCompatActivity() {
 
@@ -22,6 +25,7 @@ class HoursPerDay : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_hours_per_day)
+
 
         val barChart = findViewById<BarChart>(R.id.barChart)
 
@@ -114,5 +118,7 @@ class HoursPerDay : AppCompatActivity() {
             callback(barData)
         }
     }
+
+
 
 }
