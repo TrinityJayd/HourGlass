@@ -42,7 +42,7 @@ class GoalProgress : AppCompatActivity() {
             progressValue = userEntries.sum()
 
             // Once progress value is available, retrieve goals
-            analytics.getGoals { goals ->
+            analytics.getMonthlyGoals { goals ->
                 minGoalValue = goals.first
                 maxGoalValue = goals.second
 
