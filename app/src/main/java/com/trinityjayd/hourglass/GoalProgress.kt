@@ -1,5 +1,6 @@
 package com.trinityjayd.hourglass
 
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.widget.ImageView
@@ -23,6 +24,10 @@ class GoalProgress : AppCompatActivity() {
         setContentView(R.layout.activity_goal_progress)
 
         val home = findViewById<ImageView>(R.id.homeImageView)
+        home.setOnClickListener {
+            val intent = Intent(this, Home::class.java)
+            startActivity(intent)
+        }
 
         val analytics = AnalyticsData()
 
@@ -38,7 +43,7 @@ class GoalProgress : AppCompatActivity() {
         var minGoalValue = 0f
         var maxGoalValue = 0f
 
-        analytics.hoursPerDay(formattedDate.toString(), formattedThirtyDaysAgo.toString()) { userEntries ->
+        analytics.hoursPerDay(formattedThirtyDaysAgo.toString(), formattedDate.toString()) { userEntries ->
             progressValue = userEntries.sum()
 
             // Once progress value is available, retrieve goals
@@ -72,9 +77,11 @@ class GoalProgress : AppCompatActivity() {
 
         dataSet.valueFormatter = object : ValueFormatter() {
             override fun getFormattedValue(value: Float): String {
-                val hours = value.toInt() / 60
-                val minutes = value.toInt() % 60
-                return String.format("%02d:%02d", hours, minutes)
+                val hours = value.toInt()
+                val minutes = ((value - hours) * 60).toInt()
+                val adjustedHours = hours + (minutes / 60)
+                val adjustedMinutes = minutes % 60
+                return String.format("%02d:%02d", adjustedHours, adjustedMinutes)
             }
         }
 
