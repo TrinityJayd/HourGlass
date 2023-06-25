@@ -3,7 +3,6 @@ package com.trinityjayd.hourglass.dbmanagement
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
-import com.trinityjayd.hourglass.models.Entry
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
@@ -13,14 +12,13 @@ class AnalyticsData {
 
     private var database = Firebase.database.reference
     private var auth = Firebase.auth
-    private lateinit var startDate : Date
-    private lateinit var endDate : Date
+    private var dayLabels = ArrayList<String>()
 
     fun getGoals(callback: (Pair<Float, Float>) -> Unit) {
         val uid = auth.currentUser?.uid
 
-        var minimumGoal = 0.0f
-        var maximumGoal = 0.0f
+        var minimumGoal: Float
+        var maximumGoal: Float
 
         // get minimum and maximum goal from database
         val goalRef = database.child("goals").child(uid.toString())
@@ -34,7 +32,7 @@ class AnalyticsData {
     }
 
 
-    fun hoursPerDay(start: String, end: String, onComplete: (ArrayList<Double>) -> Unit) {
+    fun hoursPerDay(start: String, end: String, onComplete: (ArrayList<Float>) -> Unit) {
         val entryManagement = EntryManagement()
 
         val calendar = Calendar.getInstance()
@@ -49,8 +47,8 @@ class AnalyticsData {
             startDate = dates.first
             endDate = dates.second
         } else {
-            startDate = dateFormat.parse(start)
-            endDate = dateFormat.parse(end)
+            startDate = dateFormat.parse(start) as Date
+            endDate = dateFormat.parse(end) as Date
         }
 
         val uid = auth.currentUser?.uid
@@ -58,22 +56,45 @@ class AnalyticsData {
         val formattedStartDate = dateFormat.format(startDate)
         val formattedEndDate = dateFormat.format(endDate)
 
-        entryManagement.filterEntries(uid.toString(), "All", formattedStartDate, formattedEndDate) { entries ->
-            val userEntries = entries
+        entryManagement.filterEntries(
+            uid.toString(), "All", formattedStartDate, formattedEndDate
+        ) { entries ->
             calendar.time = startDate
-            val hoursPerDay = ArrayList<Double>()
+            val hoursPerDay = ArrayList<Float>()
 
-            while (calendar.time.before(endDate)) {
-                var totalHours = 0.0
-                for (entry in userEntries) {
+            val dates = getDates(Pair(startDate, endDate))
+            dayLabels = getDays(dates)
+
+            for (date in dates) {
+                var totalMinutes = 0
+                for (entry in entries) {
+                    val dateFormat2 = SimpleDateFormat("dd/MMM/yyyy", Locale.getDefault())
+                    val formattedDate = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(
+                        dateFormat2.parse(date) as Date
+                    )
+
+                    val dateCheck = dateFormat.parse(formattedDate)
                     val entryDate = dateFormat.parse(entry.date)
-                    if (calendar.time == entryDate) {
-                        totalHours += entry.hours
+
+                    if (dateCheck == entryDate) {
+                        val entryHours = entry.hours
+                        val entryMinutes = entry.minutes
+                        val minutes = entryHours * 60 + entryMinutes
+                        totalMinutes += minutes
                     }
                 }
+
+                val hours = totalMinutes / 60
+                val minutes = totalMinutes % 60
+
+                val timeString = String.format(Locale.getDefault(), "%d.%02d", hours, minutes)
+                val totalHours = timeString.toFloat()
+
                 hoursPerDay.add(totalHours)
-                calendar.add(Calendar.DATE, 1)
             }
+
+
+
 
             onComplete(hoursPerDay)
         }
@@ -105,24 +126,38 @@ class AnalyticsData {
         return Pair(startOfWeek, endOfWeek)
     }
 
-    fun getDayNames (dates : Pair<Date, Date>) : ArrayList<String>{
+    fun getDates(dates: Pair<Date, Date>): ArrayList<String> {
         val calendar = Calendar.getInstance()
         calendar.time = dates.first
 
-        val dateFormat = SimpleDateFormat("EEE", Locale.getDefault())
+        val dateFormat = SimpleDateFormat("dd/MMM/yyyy", Locale.getDefault())
 
-        val dayNames = ArrayList<String>()
+        val datesStr = ArrayList<String>()
 
         while (calendar.time.before(dates.second)) {
-            val dayName = dateFormat.format(calendar.time)
-            dayNames.add(dayName)
+            val date = dateFormat.format(calendar.time)
+            datesStr.add(date)
             calendar.add(Calendar.DATE, 1)
+        }
+
+        return datesStr
+    }
+
+    fun getDays(dates : ArrayList<String>) : ArrayList<String> {
+        val dayNames = ArrayList<String>()
+        val dateFormat = SimpleDateFormat("dd/MMM/yyyy", Locale.getDefault())
+        val dayFormat = SimpleDateFormat("EEE", Locale.getDefault())
+        for (date in dates) {
+            val day = dayFormat.format(dateFormat.parse(date) as Date)
+            dayNames.add(day)
         }
 
         return dayNames
     }
 
-
+    fun getDayLabels(): ArrayList<String> {
+        return dayLabels
+    }
 
 
 }
