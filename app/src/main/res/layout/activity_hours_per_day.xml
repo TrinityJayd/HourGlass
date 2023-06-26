@@ -6,17 +6,15 @@
     android:background="@color/colorPrimary"
     android:orientation="vertical"
     android:paddingHorizontal="20dp"
-    tools:context=".HoursPerDay"
     android:paddingVertical="20dp"
-    >
+    tools:context=".HoursPerDay">
 
     <LinearLayout
         android:id="@+id/imageTitleLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="25dp"
-        android:orientation="horizontal"
-        >
+        android:orientation="horizontal">
 
         <ImageView
             android:layout_width="40dp"
@@ -29,12 +27,12 @@
             android:id="@+id/titleTextView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_weight="1"
             android:fontFamily="@font/ubuntumedium"
             android:text="Analytics"
             android:textColor="@android:color/white"
-            android:textSize="22sp"
-            android:layout_gravity="center" />
+            android:textSize="22sp" />
 
         <ImageView
             android:id="@+id/homeImageView"
@@ -46,45 +44,75 @@
 
     </LinearLayout>
 
-    <Button
-        android:id="@+id/dateButton"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/dateButtons"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="end"
-        android:background="@drawable/spinner_background"
-        android:fontFamily="@font/ubunturegular"
-        android:paddingHorizontal="50dp"
-        android:text="Date"
-        android:textAllCaps="false"
-        android:textColor="@color/white"
-        android:textSize="16sp"
-        android:layout_marginBottom="15dp"/>
+        android:layout_marginBottom="20dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/startDateButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_marginEnd="10sp"
+            android:background="@drawable/spinner_background"
+            android:fontFamily="@font/ubunturegular"
+            android:paddingHorizontal="45dp"
+            android:text="Start Date"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="14sp" />
+
+        <Button
+            android:id="@+id/endDateButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginEnd="20sp"
+            android:background="@drawable/spinner_background"
+            android:fontFamily="@font/ubunturegular"
+            android:paddingHorizontal="45dp"
+            android:text="End Date"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="14sp" />
+
+        <ImageView
+            android:id="@+id/refreshButton"
+            android:layout_width="20dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:src="@drawable/refresh" />
+
+
+    </LinearLayout>
+
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/chartTitleTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/ubuntumedium"
-        android:text="Hours Worked Per Day vs Goals"
-        android:textColor="@android:color/white"
-        android:textSize="18sp"
-        android:layout_gravity="center"
-        android:layout_marginBottom="10dp"/>
+        <TextView
+            android:id="@+id/chartTitleTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="10dp"
+            android:fontFamily="@font/ubuntumedium"
+            android:text="Hours Worked Per Day vs Goals"
+            android:textColor="@android:color/white"
+            android:textSize="18sp" />
 
-    <com.github.mikephil.charting.charts.BarChart
-        android:id="@+id/barChart"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginBottom="20dp"/>
+        <com.github.mikephil.charting.charts.BarChart
+            android:id="@+id/barChart"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="20dp" />
 
     </LinearLayout>
-
-
 
 
 </LinearLayout>

@@ -23,13 +23,23 @@ class AnalyticsData {
 
         // get minimum and maximum goal from database
         val goalRef = database.child("goals").child(uid.toString())
-        goalRef.get().addOnSuccessListener {
-            minimumGoal = it.child("minHours").value.toString().toFloat()
-            maximumGoal = it.child("maxHours").value.toString().toFloat()
 
-            // Invoke the callback with the retrieved values
-            callback(Pair(minimumGoal, maximumGoal))
+        goalRef.get().addOnSuccessListener {
+            if (it.exists()) {
+                minimumGoal = it.child("minHours").value.toString().toFloat()
+                maximumGoal = it.child("maxHours").value.toString().toFloat()
+
+                // Invoke the callback with the retrieved values
+                callback(Pair(minimumGoal, maximumGoal))
+            } else {
+                // If the user has no goals, invoke the callback with 0 values
+                callback(Pair(0f, 0f))
+            }
+
+
         }
+
+
     }
 
     fun getMonthlyGoals(callback: (Pair<Float, Float>) -> Unit) {
@@ -41,7 +51,6 @@ class AnalyticsData {
             callback(Pair(monthlyMinimumGoal, monthlyMaximumGoal))
         }
     }
-
 
 
     fun hoursPerDay(start: String, end: String, onComplete: (ArrayList<Float>) -> Unit) {
@@ -106,7 +115,8 @@ class AnalyticsData {
                 val remainingMinutes = totalMinutes % 60
 
 
-                val timeString = String.format(Locale.getDefault(), "%d.%02d", totalHours, remainingMinutes)
+                val timeString =
+                    String.format(Locale.getDefault(), "%d.%02d", totalHours, remainingMinutes)
                 val totalTimeStr = timeString.toFloat()
 
                 hoursPerDay.add(totalTimeStr)
@@ -115,7 +125,6 @@ class AnalyticsData {
             onComplete(hoursPerDay)
         }
     }
-
 
 
     fun getWeekDates(date: Date): Pair<Date, Date> {
@@ -151,7 +160,7 @@ class AnalyticsData {
 
         val datesStr = ArrayList<String>()
 
-        while (calendar.time.before(dates.second)) {
+        while (calendar.time <= dates.second){
             val date = dateFormat.format(calendar.time)
             datesStr.add(date)
             calendar.add(Calendar.DATE, 1)
@@ -193,7 +202,6 @@ class AnalyticsData {
         return String.format(Locale.getDefault(), "%d.%02d", totalHours, totalMinutes)
 
     }
-
 
 
 }

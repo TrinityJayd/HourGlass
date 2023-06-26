@@ -9,6 +9,7 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="colorPrimary">#252B40</color>
+    <color name="colorTransparent">#CC252B40</color>
     <color name="colorButton">#EEEEEE</color>
     <color name="colorButtonText">#252B40</color>
     <color name="yellow_700">#e1bd3d</color>

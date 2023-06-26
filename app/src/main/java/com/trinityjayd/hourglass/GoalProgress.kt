@@ -20,6 +20,10 @@ import java.util.Locale
 
 
 class GoalProgress : AppCompatActivity() {
+
+    private lateinit var formattedThirtyDaysAgo: String
+    private lateinit var formattedDate: String
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_goal_progress)
@@ -34,24 +38,31 @@ class GoalProgress : AppCompatActivity() {
 
         val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
         val currentDate = Calendar.getInstance().time
-        val formattedDate = dateFormat.format(currentDate)
+        formattedDate = dateFormat.format(currentDate)
 
         val thirtyDaysAgo = Calendar.getInstance()
-        thirtyDaysAgo.add(Calendar.DAY_OF_YEAR, -30)
-        val formattedThirtyDaysAgo = dateFormat.format(thirtyDaysAgo.time)
+        //set the date to 30 days ago
+        //subtract 29 because we include the current day in the total hours calculation
+        thirtyDaysAgo.add(Calendar.DAY_OF_YEAR, -29)
+        formattedThirtyDaysAgo = dateFormat.format(thirtyDaysAgo.time)
 
         var progressValue: Float
         var minGoalValue: Float
         var maxGoalValue: Float
 
-        analytics.hoursPerDay(formattedThirtyDaysAgo.toString(), formattedDate.toString()) { userEntries ->
-            progressValue = analytics.sumHoursArr(userEntries).toFloat()
 
-            analytics.getGoals { goals ->
 
-                val minGoalTextView = findViewById<TextView>(R.id.minGoalTextView)
-                val maxGoalTextView = findViewById<TextView>(R.id.maxGoalTextView)
+        analytics.getGoals { goals ->
 
+            val minGoalTextView = findViewById<TextView>(R.id.minGoalTextView)
+            val maxGoalTextView = findViewById<TextView>(R.id.maxGoalTextView)
+
+            if(goals.first == 0f && goals.second == 0f) {
+                minGoalTextView.text = "Daily Minimum Goal: 0h for 30 days : "
+                maxGoalTextView.text = "Daily Maximum Goal: 0h for 30 days : "
+                createPieChart(0f, 0f, 0f)
+                return@getGoals
+            }else{
                 minGoalTextView.text = "Daily Minimum Goal: ${goals.first}h for 30 days : "
                 maxGoalTextView.text = "Daily Maximum Goal: ${goals.second}h for 30 days : "
 
@@ -63,10 +74,18 @@ class GoalProgress : AppCompatActivity() {
                     minGoalTextView.append("${minGoalValue}h")
                     maxGoalTextView.append("${maxGoalValue}h")
 
-                    // Create pie chart with the retrieved values
-                    createPieChart(progressValue, minGoalValue, maxGoalValue)
+                    analytics.hoursPerDay(
+                        formattedThirtyDaysAgo,
+                        formattedDate
+                    ) { userEntries ->
+                        progressValue = analytics.sumHoursArr(userEntries).toFloat()
+
+                        // Create pie chart with the retrieved values
+                        createPieChart(progressValue, minGoalValue, maxGoalValue)
+                    }
                 }
             }
+
 
         }
 
@@ -122,8 +141,8 @@ class GoalProgress : AppCompatActivity() {
         pieChart.legend.setDrawInside(false)
 
 
-        pieChart.centerText = "Goal Progress\nhh:mm"
-        pieChart.setCenterTextSize(18f)
+        pieChart.centerText = "Goal Progress\n$formattedThirtyDaysAgo - $formattedDate"
+        pieChart.setCenterTextSize(16f)
         pieChart.setCenterTextColor(Color.WHITE)
         pieChart.setCenterTextTypeface(android.graphics.Typeface.DEFAULT_BOLD)
 
@@ -138,10 +157,6 @@ class GoalProgress : AppCompatActivity() {
         // Refresh the chart
         pieChart.invalidate()
     }
-
-
-
-
 
 
 }
