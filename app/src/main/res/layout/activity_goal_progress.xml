@@ -6,17 +6,15 @@
     android:background="@color/colorPrimary"
     android:orientation="vertical"
     android:paddingHorizontal="20dp"
-    tools:context=".HoursPerDay"
     android:paddingVertical="20dp"
-    >
+    tools:context=".HoursPerDay">
 
     <LinearLayout
         android:id="@+id/imageTitleLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="25dp"
-        android:orientation="horizontal"
-        >
+        android:orientation="horizontal">
 
         <ImageView
             android:layout_width="40dp"
@@ -29,12 +27,12 @@
             android:id="@+id/titleTextView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_weight="1"
             android:fontFamily="@font/ubuntumedium"
             android:text="Analytics"
             android:textColor="@android:color/white"
-            android:textSize="22sp"
-            android:layout_gravity="center" />
+            android:textSize="22sp" />
 
         <ImageView
             android:id="@+id/homeImageView"
@@ -55,12 +53,35 @@
             android:id="@+id/chartTitleTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="20dp"
             android:fontFamily="@font/ubuntumedium"
             android:text="Goal Progress Over the Past 30 Days"
             android:textColor="@android:color/white"
-            android:textSize="18sp"
-            android:layout_gravity="center"
-            android:layout_marginBottom="10dp"/>
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/minGoalTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_marginBottom="10dp"
+            android:fontFamily="@font/ubunturegular"
+            android:text="Minimum Goal"
+            android:textColor="@android:color/white"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/maxGoalTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_marginBottom="20dp"
+            android:fontFamily="@font/ubunturegular"
+            android:text="Maximum Goal"
+            android:textColor="@android:color/white"
+            android:textSize="16sp" />
+
 
         <com.github.mikephil.charting.charts.PieChart
             android:id="@+id/pieChart"
@@ -68,11 +89,7 @@
             android:layout_height="match_parent" />
 
 
-
-
     </LinearLayout>
-
-
 
 
 </LinearLayout>

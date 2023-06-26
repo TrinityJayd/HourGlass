@@ -4,6 +4,7 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.github.mikephil.charting.charts.PieChart
@@ -39,27 +40,40 @@ class GoalProgress : AppCompatActivity() {
         thirtyDaysAgo.add(Calendar.DAY_OF_YEAR, -30)
         val formattedThirtyDaysAgo = dateFormat.format(thirtyDaysAgo.time)
 
-        var progressValue = 0f
-        var minGoalValue = 0f
-        var maxGoalValue = 0f
+        var progressValue: Float
+        var minGoalValue: Float
+        var maxGoalValue: Float
 
         analytics.hoursPerDay(formattedThirtyDaysAgo.toString(), formattedDate.toString()) { userEntries ->
-            progressValue = userEntries.sum()
+            progressValue = analytics.sumHoursArr(userEntries).toFloat()
 
-            // Once progress value is available, retrieve goals
-            analytics.getMonthlyGoals { goals ->
-                minGoalValue = goals.first
-                maxGoalValue = goals.second
+            analytics.getGoals { goals ->
 
-                // Create pie chart with the retrieved values
-                createPieChart(progressValue, minGoalValue, maxGoalValue)
+                val minGoalTextView = findViewById<TextView>(R.id.minGoalTextView)
+                val maxGoalTextView = findViewById<TextView>(R.id.maxGoalTextView)
+
+                minGoalTextView.text = "Daily Minimum Goal: ${goals.first}h for 30 days : "
+                maxGoalTextView.text = "Daily Maximum Goal: ${goals.second}h for 30 days : "
+
+                // Once progress value is available, retrieve goals
+                analytics.getMonthlyGoals { goals ->
+                    minGoalValue = goals.first
+                    maxGoalValue = goals.second
+
+                    minGoalTextView.append("${minGoalValue}h")
+                    maxGoalTextView.append("${maxGoalValue}h")
+
+                    // Create pie chart with the retrieved values
+                    createPieChart(progressValue, minGoalValue, maxGoalValue)
+                }
             }
+
         }
 
     }
 
-    fun createPieChart(progressValue: Float, minGoalValue: Float, maxGoalValue: Float) {
-        val progressEntry = PieEntry(progressValue, "Current Progress")
+    private fun createPieChart(progressValue: Float, minGoalValue: Float, maxGoalValue: Float) {
+        val progressEntry = PieEntry(progressValue, "Current Hours")
         val minGoalEntry = PieEntry(minGoalValue, "Minimum Goal")
         val maxGoalEntry = PieEntry(maxGoalValue, "Maximum Goal")
 
@@ -81,7 +95,7 @@ class GoalProgress : AppCompatActivity() {
                 val minutes = ((value - hours) * 60).toInt()
                 val adjustedHours = hours + (minutes / 60)
                 val adjustedMinutes = minutes % 60
-                return String.format("%02d:%02d", adjustedHours, adjustedMinutes)
+                return String.format("%d:%02d", adjustedHours, adjustedMinutes)
             }
         }
 
@@ -91,24 +105,29 @@ class GoalProgress : AppCompatActivity() {
         // Configure the chart
         pieChart.data = data
         pieChart.description.isEnabled = false
+        pieChart.setExtraOffsets(5f, 10f, 5f, 5f)
 
 
         pieChart.legend.orientation = Legend.LegendOrientation.VERTICAL
         pieChart.legend.isEnabled = true
-        pieChart.legend.textSize = 16f
+        pieChart.legend.textSize = 14f
         pieChart.legend.textColor = Color.WHITE
         pieChart.legend.form = Legend.LegendForm.CIRCLE
-        pieChart.legend.setDrawInside(true)
+        pieChart.legend.verticalAlignment = Legend.LegendVerticalAlignment.TOP
+        pieChart.legend.horizontalAlignment = Legend.LegendHorizontalAlignment.LEFT
+        pieChart.legend.xEntrySpace = 10f
+        pieChart.legend.yEntrySpace = 10f
+        pieChart.legend.yOffset = 10f
+        pieChart.legend.xOffset = 10f
+        pieChart.legend.setDrawInside(false)
 
-        pieChart.legend.apply {
-            verticalAlignment = Legend.LegendVerticalAlignment.TOP
-            horizontalAlignment = Legend.LegendHorizontalAlignment.RIGHT
-        }
 
         pieChart.centerText = "Goal Progress\nhh:mm"
         pieChart.setCenterTextSize(18f)
         pieChart.setCenterTextColor(Color.WHITE)
         pieChart.setCenterTextTypeface(android.graphics.Typeface.DEFAULT_BOLD)
+
+
 
         pieChart.isDrawHoleEnabled = true
         pieChart.setHoleColor(Color.TRANSPARENT)

@@ -48,17 +48,22 @@ class AnalyticsData {
         val entryManagement = EntryManagement()
 
         val calendar = Calendar.getInstance()
+
         val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
 
         val startDate: Date
         val endDate: Date
 
+        //if no values are passed in, get the current week
         if (start == "Start" && end == "End") {
             val currentDate = calendar.time
             val dates = getWeekDates(currentDate)
+
+            //set the start and end dates to the first and last days of the week
             startDate = dates.first
             endDate = dates.second
         } else {
+            //otherwise, set the start and end dates to the values passed in
             startDate = dateFormat.parse(start)
             endDate = dateFormat.parse(end)
         }
@@ -79,6 +84,7 @@ class AnalyticsData {
 
             for (date in dates) {
                 var totalMinutes = 0
+
                 for (entry in entries) {
                     val dateFormat2 = SimpleDateFormat("dd/MMM/yyyy", Locale.getDefault())
                     val formattedDate = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(
@@ -91,22 +97,20 @@ class AnalyticsData {
                     if (dateCheck == entryDate) {
                         val entryHours = entry.hours
                         val entryMinutes = entry.minutes
-                        val minutes = entryHours * 60 + entryMinutes
+                        val minutes = (entryHours * 60) + entryMinutes
                         totalMinutes += minutes
                     }
                 }
 
-                val hours = totalMinutes / 60
-                val minutes = totalMinutes % 60
+                val totalHours = totalMinutes / 60
+                val remainingMinutes = totalMinutes % 60
 
-                val timeString = String.format(Locale.getDefault(), "%d.%02d", hours, minutes)
-                val totalHours = timeString.toFloat()
 
-                hoursPerDay.add(totalHours)
+                val timeString = String.format(Locale.getDefault(), "%d.%02d", totalHours, remainingMinutes)
+                val totalTimeStr = timeString.toFloat()
+
+                hoursPerDay.add(totalTimeStr)
             }
-
-
-
 
             onComplete(hoursPerDay)
         }
@@ -170,6 +174,24 @@ class AnalyticsData {
 
     fun getDayLabels(): ArrayList<String> {
         return dayLabels
+    }
+
+    fun sumHoursArr(time: ArrayList<Float>): String {
+        var totalHours = 0
+        var totalMinutes = 0
+
+        for (entry in time) {
+            val entryHours = entry.toInt()
+            val entryMinutes = ((entry - entryHours) * 100).toInt()
+            totalHours += entryHours
+            totalMinutes += entryMinutes
+        }
+
+        totalHours += totalMinutes / 60
+        totalMinutes %= 60
+
+        return String.format(Locale.getDefault(), "%d.%02d", totalHours, totalMinutes)
+
     }
 
 
