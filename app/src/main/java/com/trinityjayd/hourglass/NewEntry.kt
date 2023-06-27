@@ -7,7 +7,6 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.provider.OpenableColumns
-import android.util.Log
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
@@ -33,7 +32,6 @@ import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
 import java.util.Locale
-import java.util.UUID
 
 
 class NewEntry : AppCompatActivity() {
@@ -262,12 +260,15 @@ class NewEntry : AppCompatActivity() {
                 //add select category to array list
                 categories.add("Select Category")
                 //loop through each category in the database
-                for (category in dataSnapshot.children) {
-                    //get the category name
-                    val categoryName = category.child("name").getValue(String::class.java)
-                    //add the category name to the array list
-                    categories.add(categoryName!!)
+                if(dataSnapshot.exists()){
+                    for (category in dataSnapshot.children) {
+                        //get the category name
+                        val categoryName = category.child("name").getValue(String::class.java)
+                        //add the category name to the array list
+                        categories.add(categoryName!!)
+                    }
                 }
+
                 //get spinner
                 val spinner = findViewById<Spinner>(R.id.spinnerCategory)
                 //create array adapter
@@ -283,8 +284,7 @@ class NewEntry : AppCompatActivity() {
             }
 
             override fun onCancelled(error: DatabaseError) {
-                // Failed to read value
-                Log.w("NewEntry", "Failed to read value.", error.toException())
+
             }
         })
 

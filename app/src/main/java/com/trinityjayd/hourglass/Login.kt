@@ -1,25 +1,43 @@
 package com.trinityjayd.hourglass
 
+import android.app.Activity
+import android.content.Context
 import android.content.Intent
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
 import android.os.Bundle
 import android.text.method.PasswordTransformationMethod
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.tasks.Task
 import com.google.android.material.progressindicator.CircularProgressIndicator
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.trinityjayd.hourglass.dbmanagement.UserDbManagement
+import com.trinityjayd.hourglass.models.User
 
 class Login : AppCompatActivity() {
 
     private lateinit var auth: FirebaseAuth
 
+    private lateinit var googleSignInClient: GoogleSignInClient
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+
+        auth = Firebase.auth
+
 
         //get forgot password button
         val forgotPasswordButton = findViewById<Button>(R.id.forgotPasswordButton)
@@ -68,7 +86,7 @@ class Login : AppCompatActivity() {
                 val passwordText = password.text.toString()
                 val userDbManagement = UserDbManagement()
 
-                auth = Firebase.auth
+
                 //check if user exists in database
                 userDbManagement.isUserExistsWithEmail(emailText, auth) { exists ->
                     if (exists) {
@@ -94,12 +112,94 @@ class Login : AppCompatActivity() {
                 }
                 loadingIndicator.hide()
 
-
             }
-
 
         }
 
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken(getString(R.string.web_client_id))
+            .requestEmail()
+            .build()
+
+        googleSignInClient = GoogleSignIn.getClient(this, gso)
+
+        val googleSignInButton = findViewById<Button>(R.id.googleLoginButton)
+        googleSignInButton.setOnClickListener {
+            loadingIndicator.show()
+            signInWithGoogle()
+            loadingIndicator.hide()
+        }
+
+
 
     }
+
+    //Code Attribution
+    //Author: Develop Ideas
+    //Date: 7 June 2023
+    //Link: https://www.youtube.com/watch?v=vDmabKQ0T9s
+
+    private fun signInWithGoogle() {
+        val signInIntent = googleSignInClient.signInIntent
+        resultLauncher.launch(signInIntent)
+    }
+
+    private val resultLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
+                handleResults(task)
+            }
+        }
+
+    private fun handleResults(task: Task<GoogleSignInAccount>) {
+        if (task.isSuccessful) {
+            val account: GoogleSignInAccount? = task.result
+            if (account != null) {
+                updateUI(account)
+            }
+        } else {
+            Toast.makeText(this, "Sign in failed", Toast.LENGTH_SHORT).show()
+        }
+
+    }
+
+    private fun updateUI(account: GoogleSignInAccount?) {
+        val credential = GoogleAuthProvider.getCredential(account?.idToken, null)
+        auth.signInWithCredential(credential)
+            .addOnCompleteListener(this) { task ->
+                if (task.isSuccessful) {
+                    val displayName = account?.displayName
+                    val uid = auth.currentUser?.uid
+
+                    val userDbManagement = UserDbManagement()
+
+                    userDbManagement.isUserExistsWithUid(uid!!) { exists ->
+                        if (!exists) {
+                            //create user object
+                            val newUser = User(uid!!, displayName!!)
+
+                            userDbManagement.addUserToDatabase(newUser)
+                        }
+                    }
+                    val intent = Intent(this, Home::class.java)
+                    startActivity(intent)
+                } else {
+                    Toast.makeText(this, "Sign in failed", Toast.LENGTH_SHORT).show()
+                }
+            }
+    }
+
+    //check if device is connected to internet
+    private fun isInternetAvailable(): Boolean {
+        val connectivityManager = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val network = connectivityManager.activeNetwork
+        val networkCapabilities = connectivityManager.getNetworkCapabilities(network)
+
+        return networkCapabilities?.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET) == true
+    }
+
+
+
+
 }

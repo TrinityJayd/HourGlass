@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -53,6 +55,21 @@ class Settings : AppCompatActivity() {
         //set on click listener
         signOutButton.setOnClickListener {
             auth.signOut()
+
+            //check if user signed in with google
+            val googleSignInAccount = GoogleSignIn.getLastSignedInAccount(this)
+            if (googleSignInAccount != null) {
+                //sign user out of google
+
+                //get google sign in client
+                val googleSignInClient = GoogleSignIn.getClient(this, GoogleSignInOptions.DEFAULT_SIGN_IN)
+                //sign out of google
+                googleSignInClient.signOut()
+            }
+
+            //prevent user from clicking back button to go back to home
+
+
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }

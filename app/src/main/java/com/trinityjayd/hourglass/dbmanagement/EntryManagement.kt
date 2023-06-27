@@ -27,14 +27,19 @@ class EntryManagement {
             // Read from the database
             .addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
-                    val entries = mutableListOf<Entry>()
-                    for (ds in dataSnapshot.children) {
-                        val entry = ds.getValue(Entry::class.java)
-                        entry?.let {
-                            entries.add(it)
+                    if(!dataSnapshot.exists()){
+                        callback(emptyList())
+                        return
+                    }else{
+                        val entries = mutableListOf<Entry>()
+                        for (ds in dataSnapshot.children) {
+                            val entry = ds.getValue(Entry::class.java)
+                            entry?.let {
+                                entries.add(it)
+                            }
                         }
+                        callback(entries)
                     }
-                    callback(entries)
                 }
 
                 override fun onCancelled(databaseError: DatabaseError) {

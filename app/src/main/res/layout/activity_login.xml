@@ -20,7 +20,7 @@
             android:id="@+id/logoImageView"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="15dp"
             android:adjustViewBounds="true"
             android:contentDescription="HourGlass Logo"
             android:maxHeight="200dp"
@@ -125,6 +125,15 @@
             android:textAllCaps="false"
             android:textColor="@color/colorButtonText"
             android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/googleLoginButton"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginVertical="10dp"
+            android:background="@drawable/googleg_standard_color_18"
+            android:contentDescription="Google Login"
+            android:scaleType="centerInside" />
 
         <Button
             android:id="@+id/noAccountButton"

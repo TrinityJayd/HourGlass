@@ -38,18 +38,18 @@ class SignUp : AppCompatActivity() {
 
         signUpButton.setOnClickListener {
             //get full name and email edit texts
-            val fullname = findViewById<EditText>(R.id.editTextFullName)
+            val fullName = findViewById<EditText>(R.id.editTextFullName)
 
             val email = findViewById<EditText>(R.id.editTextEmailAddress)
 
             val validationMethods = ValidationMethods()
 
             //check if fields are empty
-            if (fullname.text.toString().isNullOrBlank()) {
-                fullname.error = "Please enter your full name"
+            if (fullName.text.toString().isNullOrBlank()) {
+                fullName.error = "Please enter your full name"
                 return@setOnClickListener
-            } else if (!validationMethods.onlyLetters(fullname.text.toString())) {
-                fullname.error = "Please enter a valid name"
+            } else if (!validationMethods.onlyLetters(fullName.text.toString())) {
+                fullName.error = "Please enter a valid name"
                 return@setOnClickListener
             } else if (email.text.toString().isNullOrBlank()) {
                 email.error = "Please enter an email"
@@ -75,31 +75,40 @@ class SignUp : AppCompatActivity() {
                 return@setOnClickListener
             } else {
                 loadingIndicator.show()
-                val fullName = fullname.text.toString()
+                val fullName = fullName.text.toString()
                 val emailText = email.text.toString()
                 val passwordText = password.text.toString()
 
                 auth = Firebase.auth
-                //create user with email and password
-                auth.createUserWithEmailAndPassword(emailText, passwordText)
-                    .addOnCompleteListener(this) { task ->
-                        if (task.isSuccessful) {
-                            val user = auth.currentUser
 
-                            //create a user object
-                            val newUser = User(user!!.uid, fullName)
-                            UserDbManagement().addUserToDatabase(newUser)
+                val userDbManagement = UserDbManagement()
+                userDbManagement.isUserExistsWithEmail(emailText, auth) { exists ->
+                    if (exists) {
+                        email.error = "Email already exists"
+                        return@isUserExistsWithEmail
+                    }else{
+                        //create user with email and password
+                        auth.createUserWithEmailAndPassword(emailText, passwordText)
+                            .addOnCompleteListener(this) { task ->
+                                if (task.isSuccessful) {
+                                    val user = auth.currentUser
 
-                            val intent = Intent(this, Home::class.java)
-                            startActivity(intent)
-                        } else {
-                            Toast.makeText(
-                                baseContext,
-                                "Sign Up failed.",
-                                Toast.LENGTH_SHORT,
-                            ).show()
-                        }
+                                    //create a user object
+                                    val newUser = User(user!!.uid, fullName)
+                                    userDbManagement.addUserToDatabase(newUser)
+
+                                    val intent = Intent(this, Home::class.java)
+                                    startActivity(intent)
+                                } else {
+                                    Toast.makeText(
+                                        baseContext,
+                                        "Sign Up failed.",
+                                        Toast.LENGTH_SHORT,
+                                    ).show()
+                                }
+                            }
                     }
+                }
                 loadingIndicator.hide()
             }
         }

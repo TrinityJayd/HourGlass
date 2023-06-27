@@ -6,6 +6,7 @@ import android.os.Handler
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import java.util.Locale
 
@@ -40,9 +41,33 @@ class Timer : AppCompatActivity() {
         val home = findViewById<ImageView>(R.id.homeImageView)
         //set on click listener
         home.setOnClickListener {
-            //go to home page
-            val intent = Intent(this, Home::class.java)
-            startActivity(intent)
+            //check if the timer is running
+            if (running) {
+                //if it is running
+                //alert the user that the timer will stop
+                //if they go to the home page
+                //and ask if they want to continue
+                //or go back to the timer
+                val alertDialogBuilder = AlertDialog.Builder(this)
+                alertDialogBuilder.setTitle("Timer")
+                alertDialogBuilder.setMessage("The timer will stop if you go to the home page. Do you want to continue?")
+                alertDialogBuilder.setPositiveButton("Yes") { _, _ ->
+                    //go to home page
+                    val intent = Intent(this, Home::class.java)
+                    startActivity(intent)
+                }
+
+                alertDialogBuilder.setNegativeButton("No") { _, _ ->
+                    //do nothing
+                }
+
+                alertDialogBuilder.show()
+            } else {
+                //if the timer is not running
+                //go to home page
+                val intent = Intent(this, Home::class.java)
+                startActivity(intent)
+            }
         }
 
 

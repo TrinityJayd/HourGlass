@@ -3,7 +3,6 @@ package com.trinityjayd.hourglass
 import android.app.DatePickerDialog
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Button
@@ -156,8 +155,6 @@ class ListEntries : AppCompatActivity() {
             }
 
             override fun onCancelled(error: DatabaseError) {
-                // Failed to read value
-                Log.w("NewEntry", "Failed to read value.", error.toException())
             }
         })
 
