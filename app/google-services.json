@@ -13,7 +13,36 @@
           "package_name": "com.trinityjayd.hourglass"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "1085449479259-2r05u3bqa7tm8c485e3pcptalv2tu6k5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.trinityjayd.hourglass",
+            "certificate_hash": "f43e5d0baf958f0c85f0c4fcede8d5650df36bd0"
+          }
+        },
+        {
+          "client_id": "1085449479259-4n3cq9c1mm6skvec9sji88e8ict2c70n.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.trinityjayd.hourglass",
+            "certificate_hash": "f37f3a9cb5706931caf1ef61aee3e4b012f26075"
+          }
+        },
+        {
+          "client_id": "1085449479259-rpeg5qmfbhc1j977tdlm74ep34mgp8b6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.trinityjayd.hourglass",
+            "certificate_hash": "2321e343a0e09323e55a16fa3e32f993cc3c69fd"
+          }
+        },
+        {
+          "client_id": "1085449479259-q17m9bpd78u3v3ou4vmi9rn35ts4cj88.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyC3EkCiE84bPT45hejZVXruXOT73RnAad8"
@@ -21,7 +50,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1085449479259-nvhp77mul0qns2bpgpt1lmnb5dknckbk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

@@ -35,6 +35,24 @@ class UserDbManagement {
 
     }
 
+    fun isUserExistsWithUid(uid: String, onComplete: (Boolean) -> Unit) {
+        //check if the user exists
+        val userRef = database.child("users").child(uid)
+        userRef.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if (snapshot.exists()) {
+                    onComplete(true)
+                } else {
+                    onComplete(false)
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                onComplete(false)
+            }
+        })
+    }
+
     //get user name
     fun getUserFullName(uid: String, callback: (String?) -> Unit) {
         //get users name
