@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.Spinner
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -53,6 +54,10 @@ class ListEntries : AppCompatActivity() {
         //get all entries for the logged in user
         entryManagement.getAllEntriesForUser(uid) { entries ->
             entryAdapter.updateEntries(entries)
+            if(entries.isEmpty()){
+                Toast.makeText(this, "Please add an entry.", Toast.LENGTH_SHORT).show()
+            }
+
         }
         loadingIndicator.hide()
 

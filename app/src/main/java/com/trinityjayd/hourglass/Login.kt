@@ -116,15 +116,17 @@ class Login : AppCompatActivity() {
 
         }
 
-        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken(getString(R.string.web_client_id))
-            .requestEmail()
-            .build()
 
-        googleSignInClient = GoogleSignIn.getClient(this, gso)
 
         val googleSignInButton = findViewById<Button>(R.id.googleLoginButton)
         googleSignInButton.setOnClickListener {
+            val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.web_client_id))
+                .requestEmail()
+                .build()
+
+            googleSignInClient = GoogleSignIn.getClient(this, gso)
+
             loadingIndicator.show()
             signInWithGoogle()
             loadingIndicator.hide()

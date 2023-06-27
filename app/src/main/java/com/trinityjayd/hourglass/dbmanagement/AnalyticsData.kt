@@ -1,6 +1,7 @@
 package com.trinityjayd.hourglass.dbmanagement
 
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import java.text.SimpleDateFormat
@@ -8,11 +9,16 @@ import java.util.Calendar
 import java.util.Date
 import java.util.Locale
 
+
 class AnalyticsData {
 
     private var database = Firebase.database.reference
     private var auth = Firebase.auth
     private var dayLabels = ArrayList<String>()
+
+    private fun enablePersistence() {
+        Firebase.database.setPersistenceEnabled(true)
+    }
 
 
     fun getGoals(callback: (Pair<Float, Float>) -> Unit) {

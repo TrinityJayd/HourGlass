@@ -73,9 +73,7 @@ class HoursPerDay : AppCompatActivity() {
 
         val refreshButton = findViewById<ImageView>(R.id.refreshButton)
 
-        loadingIndicator.show()
-        refreshButton.callOnClick()
-        loadingIndicator.hide()
+
 
         refreshButton.setOnClickListener {
             loadingIndicator.show()
@@ -127,6 +125,10 @@ class HoursPerDay : AppCompatActivity() {
 
             }
         }
+
+        loadingIndicator.show()
+        refreshButton.callOnClick()
+        loadingIndicator.hide()
 
 
 

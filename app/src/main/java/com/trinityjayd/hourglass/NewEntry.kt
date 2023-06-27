@@ -211,12 +211,14 @@ class NewEntry : AppCompatActivity() {
             //Android – Upload an Image on Firebase Storage with Kotlin
             //Author: GeeksforGeeks
             //Link: https://www.geeksforgeeks.org/android-upload-an-image-on-firebase-storage-with-kotlin/
+            loadingIndicator.show()
             storageRef = Firebase.storage.reference
             val galleryIntent = Intent(Intent.ACTION_PICK)
             // here item is type of image
             galleryIntent.type = "image/*"
             // ActivityResultLauncher callback
             imagePickerActivityResult.launch(galleryIntent)
+            loadingIndicator.hide()
         }
 
     }

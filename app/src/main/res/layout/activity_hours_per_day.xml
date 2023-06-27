@@ -33,7 +33,7 @@
             android:fontFamily="@font/ubuntumedium"
             android:text="Analytics"
             android:textColor="@android:color/white"
-            android:textSize="22sp" />
+            android:textSize="20sp" />
 
         <com.google.android.material.progressindicator.CircularProgressIndicator
             android:id="@+id/loadingIndicator"
@@ -72,7 +72,7 @@
             android:layout_marginEnd="10sp"
             android:background="@drawable/spinner_background"
             android:fontFamily="@font/ubunturegular"
-            android:paddingHorizontal="45dp"
+            android:paddingHorizontal="25dp"
             android:text="Start Date"
             android:textAllCaps="false"
             android:textColor="@color/white"
@@ -86,7 +86,7 @@
             android:layout_marginEnd="20sp"
             android:background="@drawable/spinner_background"
             android:fontFamily="@font/ubunturegular"
-            android:paddingHorizontal="45dp"
+            android:paddingHorizontal="25dp"
             android:text="End Date"
             android:textAllCaps="false"
             android:textColor="@color/white"
@@ -117,7 +117,7 @@
             android:fontFamily="@font/ubuntumedium"
             android:text="Hours Worked Per Day vs Goals"
             android:textColor="@android:color/white"
-            android:textSize="18sp" />
+            android:textSize="16sp" />
 
         <com.github.mikephil.charting.charts.BarChart
             android:id="@+id/barChart"

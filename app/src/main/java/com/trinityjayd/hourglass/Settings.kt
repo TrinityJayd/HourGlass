@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.FirebaseAuth
@@ -62,7 +63,8 @@ class Settings : AppCompatActivity() {
                 //sign user out of google
 
                 //get google sign in client
-                val googleSignInClient = GoogleSignIn.getClient(this, GoogleSignInOptions.DEFAULT_SIGN_IN)
+                val googleSignInClient =
+                    GoogleSignIn.getClient(this, GoogleSignInOptions.DEFAULT_SIGN_IN)
                 //sign out of google
                 googleSignInClient.signOut()
             }
@@ -73,5 +75,42 @@ class Settings : AppCompatActivity() {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
+
+        //get delete account TextView
+        val deleteAccountButton = findViewById<TextView>(R.id.deleteAccountTextView)
+        //set on click listener
+        deleteAccountButton.setOnClickListener {
+            val alertDialogBuilder = AlertDialog.Builder(this)
+            alertDialogBuilder.setTitle("Account")
+            alertDialogBuilder.setMessage("This action cannot be undone.\nAre you sure you want to delete your account?")
+            alertDialogBuilder.setPositiveButton("Yes") { _, _ ->
+                //delete the google credentials
+                val googleSignInAccount = GoogleSignIn.getLastSignedInAccount(this)
+                if (googleSignInAccount != null) {
+                    //sign user out of google
+
+                    //get google sign in client
+                    val googleSignInClient =
+                        GoogleSignIn.getClient(this, GoogleSignInOptions.DEFAULT_SIGN_IN)
+                    //sign out of google
+                    googleSignInClient.signOut()
+                }
+
+
+                val userDbManagement = UserDbManagement()
+                userDbManagement.deleteUser(uid)
+
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
+
+            }
+
+            alertDialogBuilder.setNegativeButton("No") { _, _ ->
+                //do nothing
+            }
+
+            alertDialogBuilder.show()
+        }
+
     }
 }

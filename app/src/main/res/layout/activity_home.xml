@@ -31,7 +31,7 @@
             android:fontFamily="@font/ubuntumedium"
             android:text="HourGlass"
             android:textColor="@android:color/white"
-            android:textSize="22sp"
+            android:textSize="20sp"
             android:layout_gravity="center"/>
 
     </LinearLayout>

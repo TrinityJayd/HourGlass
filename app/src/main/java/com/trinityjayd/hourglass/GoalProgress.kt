@@ -156,7 +156,7 @@ class GoalProgress : AppCompatActivity() {
         pieChart.setHoleColor(Color.TRANSPARENT)
         pieChart.transparentCircleRadius = 0f
         pieChart.setDrawEntryLabels(false)
-        pieChart.holeRadius = 60f
+        pieChart.holeRadius = 70f
 
         // Refresh the chart
         pieChart.invalidate()

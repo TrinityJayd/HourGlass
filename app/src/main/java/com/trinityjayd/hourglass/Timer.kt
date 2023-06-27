@@ -3,7 +3,6 @@ package com.trinityjayd.hourglass
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
-import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
@@ -50,7 +49,7 @@ class Timer : AppCompatActivity() {
                 //or go back to the timer
                 val alertDialogBuilder = AlertDialog.Builder(this)
                 alertDialogBuilder.setTitle("Timer")
-                alertDialogBuilder.setMessage("The timer will stop if you go to the home page. Do you want to continue?")
+                alertDialogBuilder.setMessage("The timer will stop if you go to the home page.\nDo you want to continue?")
                 alertDialogBuilder.setPositiveButton("Yes") { _, _ ->
                     //go to home page
                     val intent = Intent(this, Home::class.java)
@@ -123,7 +122,7 @@ class Timer : AppCompatActivity() {
     // when the Start button is clicked.
     // Below method gets called
     // when the Start button is clicked.
-    fun onClickStart(view: View?) {
+    fun onClickStart() {
         running = true
     }
 
@@ -131,7 +130,7 @@ class Timer : AppCompatActivity() {
     // when the Stop button is clicked.
     // Below method gets called
     // when the Stop button is clicked.
-    fun onClickStop(view: View?) {
+    fun onClickStop() {
         running = false
     }
 
@@ -139,14 +138,14 @@ class Timer : AppCompatActivity() {
     // the Reset button is clicked.
     // Below method gets called
     // when the Reset button is clicked.
-    fun onClickReset(view: View?) {
+    fun onClickReset() {
         running = false
         seconds = 0
     }
 
     //If the use clicks the save button
     //go to new entry page
-    fun onClickSave(view: View?) {
+    fun onClickSave() {
         //get hours
         val hours = seconds / 3600
         //get minutes
@@ -211,8 +210,7 @@ class Timer : AppCompatActivity() {
                 }
 
                 // Post the code again
-                // with a delay of 1 second.
-                handler.postDelayed(this, 1000)
+                handler.postDelayed(this,1000)
             }
         })
     }
