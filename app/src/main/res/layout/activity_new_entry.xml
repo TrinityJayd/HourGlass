@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,6 +9,9 @@
     android:paddingHorizontal="20dp"
     android:paddingBottom="20dp"
     tools:context=".NewEntry">
+
+
+
 
     <LinearLayout
         android:id="@+id/imageTitleLayout"
@@ -22,25 +26,39 @@
             android:layout_height="40dp"
             android:layout_marginEnd="10dp"
             android:contentDescription="New Task"
+            android:layout_gravity="center"
             android:src="@drawable/purple_icon_circle" />
 
         <TextView
             android:id="@+id/titleTextView"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:layout_marginEnd="20dp"
             android:fontFamily="@font/ubuntumedium"
             android:text="New Entry"
             android:textColor="@android:color/white"
-            android:textSize="22sp"
-            android:layout_gravity="center" />
+            android:textSize="22sp" />
+
+        <com.google.android.material.progressindicator.CircularProgressIndicator
+            android:id="@+id/loadingIndicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:indeterminate="true" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:visibility="invisible" />
 
         <ImageView
             android:id="@+id/homeImageView"
             android:layout_width="45dp"
             android:layout_height="37dp"
-            android:layout_gravity="end"
             android:contentDescription="Home"
+            android:layout_gravity="center"
             android:src="@drawable/home" />
 
     </LinearLayout>
@@ -76,7 +94,7 @@
             android:padding="16dp"
             android:singleLine="false"
             android:textColor="@android:color/white"
-            android:textSize="16sp"/>
+            android:textSize="16sp" />
 
         <Button
             android:id="@+id/newCategoryButton"
@@ -161,19 +179,20 @@
                 android:id="@+id/timeTextView"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_gravity="center"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="20dp"
+                android:layout_weight="1"
                 android:fontFamily="@font/ubunturegular"
                 android:text="Time (hh:mm)"
                 android:textColor="@android:color/white"
-                android:textSize="16sp"
-                android:layout_gravity="center"/>
+                android:textSize="16sp" />
 
             <EditText
                 android:id="@+id/hoursEditText"
                 android:layout_width="68dp"
                 android:layout_height="wrap_content"
+                android:layout_gravity="end"
                 android:layout_marginEnd="15dp"
                 android:backgroundTint="@android:color/white"
                 android:fontFamily="@font/ubunturegular"
@@ -183,13 +202,13 @@
                 android:padding="20dp"
                 android:textColor="@android:color/white"
                 android:textColorHint="@color/white"
-                android:textSize="16sp"
-                android:layout_gravity="end"/>
+                android:textSize="16sp" />
 
             <EditText
                 android:id="@+id/minutesEditText"
                 android:layout_width="68dp"
                 android:layout_height="wrap_content"
+                android:layout_gravity="end"
                 android:backgroundTint="@android:color/white"
                 android:fontFamily="@font/ubunturegular"
                 android:hint="mm"
@@ -198,8 +217,7 @@
                 android:padding="20dp"
                 android:textColor="@android:color/white"
                 android:textColorHint="@color/white"
-                android:textSize="16sp"
-                android:layout_gravity="end"/>
+                android:textSize="16sp" />
 
         </LinearLayout>
 
@@ -238,6 +256,8 @@
             android:textAllCaps="false"
             android:textColor="@android:color/white"
             android:textSize="14sp" />
+
+
     </LinearLayout>
 
     <Button
@@ -254,5 +274,6 @@
         android:textAllCaps="false"
         android:textColor="@color/colorButtonText"
         android:textSize="16sp" />
+
 
 </RelativeLayout>

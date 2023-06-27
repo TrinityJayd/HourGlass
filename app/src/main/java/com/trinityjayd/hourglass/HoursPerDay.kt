@@ -18,6 +18,7 @@ import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import com.google.android.material.datepicker.MaterialDatePicker
+import com.google.android.material.progressindicator.CircularProgressIndicator
 import com.trinityjayd.hourglass.dbmanagement.AnalyticsData
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -68,9 +69,16 @@ class HoursPerDay : AppCompatActivity() {
         // Customize right Y-axis (optional)
         barChart.axisRight.isEnabled = false
 
+        val loadingIndicator = findViewById<CircularProgressIndicator>(R.id.loadingIndicator)
+
         val refreshButton = findViewById<ImageView>(R.id.refreshButton)
 
+        loadingIndicator.show()
+        refreshButton.callOnClick()
+        loadingIndicator.hide()
+
         refreshButton.setOnClickListener {
+            loadingIndicator.show()
             AnalyticsData().getGoals { goals ->
                 val minimumGoal = goals.first
                 val maximumGoal = goals.second
@@ -78,6 +86,7 @@ class HoursPerDay : AppCompatActivity() {
                 if (minimumGoal == 0f && maximumGoal == 0f) {
                     Toast.makeText(this, "Please set goals to use this chart.", Toast.LENGTH_LONG)
                         .show()
+                    loadingIndicator.hide()
                     return@getGoals
                 } else {
                     // Update the axis minimum and maximum values here
@@ -112,13 +121,14 @@ class HoursPerDay : AppCompatActivity() {
                         xAxis.labelCount = xAxisLabels.size
                         barChart.invalidate()
                     }
+                    loadingIndicator.hide()
                 }
 
 
             }
         }
 
-        refreshButton.callOnClick()
+
 
         val homeImageView = findViewById<ImageView>(R.id.homeImageView)
         homeImageView.setOnClickListener {

@@ -17,6 +17,7 @@ import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.progressindicator.CircularProgressIndicator
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DataSnapshot
@@ -93,6 +94,8 @@ class NewEntry : AppCompatActivity() {
             startActivity(intent)
         }
 
+        val loadingIndicator = findViewById<CircularProgressIndicator>(R.id.loadingIndicator)
+        loadingIndicator.hide()
         //get save button
         val save = findViewById<Button>(R.id.saveButton)
 
@@ -157,6 +160,8 @@ class NewEntry : AppCompatActivity() {
                 description.error = "Please enter a description less than 100 characters."
                 return@setOnClickListener
             } else {
+                loadingIndicator.show()
+
                 //all fields are valid
                 val taskNameText = taskName.text.toString()
                 val selectedCategory = category.selectedItem.toString()
@@ -187,8 +192,11 @@ class NewEntry : AppCompatActivity() {
                 //create entry management object
                 val entryManagement = EntryManagement()
 
+
+
                 //add entry to database
                 entryManagement.addEntryToDatabase(entry)
+                loadingIndicator.hide()
 
                 //create intent to go to home page
                 val intent = Intent(this, Home::class.java)

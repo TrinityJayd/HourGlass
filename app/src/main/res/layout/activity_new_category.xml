@@ -20,26 +20,39 @@
         <ImageView
             android:layout_width="40dp"
             android:layout_height="40dp"
+            android:layout_gravity="center"
             android:layout_marginEnd="10dp"
             android:contentDescription="Add Category"
             android:src="@drawable/purple_icon_circle" />
 
         <TextView
             android:id="@+id/titleTextView"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:layout_marginEnd="20dp"
             android:fontFamily="@font/ubuntumedium"
             android:text="Category"
             android:textColor="@android:color/white"
-            android:textSize="22sp"
-            android:layout_gravity="center" />
+            android:textSize="22sp" />
+
+        <com.google.android.material.progressindicator.CircularProgressIndicator
+            android:id="@+id/loadingIndicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminate="true" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:visibility="invisible" />
 
         <ImageView
             android:id="@+id/homeImageView"
             android:layout_width="45dp"
             android:layout_height="37dp"
-            android:layout_gravity="end"
+            android:layout_gravity="center"
             android:contentDescription="Home"
             android:src="@drawable/home" />
 

@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.progressindicator.CircularProgressIndicator
 import com.google.firebase.auth.FirebaseAuth
 import com.trinityjayd.hourglass.dbmanagement.UserDbManagement
 
@@ -17,6 +18,9 @@ class ForgotPassword : AppCompatActivity() {
         //get email edit text
         val email = findViewById<EditText>(R.id.editTextEmailAddress)
 
+        val loadingIndicator = findViewById<CircularProgressIndicator>(R.id.loadingIndicator)
+        loadingIndicator.hide()
+
         //get change password button
         val changePasswordButton = findViewById<Button>(R.id.changePasswordButton)
         //set on click listener to go to login
@@ -28,6 +32,7 @@ class ForgotPassword : AppCompatActivity() {
                 return@setOnClickListener
             } else {
 
+                loadingIndicator.show()
                 val userDbManagement = UserDbManagement()
                 val auth: FirebaseAuth = FirebaseAuth.getInstance()
                 //check if user exists with email
@@ -47,6 +52,7 @@ class ForgotPassword : AppCompatActivity() {
                         email.error = "User with this email does not exist"
                     }
                 }
+                loadingIndicator.hide()
             }
 
         }

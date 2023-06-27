@@ -13,6 +13,7 @@ import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
 import com.github.mikephil.charting.components.Legend
 import com.github.mikephil.charting.formatter.ValueFormatter
+import com.google.android.material.progressindicator.CircularProgressIndicator
 import com.trinityjayd.hourglass.dbmanagement.AnalyticsData
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -42,7 +43,6 @@ class GoalProgress : AppCompatActivity() {
 
         val thirtyDaysAgo = Calendar.getInstance()
         //set the date to 30 days ago
-        //subtract 29 because we include the current day in the total hours calculation
         thirtyDaysAgo.add(Calendar.DAY_OF_YEAR, -29)
         formattedThirtyDaysAgo = dateFormat.format(thirtyDaysAgo.time)
 
@@ -51,6 +51,8 @@ class GoalProgress : AppCompatActivity() {
         var maxGoalValue: Float
 
 
+        val loadingIndicator = findViewById<CircularProgressIndicator>(R.id.loadingIndicator)
+        loadingIndicator.show()
 
         analytics.getGoals { goals ->
 
@@ -61,6 +63,7 @@ class GoalProgress : AppCompatActivity() {
                 minGoalTextView.text = "Daily Minimum Goal: 0h for 30 days : "
                 maxGoalTextView.text = "Daily Maximum Goal: 0h for 30 days : "
                 createPieChart(0f, 0f, 0f)
+                loadingIndicator.hide()
                 return@getGoals
             }else{
                 minGoalTextView.text = "Daily Minimum Goal: ${goals.first}h for 30 days : "
@@ -84,6 +87,7 @@ class GoalProgress : AppCompatActivity() {
                         createPieChart(progressValue, minGoalValue, maxGoalValue)
                     }
                 }
+                loadingIndicator.hide()
             }
 
 
