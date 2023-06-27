@@ -8,13 +8,15 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="colorPrimary">#252B40</color> <!-- Background color -->
-    <color name="colorButton">#EEEEEE</color> <!-- Button color -->
-    <color name="colorButtonText">#252B40</color> <!-- Button text color -->
+    <color name="colorPrimary">#252B40</color>
+    <color name="colorTransparent">#CC252B40</color>
+    <color name="colorButton">#EEEEEE</color>
+    <color name="colorButtonText">#252B40</color>
     <color name="yellow_700">#e1bd3d</color>
     <color name="blue_300">#5da1e1</color>
     <color name="purple_square">#933dbb</color>
     <color name="pink_square">#F0A584</color>
     <color name="green_square">#62BC2B</color>
     <color name="light_background">#3A4260</color>
+
 </resources>

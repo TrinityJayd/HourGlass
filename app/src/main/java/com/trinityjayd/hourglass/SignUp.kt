@@ -7,6 +7,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.progressindicator.CircularProgressIndicator
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -29,6 +30,8 @@ class SignUp : AppCompatActivity() {
         val confirmPassword = findViewById<EditText>(R.id.editTextConfirmPassword)
         confirmPassword.transformationMethod = PasswordTransformationMethod()
 
+        val loadingIndicator = findViewById<CircularProgressIndicator>(R.id.loadingIndicator)
+        loadingIndicator.hide()
 
         //get sign up button
         val signUpButton = findViewById<Button>(R.id.signUpButton)
@@ -71,6 +74,7 @@ class SignUp : AppCompatActivity() {
                     "Passwords must be at least 8 characters long and contain at least one number, one uppercase letter, one lowercase letter, one special character and cannot contain spaces."
                 return@setOnClickListener
             } else {
+                loadingIndicator.show()
                 val fullName = fullname.text.toString()
                 val emailText = email.text.toString()
                 val passwordText = password.text.toString()
@@ -96,6 +100,7 @@ class SignUp : AppCompatActivity() {
                             ).show()
                         }
                     }
+                loadingIndicator.hide()
             }
         }
 

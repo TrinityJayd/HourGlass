@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
+import com.google.android.material.progressindicator.CircularProgressIndicator
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -34,6 +35,9 @@ class NewCategory : AppCompatActivity() {
             startActivity(intent)
         }
 
+        val loadingIndicator = findViewById<CircularProgressIndicator>(R.id.loadingIndicator)
+        loadingIndicator.hide()
+
         //get save button
         val save = findViewById<Button>(R.id.saveButton)
         //set on click listener
@@ -59,10 +63,12 @@ class NewCategory : AppCompatActivity() {
                 pickColor?.error = "Please pick a color"
                 return@setOnClickListener
             } else {
+                loadingIndicator.show()
                 //check if category already exists
                 categoryManagement.isCategoryExists(uid, categoryName.text.toString()) { exists ->
                     if (exists) {
                         categoryName.error = "Category with the same name already exists"
+                        loadingIndicator.hide()
                         return@isCategoryExists
                     } else {
                         val category = Category(categoryName.text.toString(), defaultColor, uid)
@@ -75,6 +81,7 @@ class NewCategory : AppCompatActivity() {
                         startActivity(intent)
                     }
                 }
+                loadingIndicator.hide()
 
             }
         }

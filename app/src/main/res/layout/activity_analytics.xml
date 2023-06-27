@@ -118,7 +118,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
                 android:fontFamily="@font/ubuntumedium"
-                android:text="Work Hours Progress"
+                android:text="Work Hours Analysis"
                 android:textColor="@android:color/white"
                 android:textSize="16sp" />
 

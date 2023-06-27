@@ -5,25 +5,24 @@
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
     android:orientation="vertical"
-    tools:context=".NewCategory">
-
+    android:paddingHorizontal="20dp"
+    android:paddingVertical="20dp"
+    tools:context=".HoursPerDay">
 
     <LinearLayout
         android:id="@+id/imageTitleLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="25dp"
-        android:orientation="horizontal"
-        android:paddingHorizontal="20dp"
-        android:paddingTop="20dp">
+        android:orientation="horizontal">
 
         <ImageView
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_gravity="center"
             android:layout_marginEnd="10dp"
-            android:contentDescription="Add Category"
-            android:src="@drawable/purple_icon_circle" />
+            android:contentDescription="Analytics"
+            android:src="@drawable/blue_icon_circle" />
 
         <TextView
             android:id="@+id/titleTextView"
@@ -32,7 +31,7 @@
             android:layout_gravity="center"
             android:layout_marginEnd="20dp"
             android:fontFamily="@font/ubuntumedium"
-            android:text="Category"
+            android:text="Analytics"
             android:textColor="@android:color/white"
             android:textSize="22sp" />
 
@@ -59,76 +58,74 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/formLayout"
+        android:id="@+id/dateButtons"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingHorizontal="40dp">
-
-        <TextView
-            android:id="@+id/categoryNameTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:fontFamily="@font/ubunturegular"
-            android:labelFor="@id/editTextCategoryName"
-            android:text="Category Name"
-            android:textColor="@android:color/white"
-            android:textSize="16sp" />
-
-        <EditText
-            android:id="@+id/editTextCategoryName"
-            android:layout_width="match_parent"
-            android:layout_height="52dp"
-            android:layout_marginBottom="25dp"
-            android:backgroundTint="@android:color/white"
-            android:ems="10"
-            android:fontFamily="@font/ubunturegular"
-            android:inputType="text"
-            android:singleLine="false"
-            android:textColor="@android:color/white" />
-
-        <LinearLayout
-            android:id="@+id/colorPickerLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/colorTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginEnd="30dp"
-                android:fontFamily="@font/ubunturegular"
-                android:text="Color"
-                android:textColor="@android:color/white"
-                android:textSize="16sp" />
-
-            <Button
-                android:id="@+id/pickColorButton"
-                android:layout_width="64dp"
-                android:layout_height="64dp"
-                android:contentDescription="Color picker" />
-
-
-        </LinearLayout>
+        android:layout_marginBottom="20dp"
+        android:orientation="horizontal">
 
         <Button
-            android:id="@+id/saveButton"
+            android:id="@+id/startDateButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_marginEnd="10sp"
+            android:background="@drawable/spinner_background"
+            android:fontFamily="@font/ubunturegular"
+            android:paddingHorizontal="45dp"
+            android:text="Start Date"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="14sp" />
+
+        <Button
+            android:id="@+id/endDateButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
-            android:layout_marginTop="30dp"
-            android:background="@drawable/submit_button"
+            android:layout_marginEnd="20sp"
+            android:background="@drawable/spinner_background"
             android:fontFamily="@font/ubunturegular"
-            android:paddingHorizontal="40dp"
-            android:text="Save"
+            android:paddingHorizontal="45dp"
+            android:text="End Date"
             android:textAllCaps="false"
-            android:textColor="@color/colorButtonText"
-            android:textSize="18sp" />
+            android:textColor="@color/white"
+            android:textSize="14sp" />
+
+        <ImageView
+            android:id="@+id/refreshButton"
+            android:layout_width="20dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:src="@drawable/refresh" />
 
 
     </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/chartTitleTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="10dp"
+            android:fontFamily="@font/ubuntumedium"
+            android:text="Hours Worked Per Day vs Goals"
+            android:textColor="@android:color/white"
+            android:textSize="18sp" />
+
+        <com.github.mikephil.charting.charts.BarChart
+            android:id="@+id/barChart"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="20dp" />
+
+    </LinearLayout>
+
 
 </LinearLayout>

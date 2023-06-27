@@ -7,6 +7,7 @@ import android.text.Editable
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
+import com.google.android.material.progressindicator.CircularProgressIndicator
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DataSnapshot
@@ -35,8 +36,11 @@ class Goals : AppCompatActivity() {
         //get max hours edit text
         val maxHours = findViewById<EditText>(R.id.maximumGoalEditText)
 
+        val loadingIndicator = findViewById<CircularProgressIndicator>(R.id.loadingIndicator)
+        loadingIndicator.show()
         //populate edit texts with current goals
         populateGoalTextViews(uid, minHours, maxHours)
+        loadingIndicator.hide()
 
         //get home image view
         val home = findViewById<ImageView>(R.id.homeImageView)
@@ -47,6 +51,7 @@ class Goals : AppCompatActivity() {
             //start activity
             startActivity(intent)
         }
+
 
         //get save button
         val save = findViewById<Button>(R.id.saveButton)
@@ -81,6 +86,7 @@ class Goals : AppCompatActivity() {
                 minHours.error = "Minimum goal cannot be greater than 24"
                 return@setOnClickListener
             } else {
+                loadingIndicator.show()
                 //save min hours
                 val minHours = minHours.text.toString().toInt()
                 //save max hours
@@ -101,6 +107,7 @@ class Goals : AppCompatActivity() {
                 //add goals to database
                 GoalManagement().addGoalToDatabase(goals)
 
+                loadingIndicator.hide()
                 //create intent to go to home page
                 val intent = Intent(this, Home::class.java)
                 //start activity

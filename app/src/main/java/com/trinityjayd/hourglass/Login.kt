@@ -7,6 +7,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.progressindicator.CircularProgressIndicator
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -39,12 +40,14 @@ class Login : AppCompatActivity() {
         val password = findViewById<EditText>(R.id.editTextPassword)
         password.transformationMethod = PasswordTransformationMethod()
 
+        val loadingIndicator = findViewById<CircularProgressIndicator>(R.id.loadingIndicator)
+        loadingIndicator.hide()
+
         val loginButton = findViewById<Button>(R.id.loginButton)
         //set on click listener to home activity
         loginButton.setOnClickListener {
             //get email and password
             val email = findViewById<EditText>(R.id.editTextEmailAddress)
-
 
             val validationMethods = ValidationMethods()
 
@@ -60,6 +63,7 @@ class Login : AppCompatActivity() {
                 email.error = "Please enter a valid email."
                 return@setOnClickListener
             } else {
+                loadingIndicator.show()
                 val emailText = email.text.toString()
                 val passwordText = password.text.toString()
                 val userDbManagement = UserDbManagement()
@@ -88,6 +92,7 @@ class Login : AppCompatActivity() {
                         email.error = "User with this email does not exist"
                     }
                 }
+                loadingIndicator.hide()
 
 
             }

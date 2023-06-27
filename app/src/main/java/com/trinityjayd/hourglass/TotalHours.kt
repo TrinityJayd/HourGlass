@@ -12,6 +12,7 @@ import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.progressindicator.CircularProgressIndicator
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DataSnapshot
@@ -54,12 +55,14 @@ class TotalHours : AppCompatActivity() {
         dateButtons()
 
 
+        val loadingIndicator = findViewById<CircularProgressIndicator>(R.id.loadingIndicator)
+        loadingIndicator.hide()
+
         //get filter button
         val filterButton = findViewById<Button>(R.id.filterButton)
 
         //set on click listener
         filterButton.setOnClickListener {
-
             //check if category is selected
             if(category.selectedItem.toString() == "Category"){
                 Toast.makeText(this, "Please select a category", Toast.LENGTH_SHORT).show()
@@ -89,6 +92,7 @@ class TotalHours : AppCompatActivity() {
 
             val entryManagement = EntryManagement()
 
+            loadingIndicator.show()
             //get total time by category
             entryManagement.calculateTotalTimeByCategory(
                 uid,
@@ -121,6 +125,8 @@ class TotalHours : AppCompatActivity() {
 
                 }
             }
+            loadingIndicator.hide()
+
             //reset the filter text
             startDate.text = "Start"
             endDate.text = "End"

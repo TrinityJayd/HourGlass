@@ -12,6 +12,7 @@ import android.widget.Spinner
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.progressindicator.CircularProgressIndicator
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DataSnapshot
@@ -47,10 +48,14 @@ class ListEntries : AppCompatActivity() {
         entryRecyclerView.adapter = entryAdapter
 
         val entryManagement = EntryManagement()
+
+        val loadingIndicator = findViewById<CircularProgressIndicator>(R.id.loadingIndicator)
+        loadingIndicator.show()
         //get all entries for the logged in user
         entryManagement.getAllEntriesForUser(uid) { entries ->
             entryAdapter.updateEntries(entries)
         }
+        loadingIndicator.hide()
 
         //get home image view
         val home = findViewById<ImageView>(R.id.homeImageView)
@@ -96,6 +101,7 @@ class ListEntries : AppCompatActivity() {
             startDate.error = null
             endDate.error = null
 
+            loadingIndicator.show()
             val entryManagement = EntryManagement()
 
             //filter entries
@@ -109,6 +115,7 @@ class ListEntries : AppCompatActivity() {
                 entryAdapter.updateEntries(entries)
 
             }
+            loadingIndicator.hide()
 
             //reset filter text
             startDate.text = "Start"
