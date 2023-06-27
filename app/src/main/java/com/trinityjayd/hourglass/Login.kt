@@ -131,6 +131,11 @@ class Login : AppCompatActivity() {
 
     }
 
+    //Code Attribution
+    //Author: Develop Ideas
+    //Date: 7 June 2023
+    //Link: https://www.youtube.com/watch?v=vDmabKQ0T9s
+
     private fun signInWithGoogle() {
         val signInIntent = googleSignInClient.signInIntent
         resultLauncher.launch(signInIntent)
@@ -174,7 +179,6 @@ class Login : AppCompatActivity() {
                             userDbManagement.addUserToDatabase(newUser)
                         }
                     }
-
                     val intent = Intent(this, Home::class.java)
                     startActivity(intent)
                 } else {

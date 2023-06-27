@@ -67,6 +67,9 @@ class Settings : AppCompatActivity() {
                 googleSignInClient.signOut()
             }
 
+            //prevent user from clicking back button to go back to home
+
+
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
