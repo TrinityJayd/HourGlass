@@ -47,7 +47,7 @@ class HoursPerDay : AppCompatActivity() {
         barChart.setPinchZoom(true)
         barChart.legend.textSize = 14f
         barChart.legend.textColor = Color.WHITE
-        barChart.setExtraOffsets(10f, 10f, 10f, 15f)
+        barChart.setExtraOffsets(10f, 15f, 10f, 15f)
 
 
         // Customize X-axis
@@ -57,6 +57,7 @@ class HoursPerDay : AppCompatActivity() {
         xAxis.textColor = Color.WHITE
         xAxis.textSize = 14f
         xAxis.granularity = 1f
+
 
         // Customize Y-axis
         val yAxis = barChart.axisLeft
@@ -154,6 +155,7 @@ class HoursPerDay : AppCompatActivity() {
                 val barColor = ContextCompat.getColor(this, R.color.blue_300)
                 barDataSet.color = barColor
                 barDataSet.valueTextColor = Color.WHITE
+                barDataSet.valueTextSize = 14f
 
 
                 val barData = BarData(barDataSet)
