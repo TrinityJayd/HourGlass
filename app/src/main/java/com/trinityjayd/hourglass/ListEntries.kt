@@ -1,7 +1,10 @@
 package com.trinityjayd.hourglass
 
 import android.app.DatePickerDialog
+import android.content.Context
 import android.content.Intent
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
 import android.os.Bundle
 import android.view.View
 import android.widget.ArrayAdapter
@@ -57,9 +60,9 @@ class ListEntries : AppCompatActivity() {
             if(entries.isEmpty()){
                 Toast.makeText(this, "Please add an entry.", Toast.LENGTH_SHORT).show()
             }
-
+            loadingIndicator.hide()
         }
-        loadingIndicator.hide()
+
 
         //get home image view
         val home = findViewById<ImageView>(R.id.homeImageView)
@@ -108,7 +111,6 @@ class ListEntries : AppCompatActivity() {
             loadingIndicator.show()
             val entryManagement = EntryManagement()
 
-            //filter entries
             entryManagement.filterEntries(
                 uid,
                 category.selectedItem.toString(),
@@ -117,9 +119,13 @@ class ListEntries : AppCompatActivity() {
             ) { entries ->
                 //update entries in adapter
                 entryAdapter.updateEntries(entries)
-
+                loadingIndicator.hide()
             }
-            loadingIndicator.hide()
+
+            if(!isInternetAvailable()){
+                Toast.makeText(this, "Please connect to the internet to view entry images.", Toast.LENGTH_SHORT).show()
+            }
+
 
             //reset filter text
             startDate.text = "Start"
@@ -138,6 +144,8 @@ class ListEntries : AppCompatActivity() {
         //add select category to array list
         categories.add("All")
         val myRef = database.getReference("categories/$uid")
+        myRef.keepSynced(true)
+
         myRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
 
@@ -202,6 +210,16 @@ class ListEntries : AppCompatActivity() {
             )
             datePickerDialog.show()
         })
+    }
+
+    //check if device is connected to internet
+    private fun isInternetAvailable(): Boolean {
+        val connectivityManager =
+            getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val network = connectivityManager.activeNetwork
+        val networkCapabilities = connectivityManager.getNetworkCapabilities(network)
+
+        return networkCapabilities?.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET) == true
     }
 
 

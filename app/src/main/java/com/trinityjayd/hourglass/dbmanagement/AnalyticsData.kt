@@ -16,11 +16,6 @@ class AnalyticsData {
     private var auth = Firebase.auth
     private var dayLabels = ArrayList<String>()
 
-    private fun enablePersistence() {
-        Firebase.database.setPersistenceEnabled(true)
-    }
-
-
     fun getGoals(callback: (Pair<Float, Float>) -> Unit) {
         val uid = auth.currentUser?.uid
 
@@ -29,6 +24,7 @@ class AnalyticsData {
 
         // get minimum and maximum goal from database
         val goalRef = database.child("goals").child(uid.toString())
+        goalRef.keepSynced(true)
 
         goalRef.get().addOnSuccessListener {
             if (it.exists()) {

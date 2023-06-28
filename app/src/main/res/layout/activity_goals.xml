@@ -69,11 +69,22 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="10dp"
             android:fontFamily="@font/ubunturegular"
             android:text="Set Your Daily Goals!"
             android:textColor="@android:color/white"
             android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/descriptionTextViewTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="20dp"
+            android:fontFamily="@font/ubunturegular"
+            android:text="Take control of your day and unlock your true potential by setting and pursuing your daily goals."
+            android:textColor="@android:color/white"
+            android:textSize="16sp" />
 
         <LinearLayout
             android:layout_width="match_parent"

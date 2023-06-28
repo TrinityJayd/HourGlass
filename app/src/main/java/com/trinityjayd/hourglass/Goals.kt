@@ -122,6 +122,7 @@ class Goals : AppCompatActivity() {
         val database = Firebase.database.reference
         //get the goal where the user id is the current user
         val goalReference = database.child("goals").child(uid)
+        goalReference.keepSynced(true)
 
 
         goalReference.addListenerForSingleValueEvent(object : ValueEventListener {

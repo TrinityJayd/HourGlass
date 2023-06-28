@@ -65,83 +65,101 @@ class Login : AppCompatActivity() {
 
 
         val loginButton = findViewById<Button>(R.id.loginButton)
-        //set on click listener to home activity
-        loginButton.setOnClickListener {
-            //get email and password
-            val email = findViewById<EditText>(R.id.editTextEmailAddress)
+        val googleSignInButton = findViewById<Button>(R.id.googleLoginButton)
 
-            val validationMethods = ValidationMethods()
+        if(isInternetAvailable()){
+            //set on click listener to home activity
+            loginButton.setOnClickListener {
+                //get email and password
+                val email = findViewById<EditText>(R.id.editTextEmailAddress)
 
-            //check if email and password are empty
-            if (email.text.toString().isNullOrBlank()) {
-                email.error = "Please enter an email."
-                return@setOnClickListener
-            } else if (password.text.toString().isNullOrBlank()) {
-                password.error = "Please enter a password."
-                return@setOnClickListener
-            } else if (!validationMethods.isEmailValid(email.text.toString())) {
-                //check if email is valid
-                email.error = "Please enter a valid email."
-                return@setOnClickListener
-            } else {
-                loadingIndicator.show()
-                val emailText = email.text.toString()
-                val passwordText = password.text.toString()
-                val userDbManagement = UserDbManagement()
+                val validationMethods = ValidationMethods()
+
+                //check if email and password are empty
+                if (email.text.toString().isNullOrBlank()) {
+                    email.error = "Please enter an email."
+                    return@setOnClickListener
+                } else if (password.text.toString().isNullOrBlank()) {
+                    password.error = "Please enter a password."
+                    return@setOnClickListener
+                } else if (!validationMethods.isEmailValid(email.text.toString())) {
+                    //check if email is valid
+                    email.error = "Please enter a valid email."
+                    return@setOnClickListener
+                } else {
+                    loadingIndicator.show()
+                    val emailText = email.text.toString()
+                    val passwordText = password.text.toString()
+                    val userDbManagement = UserDbManagement()
 
 
-                //check if user exists in database
-                userDbManagement.isUserExistsWithEmail(emailText, auth) { exists ->
-                    if (exists) {
+                    //check if user exists in database
+                    userDbManagement.isUserExistsWithEmail(emailText, auth) { exists ->
+                        if (exists) {
 
-                        userDbManagement.isGoogleAccountExists(emailText) { hasGoogleAccount ->
-                            if (hasGoogleAccount) {
-                                Toast.makeText(this, "Please login with Google", Toast.LENGTH_SHORT)
-                                    .show()
-                            } else {
-                                //sign in user
-                                auth.signInWithEmailAndPassword(emailText, passwordText)
-                                    .addOnCompleteListener(this) { task ->
-                                        if (task.isSuccessful) {
-                                            val intent = Intent(this, Home::class.java)
-                                            startActivity(intent)
+                            userDbManagement.isGoogleAccountExists(emailText) { hasGoogleAccount ->
+                                if (hasGoogleAccount) {
+                                    Toast.makeText(this, "Please login with Google", Toast.LENGTH_SHORT)
+                                        .show()
+                                } else {
+                                    //sign in user
+                                    auth.signInWithEmailAndPassword(emailText, passwordText)
+                                        .addOnCompleteListener(this) { task ->
+                                            if (task.isSuccessful) {
+                                                val intent = Intent(this, Home::class.java)
+                                                startActivity(intent)
 
-                                        } else {
-                                            Toast.makeText(
-                                                baseContext,
-                                                "Authentication failed.",
-                                                Toast.LENGTH_SHORT,
-                                            ).show()
+                                            } else {
+                                                Toast.makeText(
+                                                    baseContext,
+                                                    "Authentication failed.",
+                                                    Toast.LENGTH_SHORT,
+                                                ).show()
 
+                                            }
                                         }
-                                    }
+                                }
                             }
-                        }
 
-                    } else {
-                        email.error = "User with this email does not exist"
+                        } else {
+                            email.error = "User with this email does not exist"
+                        }
                     }
+                    loadingIndicator.hide()
+
                 }
-                loadingIndicator.hide()
 
             }
 
+
+            googleSignInButton.setOnClickListener {
+                val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                    .requestIdToken(getString(R.string.web_client_id))
+                    .requestEmail()
+                    .build()
+
+                googleSignInClient = GoogleSignIn.getClient(this, gso)
+
+                loadingIndicator.show()
+                signInWithGoogle()
+                loadingIndicator.hide()
+            }
+
+        }else{
+            loginButton.setOnClickListener{
+                Toast.makeText(this, "Please connect to the internet to login.", Toast.LENGTH_SHORT).show()
+            }
+
+            googleSignInButton.setOnClickListener{
+                Toast.makeText(this, "Please connect to the internet to login.", Toast.LENGTH_SHORT).show()
+            }
         }
 
 
-        val googleSignInButton = findViewById<Button>(R.id.googleLoginButton)
-        googleSignInButton.setOnClickListener {
-            val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.web_client_id))
-                .requestEmail()
-                .build()
 
-            googleSignInClient = GoogleSignIn.getClient(this, gso)
 
-            loadingIndicator.show()
-            signInWithGoogle()
-            loadingIndicator.hide()
-        }
+
+
 
 
     }
@@ -170,8 +188,8 @@ class Login : AppCompatActivity() {
 
             val userDbManagement = UserDbManagement()
             if (account != null) {
-                userDbManagement.isUserExistsWithEmail(account?.email!!, auth) { exists ->
-                    if (!exists) {
+                userDbManagement.isGoogleAccountExists(account?.email!!) { exists ->
+                    if (exists) {
                         updateUI(account)
                     } else {
                         Toast.makeText(this, "Please use Email/Password login", Toast.LENGTH_SHORT)

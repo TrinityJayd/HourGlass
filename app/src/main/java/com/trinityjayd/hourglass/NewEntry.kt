@@ -4,6 +4,8 @@ import android.app.Activity
 import android.app.DatePickerDialog
 import android.content.Context
 import android.content.Intent
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
 import android.net.Uri
 import android.os.Bundle
 import android.provider.OpenableColumns
@@ -96,130 +98,147 @@ class NewEntry : AppCompatActivity() {
         loadingIndicator.hide()
         //get save button
         val save = findViewById<Button>(R.id.saveButton)
-
-        //set on click listener
-        save.setOnClickListener {
-            //get task name edit test
-            val taskName = findViewById<EditText>(R.id.editTextTaskName)
-            //get category spinner
-            val category = findViewById<Spinner>(R.id.spinnerCategory)
-            //get date picker button
-            val date = findViewById<Button>(R.id.datePickerButton)
-            //get description edit text
-            val description = findViewById<EditText>(R.id.editTextNotes)
-
-            //check if task name is blank
-            if (taskName.text.toString().isNullOrBlank()) {
-                taskName.error = "Please enter a task name."
-                return@setOnClickListener
-            } else if (taskName.text.toString().length > 50) {
-                //task name is too long
-                taskName.error = "Please enter a task name less than 50 characters."
-                return@setOnClickListener
-            } else if (category.selectedItem.toString() == "Select Category") {
-                //no category selected
-                Toast.makeText(this, "Please select a category.", Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
-            }else if (hours.text.toString().isNullOrBlank()) {
-                //no hours entered
-                hours.error = "Please enter hours."
-                return@setOnClickListener
-            } else if (hours.text.toString().toInt() > 24) {
-                //hours entered is greater than 24
-                hours.error = "Please enter hours less than 24."
-                return@setOnClickListener
-            } else if (hours.text.toString().toInt() < 0) {
-                //hours entered is less than 0
-                hours.error = "Please enter hours greater than 0."
-                return@setOnClickListener
-            } else if (minutes.text.toString().isNullOrBlank()) {
-                //no minutes entered
-                minutes.error = "Please enter minutes."
-                return@setOnClickListener
-            } else if (minutes.text.toString().toInt() >= 60) {
-                //minutes entered is greater than 60
-                minutes.error = "Please enter minutes less than 60."
-                return@setOnClickListener
-            } else if (minutes.text.toString().toInt() < 0) {
-                //minutes entered is less than 0
-                minutes.error = "Please enter minutes greater than 0."
-                return@setOnClickListener
-            } else if(hours.text.toString().toInt() == 0 && minutes.text.toString().toInt() == 0 ){
-                //hours and minutes are both 0
-                Toast.makeText(this, "Please enter hours or minutes greater than 0.", Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
-            }
-            else if (description.text.toString().isNullOrBlank()) {
-                //no description entered
-                description.error = "Please enter a description."
-                return@setOnClickListener
-            } else if (description.text.toString().length > 100) {
-                //description is too long
-                description.error = "Please enter a description less than 100 characters."
-                return@setOnClickListener
-            } else {
-                loadingIndicator.show()
-
-                //all fields are valid
-                val taskNameText = taskName.text.toString()
-                val selectedCategory = category.selectedItem.toString()
-                val selectedDate = date.text.toString()
-                val hoursText = hours.text.toString()
-                val hoursInt = hoursText.toInt()
-                val minutesText = minutes.text.toString()
-                val minutesInt = minutesText.toInt()
-                val descriptionText = description.text.toString()
-
-                //get current user
-                val user = auth.currentUser!!
-                val uid = user.uid
-
-                //create entry object
-                val entry = Entry(
-                    taskNameText,
-                    selectedCategory,
-                    selectedDate,
-                    hoursInt,
-                    minutesInt,
-                    descriptionText,
-                    //this file path links to the file name in firebase storage
-                    filePath,
-                    uid
-                )
-
-                //create entry management object
-                val entryManagement = EntryManagement()
-
-
-
-                //add entry to database
-                entryManagement.addEntryToDatabase(entry)
-                loadingIndicator.hide()
-
-                //create intent to go to home page
-                val intent = Intent(this, Home::class.java)
-                //start activity
-                startActivity(intent)
-            }
-
-
-        }
-
         val picture = findViewById<Button>(R.id.pictureButton)
-        picture.setOnClickListener {
-            //Code Attribution
-            //Android – Upload an Image on Firebase Storage with Kotlin
-            //Author: GeeksforGeeks
-            //Link: https://www.geeksforgeeks.org/android-upload-an-image-on-firebase-storage-with-kotlin/
-            loadingIndicator.show()
-            storageRef = Firebase.storage.reference
-            val galleryIntent = Intent(Intent.ACTION_PICK)
-            // here item is type of image
-            galleryIntent.type = "image/*"
-            // ActivityResultLauncher callback
-            imagePickerActivityResult.launch(galleryIntent)
-            loadingIndicator.hide()
+
+        if(isInternetAvailable()){
+            //set on click listener
+            save.setOnClickListener {
+                //get task name edit test
+                val taskName = findViewById<EditText>(R.id.editTextTaskName)
+                //get category spinner
+                val category = findViewById<Spinner>(R.id.spinnerCategory)
+                //get date picker button
+                val date = findViewById<Button>(R.id.datePickerButton)
+                //get description edit text
+                val description = findViewById<EditText>(R.id.editTextNotes)
+
+                //check if task name is blank
+                if (taskName.text.toString().isNullOrBlank()) {
+                    taskName.error = "Please enter a task name."
+                    return@setOnClickListener
+                } else if (taskName.text.toString().length > 50) {
+                    //task name is too long
+                    taskName.error = "Please enter a task name less than 50 characters."
+                    return@setOnClickListener
+                } else if (category.selectedItem.toString() == "Select Category") {
+                    //no category selected
+                    Toast.makeText(this, "Please select a category.", Toast.LENGTH_SHORT).show()
+                    return@setOnClickListener
+                }else if (hours.text.toString().isNullOrBlank()) {
+                    //no hours entered
+                    hours.error = "Please enter hours."
+                    return@setOnClickListener
+                } else if (hours.text.toString().toInt() > 24) {
+                    //hours entered is greater than 24
+                    hours.error = "Please enter hours less than 24."
+                    return@setOnClickListener
+                } else if (hours.text.toString().toInt() < 0) {
+                    //hours entered is less than 0
+                    hours.error = "Please enter hours greater than 0."
+                    return@setOnClickListener
+                } else if (minutes.text.toString().isNullOrBlank()) {
+                    //no minutes entered
+                    minutes.error = "Please enter minutes."
+                    return@setOnClickListener
+                } else if (minutes.text.toString().toInt() >= 60) {
+                    //minutes entered is greater than 60
+                    minutes.error = "Please enter minutes less than 60."
+                    return@setOnClickListener
+                } else if (minutes.text.toString().toInt() < 0) {
+                    //minutes entered is less than 0
+                    minutes.error = "Please enter minutes greater than 0."
+                    return@setOnClickListener
+                } else if(hours.text.toString().toInt() == 0 && minutes.text.toString().toInt() == 0 ){
+                    //hours and minutes are both 0
+                    Toast.makeText(this, "Please enter hours or minutes greater than 0.", Toast.LENGTH_SHORT).show()
+                    return@setOnClickListener
+                }
+                else if (description.text.toString().isNullOrBlank()) {
+                    //no description entered
+                    description.error = "Please enter a description."
+                    return@setOnClickListener
+                } else if (description.text.toString().length > 100) {
+                    //description is too long
+                    description.error = "Please enter a description less than 100 characters."
+                    return@setOnClickListener
+                } else {
+                    loadingIndicator.show()
+
+                    //all fields are valid
+                    val taskNameText = taskName.text.toString()
+                    val selectedCategory = category.selectedItem.toString()
+                    val selectedDate = date.text.toString()
+                    val hoursText = hours.text.toString()
+                    val hoursInt = hoursText.toInt()
+                    val minutesText = minutes.text.toString()
+                    val minutesInt = minutesText.toInt()
+                    val descriptionText = description.text.toString()
+
+                    //get current user
+                    val user = auth.currentUser!!
+                    val uid = user.uid
+
+                    //create entry object
+                    val entry = Entry(
+                        taskNameText,
+                        selectedCategory,
+                        selectedDate,
+                        hoursInt,
+                        minutesInt,
+                        descriptionText,
+                        //this file path links to the file name in firebase storage
+                        filePath,
+                        uid
+                    )
+
+                    //create entry management object
+                    val entryManagement = EntryManagement()
+
+
+
+                    //add entry to database
+                    entryManagement.addEntryToDatabase(entry)
+                    loadingIndicator.hide()
+
+                    //create intent to go to home page
+                    val intent = Intent(this, Home::class.java)
+                    //start activity
+                    startActivity(intent)
+                }
+
+
+            }
+
+            picture.setOnClickListener {
+                //Code Attribution
+                //Android – Upload an Image on Firebase Storage with Kotlin
+                //Author: GeeksforGeeks
+                //Link: https://www.geeksforgeeks.org/android-upload-an-image-on-firebase-storage-with-kotlin/
+                loadingIndicator.show()
+                storageRef = Firebase.storage.reference
+                val galleryIntent = Intent(Intent.ACTION_PICK)
+                // here item is type of image
+                galleryIntent.type = "image/*"
+                // ActivityResultLauncher callback
+                imagePickerActivityResult.launch(galleryIntent)
+                loadingIndicator.hide()
+            }
+
+
+        }else{
+            save.setOnClickListener {
+                Toast.makeText(this, "Please connect to the internet to add an entry.", Toast.LENGTH_SHORT).show()
+            }
+
+            picture.setOnClickListener {
+                Toast.makeText(this, "Please connect to the internet to upload an image.", Toast.LENGTH_SHORT).show()
+            }
         }
+
+
+
+
+
 
     }
 
@@ -261,6 +280,8 @@ class NewEntry : AppCompatActivity() {
         categories.add("Select Category")
 
         val myRef = database.getReference("categories/$uid")
+        myRef.keepSynced(true)
+
         myRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 //loop through each category in the database
@@ -348,6 +369,15 @@ class NewEntry : AppCompatActivity() {
 
     //Code Attribution End
 
+    //check if device is connected to internet
+    private fun isInternetAvailable(): Boolean {
+        val connectivityManager =
+            getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val network = connectivityManager.activeNetwork
+        val networkCapabilities = connectivityManager.getNetworkCapabilities(network)
+
+        return networkCapabilities?.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET) == true
+    }
 
 
 

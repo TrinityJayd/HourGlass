@@ -188,6 +188,11 @@ class HoursPerDay : AppCompatActivity() {
                         entries.add(BarEntry(i.toFloat(), userEntries[i]))
                     }
 
+                    if(entries.isEmpty()){
+                        Toast.makeText(this, "No entries available for this date range.", Toast.LENGTH_LONG).show()
+                        return@hoursPerDay
+                    }
+
                     val barDataSet = BarDataSet(entries, "Time Per Day hh:mm")
                     val barColor = ContextCompat.getColor(this, R.color.blue_300)
                     barDataSet.color = barColor

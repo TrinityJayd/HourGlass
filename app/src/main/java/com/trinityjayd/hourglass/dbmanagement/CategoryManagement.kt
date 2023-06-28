@@ -17,8 +17,10 @@ class CategoryManagement {
     }
 
     fun isCategoryExists(uid: String, categoryName: String, callback: (Boolean) -> Unit) {
+        val categoryRef = database.child("categories").child(uid)
+        categoryRef.keepSynced(true)
         //check if category exists already with the same name
-        database.child("categories").child(uid).child(categoryName)
+        categoryRef.child(categoryName)
             .addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
                     val exists = dataSnapshot.exists()
@@ -37,6 +39,7 @@ class CategoryManagement {
         val uid = Firebase.auth.currentUser?.uid ?: return
         val database = Firebase.database.reference
         val categoryReference = database.child("categories").child(uid).child(category)
+        categoryReference.keepSynced(true)
 
         //get category color
         categoryReference.addListenerForSingleValueEvent(object : ValueEventListener {

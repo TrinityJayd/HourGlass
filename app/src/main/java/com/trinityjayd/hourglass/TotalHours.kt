@@ -159,6 +159,8 @@ class TotalHours : AppCompatActivity() {
 
         categories.add("Category")
         val myRef = database.getReference("categories/$uid")
+        myRef.keepSynced(true)
+
         myRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
 

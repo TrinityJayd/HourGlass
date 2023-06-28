@@ -23,30 +23,32 @@ class EntryManagement {
 
     //get all entries for a user
     fun getAllEntriesForUser(uid: String, callback: (List<Entry>) -> Unit) {
-        database.child("entries").child(uid)
-            // Read from the database
-            .addListenerForSingleValueEvent(object : ValueEventListener {
-                override fun onDataChange(dataSnapshot: DataSnapshot) {
-                    if(!dataSnapshot.exists()){
-                        callback(emptyList())
-                        return
-                    }else{
-                        val entries = mutableListOf<Entry>()
-                        for (ds in dataSnapshot.children) {
-                            val entry = ds.getValue(Entry::class.java)
-                            entry?.let {
-                                entries.add(it)
-                            }
-                        }
-                        callback(entries)
-                    }
-                }
+        val entriesRef = database.child("entries").child(uid)
+        entriesRef.keepSynced(true)
 
-                override fun onCancelled(databaseError: DatabaseError) {
-                    // Handle the error, if needed
+
+        entriesRef.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                if (!dataSnapshot.exists()) {
                     callback(emptyList())
+                    return
+                } else {
+                    val entries = mutableListOf<Entry>()
+                    for (ds in dataSnapshot.children) {
+                        val entry = ds.getValue(Entry::class.java)
+                        entry?.let {
+                            entries.add(it)
+                        }
+                    }
+                    callback(entries)
                 }
-            })
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {
+                // Handle the error, if needed
+                callback(emptyList())
+            }
+        })
     }
 
 
@@ -89,7 +91,13 @@ class EntryManagement {
         }
     }
 
-    fun calculateTotalTimeByCategory(uid: String, categoryName: String, startDate: String, endDate: String, callback: (Map<String, Pair<Int, Int>>) -> Unit) {
+    fun calculateTotalTimeByCategory(
+        uid: String,
+        categoryName: String,
+        startDate: String,
+        endDate: String,
+        callback: (Map<String, Pair<Int, Int>>) -> Unit
+    ) {
         filterEntries(uid, categoryName, startDate, endDate) { filteredEntries ->
             val totalTimeByCategory = mutableMapOf<String, Pair<Int, Int>>()
 
@@ -130,8 +138,6 @@ class EntryManagement {
             callback(totalTimeByCategory)
         }
     }
-
-
 
 
 }
