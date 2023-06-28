@@ -154,13 +154,14 @@ class TotalHours : AppCompatActivity() {
         val user = auth.currentUser!!
         val uid = user.uid
         val database = Firebase.database
+        //create array list of categories
+        val categories = ArrayList<String>()
+
+        categories.add("Category")
         val myRef = database.getReference("categories/$uid")
         myRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                //create array list of categories
-                val categories = ArrayList<String>()
 
-                categories.add("Category")
                 //loop through each category in the database
                 for (category in dataSnapshot.children) {
                     //get the category name

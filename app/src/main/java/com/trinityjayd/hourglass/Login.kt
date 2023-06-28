@@ -18,6 +18,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.tasks.Task
 import com.google.android.material.progressindicator.CircularProgressIndicator
+import com.google.firebase.auth.AuthCredential
+import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
@@ -61,6 +63,7 @@ class Login : AppCompatActivity() {
         val loadingIndicator = findViewById<CircularProgressIndicator>(R.id.loadingIndicator)
         loadingIndicator.hide()
 
+
         val loginButton = findViewById<Button>(R.id.loginButton)
         //set on click listener to home activity
         loginButton.setOnClickListener {
@@ -90,22 +93,31 @@ class Login : AppCompatActivity() {
                 //check if user exists in database
                 userDbManagement.isUserExistsWithEmail(emailText, auth) { exists ->
                     if (exists) {
-                        //sign in user
-                        auth.signInWithEmailAndPassword(emailText, passwordText)
-                            .addOnCompleteListener(this) { task ->
-                                if (task.isSuccessful) {
-                                    auth.currentUser
-                                    val intent = Intent(this, Home::class.java)
-                                    startActivity(intent)
-                                } else {
-                                    Toast.makeText(
-                                        baseContext,
-                                        "Authentication failed.",
-                                        Toast.LENGTH_SHORT,
-                                    ).show()
 
-                                }
+                        userDbManagement.isGoogleAccountExists(emailText) { hasGoogleAccount ->
+                            if (hasGoogleAccount) {
+                                Toast.makeText(this, "Please login with Google", Toast.LENGTH_SHORT)
+                                    .show()
+                            } else {
+                                //sign in user
+                                auth.signInWithEmailAndPassword(emailText, passwordText)
+                                    .addOnCompleteListener(this) { task ->
+                                        if (task.isSuccessful) {
+                                            val intent = Intent(this, Home::class.java)
+                                            startActivity(intent)
+
+                                        } else {
+                                            Toast.makeText(
+                                                baseContext,
+                                                "Authentication failed.",
+                                                Toast.LENGTH_SHORT,
+                                            ).show()
+
+                                        }
+                                    }
                             }
+                        }
+
                     } else {
                         email.error = "User with this email does not exist"
                     }
@@ -115,7 +127,6 @@ class Login : AppCompatActivity() {
             }
 
         }
-
 
 
         val googleSignInButton = findViewById<Button>(R.id.googleLoginButton)
@@ -131,7 +142,6 @@ class Login : AppCompatActivity() {
             signInWithGoogle()
             loadingIndicator.hide()
         }
-
 
 
     }
@@ -157,14 +167,26 @@ class Login : AppCompatActivity() {
     private fun handleResults(task: Task<GoogleSignInAccount>) {
         if (task.isSuccessful) {
             val account: GoogleSignInAccount? = task.result
+
+            val userDbManagement = UserDbManagement()
             if (account != null) {
-                updateUI(account)
+                userDbManagement.isUserExistsWithEmail(account?.email!!, auth) { exists ->
+                    if (!exists) {
+                        updateUI(account)
+                    } else {
+                        Toast.makeText(this, "Please use Email/Password login", Toast.LENGTH_SHORT)
+                            .show()
+                        googleSignInClient.signOut()
+                    }
+                }
+
             }
         } else {
             Toast.makeText(this, "Sign in failed", Toast.LENGTH_SHORT).show()
         }
 
     }
+
 
     private fun updateUI(account: GoogleSignInAccount?) {
         val credential = GoogleAuthProvider.getCredential(account?.idToken, null)
@@ -194,14 +216,13 @@ class Login : AppCompatActivity() {
 
     //check if device is connected to internet
     private fun isInternetAvailable(): Boolean {
-        val connectivityManager = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val connectivityManager =
+            getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val network = connectivityManager.activeNetwork
         val networkCapabilities = connectivityManager.getNetworkCapabilities(network)
 
         return networkCapabilities?.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET) == true
     }
-
-
 
 
 }

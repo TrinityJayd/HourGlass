@@ -1,11 +1,11 @@
 package com.trinityjayd.hourglass.dbmanagement
 
+import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
@@ -18,16 +18,19 @@ class UserDbManagement {
         database.child("users").child(user.uid).setValue(user)
     }
 
-    fun isUserExistsWithEmail(email: String, auth : FirebaseAuth, onComplete: (Boolean) -> Unit) {
+    fun isUserExistsWithEmail(email: String, auth: FirebaseAuth, onComplete: (Boolean) -> Unit) {
         //check if the user exists
         auth.fetchSignInMethodsForEmail(email).addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 val signInMethods = task.result?.signInMethods
-                if (signInMethods.isNullOrEmpty()) {
-                    onComplete(false)
-                } else {
-                    onComplete(true)
-                }
+                val hasEmailProvider =
+                    signInMethods?.contains(EmailAuthProvider.EMAIL_PASSWORD_SIGN_IN_METHOD)
+                        ?: false
+                val hasGoogleProvider =
+                    signInMethods?.contains(GoogleAuthProvider.PROVIDER_ID) ?: false
+
+                val exists = hasEmailProvider || hasGoogleProvider
+                onComplete(exists)
             } else {
                 onComplete(false)
             }
@@ -76,6 +79,21 @@ class UserDbManagement {
         database.child("goals").child(uid).removeValue()
         database.child("entries").child(uid).removeValue()
         database.child("categories").child(uid).removeValue()
+    }
+
+    //check if user has a google account
+    fun isGoogleAccountExists(email: String, onComplete: (Boolean) -> Unit) {
+        FirebaseAuth.getInstance().fetchSignInMethodsForEmail(email)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    val signInMethods = task.result?.signInMethods
+                    val isSignedInWithGoogle = signInMethods?.contains("google.com") == true
+                    onComplete(isSignedInWithGoogle)
+                } else {
+                    onComplete(false)
+                }
+            }
+
     }
 
 

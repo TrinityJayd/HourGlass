@@ -84,7 +84,7 @@ class SignUp : AppCompatActivity() {
                 val userDbManagement = UserDbManagement()
                 userDbManagement.isUserExistsWithEmail(emailText, auth) { exists ->
                     if (exists) {
-                        email.error = "Email already exists"
+                        email.error = "Already registered."
                         return@isUserExistsWithEmail
                     }else{
                         //create user with email and password

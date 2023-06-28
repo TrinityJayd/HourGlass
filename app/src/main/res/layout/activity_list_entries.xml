@@ -30,7 +30,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="20dp"
             android:fontFamily="@font/ubuntumedium"
-            android:text="Your Entries"
+            android:text="My Entries"
             android:textColor="@android:color/white"
             android:textSize="20sp"
             android:layout_gravity="center" />

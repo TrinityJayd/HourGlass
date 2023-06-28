@@ -254,13 +254,15 @@ class NewEntry : AppCompatActivity() {
         val user = auth.currentUser!!
         val uid = user.uid
         val database = Firebase.database
+
+        //create array list of categories
+        val categories = ArrayList<String>()
+        //add select category to array list
+        categories.add("Select Category")
+
         val myRef = database.getReference("categories/$uid")
         myRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                //create array list of categories
-                val categories = ArrayList<String>()
-                //add select category to array list
-                categories.add("Select Category")
                 //loop through each category in the database
                 if(dataSnapshot.exists()){
                     for (category in dataSnapshot.children) {

@@ -133,13 +133,14 @@ class ListEntries : AppCompatActivity() {
     private fun populateCategories() {
         //get the category names from the children of the logged in user's uid from the realtime database where the user id is the same as the current user
         val database = Firebase.database
+        //create array list of categories
+        val categories = ArrayList<String>()
+        //add select category to array list
+        categories.add("All")
         val myRef = database.getReference("categories/$uid")
         myRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                //create array list of categories
-                val categories = ArrayList<String>()
-                //add select category to array list
-                categories.add("All")
+
                 //loop through each category in the database
                 for (category in dataSnapshot.children) {
                     //get the category name
