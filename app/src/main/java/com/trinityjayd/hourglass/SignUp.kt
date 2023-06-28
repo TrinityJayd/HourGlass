@@ -86,7 +86,7 @@ class SignUp : AppCompatActivity() {
                     auth = Firebase.auth
 
                     val userDbManagement = UserDbManagement()
-                    userDbManagement.isUserExistsWithEmail(emailText, auth) { exists ->
+                    userDbManagement.isUserExistsWithEmail(emailText) { exists ->
                         if (exists) {
                             email.error = "Already registered."
                             return@isUserExistsWithEmail

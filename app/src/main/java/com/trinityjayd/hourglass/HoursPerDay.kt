@@ -17,7 +17,6 @@ import com.github.mikephil.charting.data.BarData
 import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
-import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.progressindicator.CircularProgressIndicator
 import com.trinityjayd.hourglass.dbmanagement.AnalyticsData
 import java.text.SimpleDateFormat
@@ -141,8 +140,8 @@ class HoursPerDay : AppCompatActivity() {
 
     private fun generateBarData(callback: (BarData) -> Unit) {
 
-        var startDate = startDateButton.text.toString()
-        var endDate = endDateButton.text.toString()
+        val startDate = startDateButton.text.toString()
+        val endDate = endDateButton.text.toString()
 
         if (startDate == "Start Date" && endDate == "End Date") {
             data.hoursPerDay("Start", "End") { userEntries ->
@@ -168,13 +167,13 @@ class HoursPerDay : AppCompatActivity() {
             val startDateFormatted = dateFormat.parse(startDate)
             val endDateFormatted = dateFormat.parse(endDate)
 
-            if(startDateFormatted.after(endDateFormatted)){
+            if(startDateFormatted!!.after(endDateFormatted)){
                 Toast.makeText(this, "Please select a valid date range.", Toast.LENGTH_LONG).show()
                 return
             }
 
             //get the difference between the two dates in days
-            val difference = endDateFormatted.time - startDateFormatted.time
+            val difference = endDateFormatted!!.time - startDateFormatted.time
             val daysBetween = TimeUnit.MILLISECONDS.toDays(difference).toInt()
 
             if (daysBetween != 7) {

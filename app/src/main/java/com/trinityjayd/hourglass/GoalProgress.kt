@@ -82,6 +82,7 @@ class GoalProgress : AppCompatActivity() {
                         formattedDate
                     ) { userEntries ->
                         progressValue = analytics.sumHoursArr(userEntries).toFloat()
+                        println("Progress Value: $progressValue")
 
                         // Create pie chart with the retrieved values
                         createPieChart(progressValue, minGoalValue, maxGoalValue)
@@ -115,10 +116,8 @@ class GoalProgress : AppCompatActivity() {
         dataSet.valueFormatter = object : ValueFormatter() {
             override fun getFormattedValue(value: Float): String {
                 val hours = value.toInt()
-                val minutes = ((value - hours) * 60).toInt()
-                val adjustedHours = hours + (minutes / 60)
-                val adjustedMinutes = minutes % 60
-                return String.format("%d:%02d", adjustedHours, adjustedMinutes)
+                val minutes = ((value - hours) * 100).toInt()
+                return String.format("%d:%02d", hours, minutes)
             }
         }
 

@@ -18,8 +18,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.tasks.Task
 import com.google.android.material.progressindicator.CircularProgressIndicator
-import com.google.firebase.auth.AuthCredential
-import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
@@ -94,12 +92,12 @@ class Login : AppCompatActivity() {
 
 
                     //check if user exists in database
-                    userDbManagement.isUserExistsWithEmail(emailText, auth) { exists ->
+                    userDbManagement.isUserExistsWithEmail(emailText) { exists ->
                         if (exists) {
 
                             userDbManagement.isGoogleAccountExists(emailText) { hasGoogleAccount ->
                                 if (hasGoogleAccount) {
-                                    Toast.makeText(this, "Please login with Google", Toast.LENGTH_SHORT)
+                                    Toast.makeText(this, "Please login with Google.", Toast.LENGTH_SHORT)
                                         .show()
                                 } else {
                                     //sign in user
@@ -188,15 +186,23 @@ class Login : AppCompatActivity() {
 
             val userDbManagement = UserDbManagement()
             if (account != null) {
-                userDbManagement.isGoogleAccountExists(account?.email!!) { exists ->
+                userDbManagement.isUserExistsWithEmail(account.email!!) { exists ->
                     if (exists) {
-                        updateUI(account)
+                        userDbManagement.isGoogleAccountExists(account.email!!) { exists ->
+                            if (exists) {
+                                updateUI(account)
+                            } else {
+                                Toast.makeText(this, "Please use Email/Password login", Toast.LENGTH_SHORT)
+                                    .show()
+                                googleSignInClient.signOut()
+                            }
+                        }
                     } else {
-                        Toast.makeText(this, "Please use Email/Password login", Toast.LENGTH_SHORT)
-                            .show()
-                        googleSignInClient.signOut()
+                        updateUI(account)
                     }
                 }
+
+
 
             }
         } else {
@@ -219,7 +225,7 @@ class Login : AppCompatActivity() {
                     userDbManagement.isUserExistsWithUid(uid!!) { exists ->
                         if (!exists) {
                             //create user object
-                            val newUser = User(uid!!, displayName!!)
+                            val newUser = User(uid, displayName!!)
 
                             userDbManagement.addUserToDatabase(newUser)
                         }

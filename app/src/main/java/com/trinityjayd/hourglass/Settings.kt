@@ -106,6 +106,7 @@ class Settings : AppCompatActivity() {
 
 
                     val intent = Intent(this, MainActivity::class.java)
+                    intent.putExtra("signOut", true)
                     startActivity(intent)
 
                 }

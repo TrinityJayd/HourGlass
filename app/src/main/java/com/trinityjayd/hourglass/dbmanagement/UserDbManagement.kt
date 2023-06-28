@@ -13,12 +13,13 @@ import com.trinityjayd.hourglass.models.User
 
 class UserDbManagement {
     private var database = Firebase.database.reference
+    private var auth = Firebase.auth
 
     fun addUserToDatabase(user: User) {
         database.child("users").child(user.uid).setValue(user)
     }
 
-    fun isUserExistsWithEmail(email: String, auth: FirebaseAuth, onComplete: (Boolean) -> Unit) {
+    fun isUserExistsWithEmail(email: String, onComplete: (Boolean) -> Unit) {
         //check if the user exists
         auth.fetchSignInMethodsForEmail(email).addOnCompleteListener { task ->
             if (task.isSuccessful) {
@@ -96,8 +97,9 @@ class UserDbManagement {
                     onComplete(false)
                 }
             }
-
     }
 
 
 }
+
+

@@ -3,6 +3,7 @@ package com.trinityjayd.hourglass
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
+import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
@@ -122,7 +123,7 @@ class Timer : AppCompatActivity() {
     // when the Start button is clicked.
     // Below method gets called
     // when the Start button is clicked.
-    fun onClickStart() {
+    fun onClickStart(view : View) {
         running = true
     }
 
@@ -130,7 +131,7 @@ class Timer : AppCompatActivity() {
     // when the Stop button is clicked.
     // Below method gets called
     // when the Stop button is clicked.
-    fun onClickStop() {
+    fun onClickStop(view : View) {
         running = false
     }
 
@@ -138,14 +139,14 @@ class Timer : AppCompatActivity() {
     // the Reset button is clicked.
     // Below method gets called
     // when the Reset button is clicked.
-    fun onClickReset() {
+    fun onClickReset(view : View) {
         running = false
         seconds = 0
     }
 
     //If the use clicks the save button
     //go to new entry page
-    fun onClickSave() {
+    fun onClickSave(view : View) {
         //get hours
         val hours = seconds / 3600
         //get minutes

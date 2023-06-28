@@ -162,7 +162,7 @@ class AnalyticsData {
 
         val datesStr = ArrayList<String>()
 
-        while (calendar.time <= dates.second){
+        while (calendar.time <= dates.second) {
             val date = dateFormat.format(calendar.time)
             datesStr.add(date)
             calendar.add(Calendar.DATE, 1)
@@ -188,20 +188,28 @@ class AnalyticsData {
     }
 
     fun sumHoursArr(time: ArrayList<Float>): String {
-        var totalHours = 0
-        var totalMinutes = 0
+        val totaltime = time.sum()
 
-        for (entry in time) {
-            val entryHours = entry.toInt()
-            val entryMinutes = ((entry - entryHours) * 100).toInt()
-            totalHours += entryHours
-            totalMinutes += entryMinutes
-        }
+        println("total time: $totaltime")
 
-        totalHours += totalMinutes / 60
-        totalMinutes %= 60
+        var totalHours = totaltime.toInt()
+        var totalMinutes = ((totaltime - totalHours) * 100).toInt()
 
-        return String.format(Locale.getDefault(), "%d.%02d", totalHours, totalMinutes)
+        println("total hours: $totalHours")
+        println("total minutes: $totalMinutes")
+
+        val addHours = totalMinutes / 60
+        totalHours += addHours
+        totalMinutes -= (addHours * 60)
+
+        println("total hours: $totalHours")
+        println("total minutes: $totalMinutes")
+
+        val timeStr = String.format(Locale.getDefault(), "%d.%02d", totalHours, totalMinutes)
+
+        println("time string: $timeStr")
+
+        return timeStr
 
     }
 

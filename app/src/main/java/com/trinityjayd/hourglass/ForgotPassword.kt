@@ -41,7 +41,7 @@ class ForgotPassword : AppCompatActivity() {
                     val userDbManagement = UserDbManagement()
                     val auth: FirebaseAuth = FirebaseAuth.getInstance()
                     //check if user exists with email
-                    userDbManagement.isUserExistsWithEmail(email.text.toString(), auth) { exists ->
+                    userDbManagement.isUserExistsWithEmail(email.text.toString()) { exists ->
                         if (exists) {
 
 
