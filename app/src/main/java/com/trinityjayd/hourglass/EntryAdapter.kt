@@ -77,7 +77,7 @@ class EntryAdapter(private var entryList: List<Entry>) :
 
     fun updateEntries(entries: List<Entry>) {
         // Update entry list and notify adapter of change
-        entryList = entries
+        entryList = entries.sortedByDescending { it.date }
         notifyDataSetChanged()
     }
 

@@ -106,6 +106,7 @@ class Login : AppCompatActivity() {
                                             if (task.isSuccessful) {
                                                 val intent = Intent(this, Home::class.java)
                                                 startActivity(intent)
+                                                loadingIndicator.hide()
 
                                             } else {
                                                 Toast.makeText(
@@ -152,13 +153,6 @@ class Login : AppCompatActivity() {
                 Toast.makeText(this, "Please connect to the internet to login.", Toast.LENGTH_SHORT).show()
             }
         }
-
-
-
-
-
-
-
 
     }
 

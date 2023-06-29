@@ -17,18 +17,21 @@ import com.github.mikephil.charting.data.BarData
 import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
+import com.github.mikephil.charting.formatter.ValueFormatter
 import com.google.android.material.progressindicator.CircularProgressIndicator
 import com.trinityjayd.hourglass.dbmanagement.AnalyticsData
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
 import java.util.concurrent.TimeUnit
+import kotlin.math.roundToInt
 
 class HoursPerDay : AppCompatActivity() {
 
     private var data = AnalyticsData()
     private lateinit var startDateButton: Button
     private lateinit var endDateButton: Button
+    private lateinit var barChart: BarChart
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,7 +40,7 @@ class HoursPerDay : AppCompatActivity() {
 
         dateButtons()
 
-        val barChart = findViewById<BarChart>(R.id.barChart)
+        barChart = findViewById<BarChart>(R.id.barChart)
 
         // Customize chart appearance
         barChart.description.isEnabled = false
@@ -47,7 +50,7 @@ class HoursPerDay : AppCompatActivity() {
         barChart.setPinchZoom(true)
         barChart.legend.textSize = 14f
         barChart.legend.textColor = Color.WHITE
-        barChart.setExtraOffsets(10f, 15f, 10f, 15f)
+        barChart.setExtraOffsets(10f, 25f, 10f, 15f)
 
 
         // Customize X-axis
@@ -89,7 +92,6 @@ class HoursPerDay : AppCompatActivity() {
                 } else {
                     // Update the axis minimum and maximum values here
                     barChart.axisLeft.axisMinimum = 0f
-                    barChart.axisLeft.axisMaximum = maximumGoal + 1
 
                     val minimumGoalLine = LimitLine(minimumGoal, "Minimum Goal Per Day")
                     minimumGoalLine.labelPosition = LimitLine.LimitLabelPosition.RIGHT_BOTTOM
@@ -131,7 +133,6 @@ class HoursPerDay : AppCompatActivity() {
         loadingIndicator.hide()
 
 
-
         val homeImageView = findViewById<ImageView>(R.id.homeImageView)
         homeImageView.setOnClickListener {
             val intent = Intent(this, Home::class.java)
@@ -147,6 +148,10 @@ class HoursPerDay : AppCompatActivity() {
         if (startDate == "Start Date" && endDate == "End Date") {
             data.hoursPerDay("Start", "End") { userEntries ->
                 val entries = ArrayList<BarEntry>()
+
+                val highestEntry = userEntries.maxOrNull() ?: 0f
+                barChart.axisLeft.axisMaximum = highestEntry + 1
+
                 for (i in userEntries.indices) {
                     entries.add(BarEntry(i.toFloat(), userEntries[i]))
                 }
@@ -157,11 +162,21 @@ class HoursPerDay : AppCompatActivity() {
                 barDataSet.valueTextColor = Color.WHITE
                 barDataSet.valueTextSize = 14f
 
+                barDataSet.valueFormatter = object : ValueFormatter() {
+                    override fun getFormattedValue(value: Float): String {
+                        val hours = value.toInt()
+                        val minutes = ((value - hours) * 100).roundToInt()
+
+                        return String.format("%02d:%02d", hours, minutes)
+                    }
+                }
 
                 val barData = BarData(barDataSet)
                 callback(barData)
+
+
             }
-        }else if (startDate == endDate) {
+        } else if (startDate == endDate) {
             Toast.makeText(this, "Please select a date range of 7 days.", Toast.LENGTH_LONG).show()
             return
         } else {
@@ -169,7 +184,7 @@ class HoursPerDay : AppCompatActivity() {
             val startDateFormatted = dateFormat.parse(startDate)
             val endDateFormatted = dateFormat.parse(endDate)
 
-            if(startDateFormatted!!.after(endDateFormatted)){
+            if (startDateFormatted!!.after(endDateFormatted)) {
                 Toast.makeText(this, "Please select a valid date range.", Toast.LENGTH_LONG).show()
                 return
             }
@@ -186,12 +201,12 @@ class HoursPerDay : AppCompatActivity() {
                 data.hoursPerDay(startDate, endDate) { userEntries ->
                     val entries = ArrayList<BarEntry>()
                     for (i in userEntries.indices) {
-                        entries.add(BarEntry(i.toFloat(), userEntries[i]))
-                    }
+                        val time = userEntries[i]
+                        val hours = time.toInt()
+                        val minutes = ((time - hours) * 60).roundToInt()
 
-                    if(entries.size == 0){
-                        Toast.makeText(this, "No entries available for this date range.", Toast.LENGTH_LONG).show()
-                        return@hoursPerDay
+                        val formattedTime = String.format("%02d:%02d", hours, minutes)
+                        entries.add(BarEntry(i.toFloat(), time, formattedTime))
                     }
 
                     val barDataSet = BarDataSet(entries, "Time Per Day hh:mm")
@@ -199,6 +214,14 @@ class HoursPerDay : AppCompatActivity() {
                     barDataSet.color = barColor
                     barDataSet.valueTextColor = Color.WHITE
 
+                    barDataSet.valueFormatter = object : ValueFormatter() {
+                        override fun getFormattedValue(value: Float): String {
+                            val hours = value.toInt()
+                            val minutes = ((value - hours) * 100).roundToInt()
+
+                            return String.format("%02d:%02d", hours, minutes)
+                        }
+                    }
 
                     val barData = BarData(barDataSet)
                     callback(barData)
