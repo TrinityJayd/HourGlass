@@ -8,15 +8,9 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.ValueEventListener
-import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import com.trinityjayd.hourglass.dbmanagement.CategoryManagement
-import com.trinityjayd.hourglass.models.Category
 import com.trinityjayd.hourglass.models.Entry
 import java.util.Locale
 
@@ -83,7 +77,7 @@ class EntryAdapter(private var entryList: List<Entry>) :
 
     fun updateEntries(entries: List<Entry>) {
         // Update entry list and notify adapter of change
-        entryList = entries
+        entryList = entries.sortedByDescending { it.date }
         notifyDataSetChanged()
     }
 

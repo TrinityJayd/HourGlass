@@ -72,7 +72,7 @@
             android:fontFamily="@font/ubuntumedium"
             android:text="Goal Progress Over the Past 30 Days"
             android:textColor="@android:color/white"
-            android:textSize="18sp" />
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/minGoalTextView"
@@ -83,7 +83,7 @@
             android:fontFamily="@font/ubunturegular"
             android:text="Minimum Goal"
             android:textColor="@android:color/white"
-            android:textSize="16sp" />
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/maxGoalTextView"
@@ -94,7 +94,7 @@
             android:fontFamily="@font/ubunturegular"
             android:text="Maximum Goal"
             android:textColor="@android:color/white"
-            android:textSize="16sp" />
+            android:textSize="14sp" />
 
 
         <com.github.mikephil.charting.charts.PieChart

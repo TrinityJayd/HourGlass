@@ -18,6 +18,7 @@ import com.trinityjayd.hourglass.dbmanagement.AnalyticsData
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
+import kotlin.math.roundToInt
 
 
 class GoalProgress : AppCompatActivity() {
@@ -115,10 +116,8 @@ class GoalProgress : AppCompatActivity() {
         dataSet.valueFormatter = object : ValueFormatter() {
             override fun getFormattedValue(value: Float): String {
                 val hours = value.toInt()
-                val minutes = ((value - hours) * 60).toInt()
-                val adjustedHours = hours + (minutes / 60)
-                val adjustedMinutes = minutes % 60
-                return String.format("%d:%02d", adjustedHours, adjustedMinutes)
+                val minutes = ((value - hours) * 100).roundToInt()
+                return String.format("%d:%02d", hours, minutes)
             }
         }
 
@@ -156,7 +155,7 @@ class GoalProgress : AppCompatActivity() {
         pieChart.setHoleColor(Color.TRANSPARENT)
         pieChart.transparentCircleRadius = 0f
         pieChart.setDrawEntryLabels(false)
-        pieChart.holeRadius = 60f
+        pieChart.holeRadius = 70f
 
         // Refresh the chart
         pieChart.invalidate()

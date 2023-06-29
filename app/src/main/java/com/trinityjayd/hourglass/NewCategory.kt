@@ -1,12 +1,16 @@
 package com.trinityjayd.hourglass
 
+import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.progressindicator.CircularProgressIndicator
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -40,6 +44,9 @@ class NewCategory : AppCompatActivity() {
 
         //get save button
         val save = findViewById<Button>(R.id.saveButton)
+
+        val hasInternet = isInternetAvailable()
+
         //set on click listener
         save.setOnClickListener {
             //get category name
@@ -72,19 +79,40 @@ class NewCategory : AppCompatActivity() {
                         return@isCategoryExists
                     } else {
                         val category = Category(categoryName.text.toString(), defaultColor, uid)
-                        //save category to database
-                        categoryManagement.saveCategory(category)
+                        if(!hasInternet){
+                            val alertDialogBuilder = AlertDialog.Builder(this)
+                            alertDialogBuilder.setTitle("Save Category")
+                            alertDialogBuilder.setMessage("You are offline. This category will be saved locally and uploaded when you are online.")
+                            alertDialogBuilder.setPositiveButton("OK") { _, _ ->
 
-                        //create intent to go to home page
-                        val intent = Intent(this, NewEntry::class.java)
-                        //start activity
-                        startActivity(intent)
+                                //save category to database
+                                categoryManagement.saveCategory(category)
+
+                                //create intent to go to home page
+                                val intent = Intent(this, NewEntry::class.java)
+                                //start activity
+                                startActivity(intent)
+                            }
+                            alertDialogBuilder.show()
+                        }else{
+                            ///save category to database
+                            categoryManagement.saveCategory(category)
+
+                            //create intent to go to home page
+                            val intent = Intent(this, NewEntry::class.java)
+                            //start activity
+                            startActivity(intent)
+                        }
+
+
+
                     }
                 }
                 loadingIndicator.hide()
 
             }
         }
+
 
         //get pick color button
         pickColor = findViewById(R.id.pickColorButton)
@@ -128,5 +156,15 @@ class NewCategory : AppCompatActivity() {
                 }
             })
         colorPickerDialogue.show()
+    }
+
+    //check if device is connected to internet
+    private fun isInternetAvailable(): Boolean {
+        val connectivityManager =
+            getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val network = connectivityManager.activeNetwork
+        val networkCapabilities = connectivityManager.getNetworkCapabilities(network)
+
+        return networkCapabilities?.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET) == true
     }
 }

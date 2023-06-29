@@ -7,13 +7,14 @@ import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
 import java.util.Locale
+import kotlin.math.roundToInt
+
 
 class AnalyticsData {
 
     private var database = Firebase.database.reference
     private var auth = Firebase.auth
     private var dayLabels = ArrayList<String>()
-
 
     fun getGoals(callback: (Pair<Float, Float>) -> Unit) {
         val uid = auth.currentUser?.uid
@@ -23,6 +24,7 @@ class AnalyticsData {
 
         // get minimum and maximum goal from database
         val goalRef = database.child("goals").child(uid.toString())
+        goalRef.keepSynced(true)
 
         goalRef.get().addOnSuccessListener {
             if (it.exists()) {
@@ -160,7 +162,7 @@ class AnalyticsData {
 
         val datesStr = ArrayList<String>()
 
-        while (calendar.time <= dates.second){
+        while (calendar.time <= dates.second) {
             val date = dateFormat.format(calendar.time)
             datesStr.add(date)
             calendar.add(Calendar.DATE, 1)
@@ -188,18 +190,32 @@ class AnalyticsData {
     fun sumHoursArr(time: ArrayList<Float>): String {
         var totalHours = 0
         var totalMinutes = 0
-
         for (entry in time) {
-            val entryHours = entry.toInt()
-            val entryMinutes = ((entry - entryHours) * 100).toInt()
-            totalHours += entryHours
-            totalMinutes += entryMinutes
+            var hours = entry.toInt()
+            var minutes = ((entry - hours) * 100).roundToInt()
+
+            println("hours in loop: $hours")
+            println("minutes in loop: $minutes")
+
+            totalHours += hours
+            totalMinutes += minutes
+
         }
 
-        totalHours += totalMinutes / 60
+        println("hours after loop: $totalHours")
+        println("minutes after loop: $totalMinutes")
+
+        val addHours = totalMinutes / 60
+        totalHours += addHours
         totalMinutes %= 60
 
-        return String.format(Locale.getDefault(), "%d.%02d", totalHours, totalMinutes)
+        println("hours: $totalHours")
+        println("minutes: $totalMinutes")
+
+
+        val timeStr = String.format(Locale.getDefault(), "%d.%02d", totalHours, totalMinutes)
+        println("time string: $timeStr")
+        return timeStr
 
     }
 

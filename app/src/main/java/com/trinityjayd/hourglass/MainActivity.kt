@@ -13,8 +13,11 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+
         // Set the activity's layout using the XML layout file
         setContentView(R.layout.activity_main)
+
 
         //get login button
         val loginButton = findViewById<Button>(R.id.loginButton)
@@ -41,9 +44,27 @@ class MainActivity : AppCompatActivity() {
 
         // Check if user is signed in (non-null) and update UI accordingly.
         val currentUser = auth.currentUser
-        if (currentUser != null) {
-            val intent = Intent(this, Home::class.java)
-            startActivity(intent)
+        val signOut = intent.getBooleanExtra("signOut", false)
+        if(signOut){
+            auth.signOut()
+        }else{
+            if (currentUser != null) {
+                val intent = Intent(this, Home::class.java)
+                startActivity(intent)
+            }
         }
+
+
+    }
+
+    @Deprecated("Deprecated in Java")
+    override fun onBackPressed() {
+        //get extra from intent
+        val signOut = intent.getBooleanExtra("signOut", false)
+
+        if(signOut){
+            moveTaskToBack(true)
+        }
+
     }
 }

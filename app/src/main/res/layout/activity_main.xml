@@ -51,7 +51,7 @@
         android:background="@drawable/rounded_square"
         android:elevation="8dp"
         android:orientation="vertical"
-        android:paddingHorizontal="40dp"
+        android:paddingHorizontal="30dp"
         android:paddingVertical="16dp">
 
         <Button

@@ -1,13 +1,17 @@
 package com.trinityjayd.hourglass
 
 import android.app.DatePickerDialog
+import android.content.Context
 import android.content.Intent
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
 import android.os.Bundle
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.Spinner
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -53,8 +57,12 @@ class ListEntries : AppCompatActivity() {
         //get all entries for the logged in user
         entryManagement.getAllEntriesForUser(uid) { entries ->
             entryAdapter.updateEntries(entries)
+            if(entries.isEmpty()){
+                Toast.makeText(this, "Please add an entry.", Toast.LENGTH_SHORT).show()
+            }
+            loadingIndicator.hide()
         }
-        loadingIndicator.hide()
+
 
         //get home image view
         val home = findViewById<ImageView>(R.id.homeImageView)
@@ -103,7 +111,6 @@ class ListEntries : AppCompatActivity() {
             loadingIndicator.show()
             val entryManagement = EntryManagement()
 
-            //filter entries
             entryManagement.filterEntries(
                 uid,
                 category.selectedItem.toString(),
@@ -112,9 +119,13 @@ class ListEntries : AppCompatActivity() {
             ) { entries ->
                 //update entries in adapter
                 entryAdapter.updateEntries(entries)
-
+                loadingIndicator.hide()
             }
-            loadingIndicator.hide()
+
+            if(!isInternetAvailable()){
+                Toast.makeText(this, "Please connect to the internet to view entry images.", Toast.LENGTH_SHORT).show()
+            }
+
 
             //reset filter text
             startDate.text = "Start"
@@ -128,13 +139,16 @@ class ListEntries : AppCompatActivity() {
     private fun populateCategories() {
         //get the category names from the children of the logged in user's uid from the realtime database where the user id is the same as the current user
         val database = Firebase.database
+        //create array list of categories
+        val categories = ArrayList<String>()
+        //add select category to array list
+        categories.add("All")
         val myRef = database.getReference("categories/$uid")
+        myRef.keepSynced(true)
+
         myRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                //create array list of categories
-                val categories = ArrayList<String>()
-                //add select category to array list
-                categories.add("All")
+
                 //loop through each category in the database
                 for (category in dataSnapshot.children) {
                     //get the category name
@@ -196,6 +210,16 @@ class ListEntries : AppCompatActivity() {
             )
             datePickerDialog.show()
         })
+    }
+
+    //check if device is connected to internet
+    private fun isInternetAvailable(): Boolean {
+        val connectivityManager =
+            getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val network = connectivityManager.activeNetwork
+        val networkCapabilities = connectivityManager.getNetworkCapabilities(network)
+
+        return networkCapabilities?.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET) == true
     }
 
 

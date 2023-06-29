@@ -4,6 +4,8 @@ import android.app.Activity
 import android.app.DatePickerDialog
 import android.content.Context
 import android.content.Intent
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
 import android.net.Uri
 import android.os.Bundle
 import android.provider.OpenableColumns
@@ -15,6 +17,7 @@ import android.widget.Spinner
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.progressindicator.CircularProgressIndicator
 import com.google.firebase.auth.FirebaseAuth
@@ -96,6 +99,8 @@ class NewEntry : AppCompatActivity() {
         loadingIndicator.hide()
         //get save button
         val save = findViewById<Button>(R.id.saveButton)
+
+        val hasInternet = isInternetAvailable()
 
         //set on click listener
         save.setOnClickListener {
@@ -190,34 +195,67 @@ class NewEntry : AppCompatActivity() {
                 //create entry management object
                 val entryManagement = EntryManagement()
 
+                if(!hasInternet){
+                    val alertDialogBuilder = AlertDialog.Builder(this)
+                    alertDialogBuilder.setTitle("Save Entry")
+                    alertDialogBuilder.setMessage("You are offline. This entry will be saved locally and uploaded when you are online.")
+                    alertDialogBuilder.setPositiveButton("OK") { _, _ ->
+
+                        //add entry to database
+                        entryManagement.addEntryToDatabase(entry)
+                        loadingIndicator.hide()
+
+                        //create intent to go to home page
+                        val intent = Intent(this, Home::class.java)
+                        //start activity
+                        startActivity(intent)
+                    }
+                    alertDialogBuilder.show()
+                }else{
+                    //add entry to database
+                    entryManagement.addEntryToDatabase(entry)
+                    loadingIndicator.hide()
+
+                    //create intent to go to home page
+                    val intent = Intent(this, Home::class.java)
+                    //start activity
+                    startActivity(intent)
+                }
 
 
-                //add entry to database
-                entryManagement.addEntryToDatabase(entry)
-                loadingIndicator.hide()
-
-                //create intent to go to home page
-                val intent = Intent(this, Home::class.java)
-                //start activity
-                startActivity(intent)
             }
 
 
         }
 
         val picture = findViewById<Button>(R.id.pictureButton)
-        picture.setOnClickListener {
-            //Code Attribution
-            //Android – Upload an Image on Firebase Storage with Kotlin
-            //Author: GeeksforGeeks
-            //Link: https://www.geeksforgeeks.org/android-upload-an-image-on-firebase-storage-with-kotlin/
-            storageRef = Firebase.storage.reference
-            val galleryIntent = Intent(Intent.ACTION_PICK)
-            // here item is type of image
-            galleryIntent.type = "image/*"
-            // ActivityResultLauncher callback
-            imagePickerActivityResult.launch(galleryIntent)
+        if(isInternetAvailable()){
+            picture.setOnClickListener {
+                //Code Attribution
+                //Android – Upload an Image on Firebase Storage with Kotlin
+                //Author: GeeksforGeeks
+                //Link: https://www.geeksforgeeks.org/android-upload-an-image-on-firebase-storage-with-kotlin/
+                loadingIndicator.show()
+                storageRef = Firebase.storage.reference
+                val galleryIntent = Intent(Intent.ACTION_PICK)
+                // here item is type of image
+                galleryIntent.type = "image/*"
+                // ActivityResultLauncher callback
+                imagePickerActivityResult.launch(galleryIntent)
+                loadingIndicator.hide()
+            }
+
+
+        }else{
+            picture.setOnClickListener {
+                Toast.makeText(this, "Please connect to the internet to upload an image.", Toast.LENGTH_SHORT).show()
+            }
         }
+
+
+
+
+
 
     }
 
@@ -252,13 +290,17 @@ class NewEntry : AppCompatActivity() {
         val user = auth.currentUser!!
         val uid = user.uid
         val database = Firebase.database
+
+        //create array list of categories
+        val categories = ArrayList<String>()
+        //add select category to array list
+        categories.add("Select Category")
+
         val myRef = database.getReference("categories/$uid")
+        myRef.keepSynced(true)
+
         myRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                //create array list of categories
-                val categories = ArrayList<String>()
-                //add select category to array list
-                categories.add("Select Category")
                 //loop through each category in the database
                 if(dataSnapshot.exists()){
                     for (category in dataSnapshot.children) {
@@ -344,6 +386,15 @@ class NewEntry : AppCompatActivity() {
 
     //Code Attribution End
 
+    //check if device is connected to internet
+    private fun isInternetAvailable(): Boolean {
+        val connectivityManager =
+            getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val network = connectivityManager.activeNetwork
+        val networkCapabilities = connectivityManager.getNetworkCapabilities(network)
+
+        return networkCapabilities?.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET) == true
+    }
 
 
 

@@ -13,10 +13,4 @@ class GoalManagement {
 
     }
 
-
-    fun updateGoal(goal: Goal) {
-        //update goal
-        database.child("goals").child(goal.uid).setValue(goal)
-    }
-
 }

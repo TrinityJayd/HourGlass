@@ -1,11 +1,16 @@
 package com.trinityjayd.hourglass
 
+import android.content.Context
 import android.content.Intent
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.FirebaseAuth
@@ -62,16 +67,78 @@ class Settings : AppCompatActivity() {
                 //sign user out of google
 
                 //get google sign in client
-                val googleSignInClient = GoogleSignIn.getClient(this, GoogleSignInOptions.DEFAULT_SIGN_IN)
+                val googleSignInClient =
+                    GoogleSignIn.getClient(this, GoogleSignInOptions.DEFAULT_SIGN_IN)
                 //sign out of google
                 googleSignInClient.signOut()
             }
 
-            //prevent user from clicking back button to go back to home
-
 
             val intent = Intent(this, MainActivity::class.java)
+            intent.putExtra("signOut", true)
             startActivity(intent)
         }
+
+        //get delete account TextView
+        val deleteAccountButton = findViewById<TextView>(R.id.deleteAccountTextView)
+
+        if (isInternetAvailable()) {
+            //set on click listener
+            deleteAccountButton.setOnClickListener {
+                val alertDialogBuilder = AlertDialog.Builder(this)
+                alertDialogBuilder.setTitle("Account")
+                alertDialogBuilder.setMessage("This action cannot be undone.\nAre you sure you want to delete your account?")
+                alertDialogBuilder.setPositiveButton("Yes") { _, _ ->
+                    //delete the google credentials
+                    val googleSignInAccount = GoogleSignIn.getLastSignedInAccount(this)
+                    if (googleSignInAccount != null) {
+                        //sign user out of google
+
+                        //get google sign in client
+                        val googleSignInClient =
+                            GoogleSignIn.getClient(this, GoogleSignInOptions.DEFAULT_SIGN_IN)
+                        //sign out of google
+                        googleSignInClient.signOut()
+                    }
+
+                    val userDbManagement = UserDbManagement()
+                    userDbManagement.deleteUser(uid)
+
+
+                    val intent = Intent(this, MainActivity::class.java)
+                    intent.putExtra("signOut", true)
+                    startActivity(intent)
+
+                }
+                alertDialogBuilder.setNegativeButton("No") { _, _ ->
+                    //do nothing
+                }
+
+                alertDialogBuilder.show()
+            }
+        } else {
+            deleteAccountButton.setOnClickListener {
+                Toast.makeText(
+                    this,
+                    "Please connect to the internet to delete your account",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        }
+
+
     }
+
+
+    //check if device is connected to internet
+    private fun isInternetAvailable(): Boolean {
+        val connectivityManager =
+            getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val network = connectivityManager.activeNetwork
+        val networkCapabilities = connectivityManager.getNetworkCapabilities(network)
+
+        return networkCapabilities?.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET) == true
+    }
+
+
 }

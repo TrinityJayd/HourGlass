@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/colorPrimary"
     android:gravity="center"
     tools:context=".Login">
@@ -110,7 +111,7 @@
             android:text="Forgot Password?"
             android:textAllCaps="false"
             android:textColor="@android:color/white"
-            android:textSize="16sp" />
+            android:textSize="12sp" />
 
         <Button
             android:id="@+id/loginButton"
@@ -126,11 +127,42 @@
             android:textColor="@color/colorButtonText"
             android:textSize="18sp" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:layout_marginVertical="15dp">
+
+        <View
+            android:layout_width="30dp"
+            android:layout_height="1dp"
+            android:background="@color/white"
+            android:layout_marginEnd="10dp"/>
+
+        <TextView
+            android:id="@+id/orTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:fontFamily="@font/ubunturegular"
+            android:text="OR"
+            android:textColor="@android:color/white"
+            android:textSize="12sp"
+            android:layout_marginEnd="10dp"/>
+
+        <View
+            android:layout_width="30dp"
+            android:layout_height="1dp"
+            android:background="@color/white" />
+
+
+    </LinearLayout>
+
         <Button
             android:id="@+id/googleLoginButton"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_marginVertical="10dp"
             android:background="@drawable/googleg_standard_color_18"
             android:contentDescription="Google Login"
             android:scaleType="centerInside" />
@@ -145,7 +177,7 @@
             android:text="Don't have an account? Sign Up."
             android:textAllCaps="false"
             android:textColor="@android:color/white"
-            android:textSize="16sp" />
+            android:textSize="12sp" />
 
     </LinearLayout>
 
@@ -154,7 +186,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:indeterminate="true" />
+        android:indeterminate="true"
+        app:indicatorColor="@color/white"/>
 
 
 </RelativeLayout>
