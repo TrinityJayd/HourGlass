@@ -85,12 +85,12 @@ class Login : AppCompatActivity() {
                     email.error = "Please enter a valid email."
                     return@setOnClickListener
                 } else {
-                    loadingIndicator.show()
                     val emailText = email.text.toString()
                     val passwordText = password.text.toString()
                     val userDbManagement = UserDbManagement()
 
 
+                    loadingIndicator.show()
                     //check if user exists in database
                     userDbManagement.isUserExistsWithEmail(emailText) { exists ->
                         if (exists) {

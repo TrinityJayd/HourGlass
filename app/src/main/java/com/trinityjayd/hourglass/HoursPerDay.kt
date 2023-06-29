@@ -189,7 +189,7 @@ class HoursPerDay : AppCompatActivity() {
                         entries.add(BarEntry(i.toFloat(), userEntries[i]))
                     }
 
-                    if(entries.isEmpty()){
+                    if(entries.size == 0){
                         Toast.makeText(this, "No entries available for this date range.", Toast.LENGTH_LONG).show()
                         return@hoursPerDay
                     }
