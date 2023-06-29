@@ -39,7 +39,6 @@ class CategoryManagement {
         val uid = Firebase.auth.currentUser?.uid ?: return
         val database = Firebase.database.reference
         val categoryReference = database.child("categories").child(uid).child(category)
-        categoryReference.keepSynced(true)
 
         //get category color
         categoryReference.addListenerForSingleValueEvent(object : ValueEventListener {

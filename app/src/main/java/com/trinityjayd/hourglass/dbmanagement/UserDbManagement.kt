@@ -63,7 +63,6 @@ class UserDbManagement {
     fun getUserFullName(uid: String, callback: (String?) -> Unit) {
         //get users name
         val userRef = database.child("users").child(uid)
-        userRef.keepSynced(true)
         userRef.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 val user = snapshot.getValue(User::class.java)

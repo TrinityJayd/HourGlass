@@ -92,6 +92,7 @@ class HoursPerDay : AppCompatActivity() {
                 } else {
                     // Update the axis minimum and maximum values here
                     barChart.axisLeft.axisMinimum = 0f
+                    barChart.axisLeft.axisMaximum = maximumGoal + 1
 
                     val minimumGoalLine = LimitLine(minimumGoal, "Minimum Goal Per Day")
                     minimumGoalLine.labelPosition = LimitLine.LimitLabelPosition.RIGHT_BOTTOM
@@ -149,8 +150,10 @@ class HoursPerDay : AppCompatActivity() {
             data.hoursPerDay("Start", "End") { userEntries ->
                 val entries = ArrayList<BarEntry>()
 
-                val highestEntry = userEntries.maxOrNull() ?: 0f
-                barChart.axisLeft.axisMaximum = highestEntry + 1
+                if(!userEntries.isEmpty()) {
+                    val highestEntry = userEntries.maxOrNull() ?: 0f
+                    barChart.axisLeft.axisMaximum = highestEntry + 1
+                }
 
                 for (i in userEntries.indices) {
                     entries.add(BarEntry(i.toFloat(), userEntries[i]))
