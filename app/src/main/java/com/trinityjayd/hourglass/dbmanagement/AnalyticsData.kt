@@ -1,13 +1,13 @@
 package com.trinityjayd.hourglass.dbmanagement
 
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
 import java.util.Locale
+import kotlin.math.roundToInt
 
 
 class AnalyticsData {
@@ -188,27 +188,33 @@ class AnalyticsData {
     }
 
     fun sumHoursArr(time: ArrayList<Float>): String {
-        val totaltime = time.sum()
+        var totalHours = 0
+        var totalMinutes = 0
+        for (entry in time) {
+            var hours = entry.toInt()
+            var minutes = ((entry - hours) * 100).roundToInt()
 
-        println("total time: $totaltime")
+            println("hours in loop: $hours")
+            println("minutes in loop: $minutes")
 
-        var totalHours = totaltime.toInt()
-        var totalMinutes = ((totaltime - totalHours) * 100).toInt()
+            totalHours += hours
+            totalMinutes += minutes
 
-        println("total hours: $totalHours")
-        println("total minutes: $totalMinutes")
+        }
+
+        println("hours after loop: $totalHours")
+        println("minutes after loop: $totalMinutes")
 
         val addHours = totalMinutes / 60
         totalHours += addHours
-        totalMinutes -= (addHours * 60)
+        totalMinutes %= 60
 
-        println("total hours: $totalHours")
-        println("total minutes: $totalMinutes")
+        println("hours: $totalHours")
+        println("minutes: $totalMinutes")
+
 
         val timeStr = String.format(Locale.getDefault(), "%d.%02d", totalHours, totalMinutes)
-
         println("time string: $timeStr")
-
         return timeStr
 
     }

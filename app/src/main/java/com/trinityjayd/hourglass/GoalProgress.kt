@@ -18,6 +18,7 @@ import com.trinityjayd.hourglass.dbmanagement.AnalyticsData
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
+import kotlin.math.roundToInt
 
 
 class GoalProgress : AppCompatActivity() {
@@ -82,7 +83,6 @@ class GoalProgress : AppCompatActivity() {
                         formattedDate
                     ) { userEntries ->
                         progressValue = analytics.sumHoursArr(userEntries).toFloat()
-                        println("Progress Value: $progressValue")
 
                         // Create pie chart with the retrieved values
                         createPieChart(progressValue, minGoalValue, maxGoalValue)
@@ -116,7 +116,7 @@ class GoalProgress : AppCompatActivity() {
         dataSet.valueFormatter = object : ValueFormatter() {
             override fun getFormattedValue(value: Float): String {
                 val hours = value.toInt()
-                val minutes = ((value - hours) * 100).toInt()
+                val minutes = ((value - hours) * 100).roundToInt()
                 return String.format("%d:%02d", hours, minutes)
             }
         }
