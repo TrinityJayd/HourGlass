@@ -297,7 +297,6 @@ class NewEntry : AppCompatActivity() {
         categories.add("Select Category")
 
         val myRef = database.getReference("categories/$uid")
-        myRef.keepSynced(true)
 
         myRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {

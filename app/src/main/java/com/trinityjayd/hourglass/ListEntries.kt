@@ -144,7 +144,6 @@ class ListEntries : AppCompatActivity() {
         //add select category to array list
         categories.add("All")
         val myRef = database.getReference("categories/$uid")
-        myRef.keepSynced(true)
 
         myRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
