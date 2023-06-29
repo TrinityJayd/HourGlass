@@ -78,6 +78,7 @@ class UserDbManagement {
     }
 
     fun deleteUser(uid: String) {
+        //delete user and data from database
         Firebase.auth.currentUser?.delete()
         database.child("users").child(uid).removeValue()
         database.child("goals").child(uid).removeValue()

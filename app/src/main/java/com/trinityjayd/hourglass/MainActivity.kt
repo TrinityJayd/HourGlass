@@ -13,25 +13,16 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-
-        // Set the activity's layout using the XML layout file
         setContentView(R.layout.activity_main)
 
-
-        //get login button
         val loginButton = findViewById<Button>(R.id.loginButton)
-        //set on click listener
         loginButton.setOnClickListener {
             val intent = Intent(this, Login::class.java)
             startActivity(intent)
         }
 
-        //get register button
         val registerButton = findViewById<Button>(R.id.signupButton)
-        //set on click listener
         registerButton.setOnClickListener {
-            //go to register activity
             val intent = Intent(this, SignUp::class.java)
             startActivity(intent)
         }

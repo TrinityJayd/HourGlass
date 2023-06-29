@@ -24,6 +24,7 @@ class AnalyticsData {
 
         // get minimum and maximum goal from database
         val goalRef = database.child("goals").child(uid.toString())
+        // keep the data synced for offline use
         goalRef.keepSynced(true)
 
         goalRef.get().addOnSuccessListener {
@@ -46,6 +47,7 @@ class AnalyticsData {
 
     fun getMonthlyGoals(callback: (Pair<Float, Float>) -> Unit) {
         getGoals { goals ->
+            // Calculate the monthly goals
             val monthlyMinimumGoal = goals.first * 30
             val monthlyMaximumGoal = goals.second * 30
 
@@ -105,6 +107,7 @@ class AnalyticsData {
                     val dateCheck = dateFormat.parse(formattedDate)
                     val entryDate = dateFormat.parse(entry.date)
 
+                    //if the dates match, add the entry's time to the total
                     if (dateCheck == entryDate) {
                         val entryHours = entry.hours
                         val entryMinutes = entry.minutes
@@ -113,6 +116,7 @@ class AnalyticsData {
                     }
                 }
 
+                //convert the total minutes to hours and minutes
                 val totalHours = totalMinutes / 60
                 val remainingMinutes = totalMinutes % 60
 
@@ -162,6 +166,7 @@ class AnalyticsData {
 
         val datesStr = ArrayList<String>()
 
+        // Add each date to the list
         while (calendar.time <= dates.second) {
             val date = dateFormat.format(calendar.time)
             datesStr.add(date)
@@ -175,6 +180,7 @@ class AnalyticsData {
         val dayNames = ArrayList<String>()
         val dateFormat = SimpleDateFormat("dd/MMM/yyyy", Locale.getDefault())
         val dayFormat = SimpleDateFormat("EEE", Locale.getDefault())
+        // Get the day of the week for each date
         for (date in dates) {
             val day = dayFormat.format(dateFormat.parse(date))
             dayNames.add(day)
@@ -190,31 +196,24 @@ class AnalyticsData {
     fun sumHoursArr(time: ArrayList<Float>): String {
         var totalHours = 0
         var totalMinutes = 0
-        for (entry in time) {
-            var hours = entry.toInt()
-            var minutes = ((entry - hours) * 100).roundToInt()
 
-            println("hours in loop: $hours")
-            println("minutes in loop: $minutes")
+        for (entry in time) {
+            //convert the entry to hours and minutes
+            val hours = entry.toInt()
+            val minutes = ((entry - hours) * 100).roundToInt()
 
             totalHours += hours
             totalMinutes += minutes
 
         }
 
-        println("hours after loop: $totalHours")
-        println("minutes after loop: $totalMinutes")
-
+        //add any extra minutes to the total hours
         val addHours = totalMinutes / 60
         totalHours += addHours
         totalMinutes %= 60
 
-        println("hours: $totalHours")
-        println("minutes: $totalMinutes")
-
 
         val timeStr = String.format(Locale.getDefault(), "%d.%02d", totalHours, totalMinutes)
-        println("time string: $timeStr")
         return timeStr
 
     }

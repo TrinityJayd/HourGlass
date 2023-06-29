@@ -60,6 +60,7 @@ class GoalProgress : AppCompatActivity() {
             val minGoalTextView = findViewById<TextView>(R.id.minGoalTextView)
             val maxGoalTextView = findViewById<TextView>(R.id.maxGoalTextView)
 
+            // If no goals are set, display 0h for 30 days
             if(goals.first == 0f && goals.second == 0f) {
                 minGoalTextView.text = "Daily Minimum Goal: 0h for 30 days : "
                 maxGoalTextView.text = "Daily Maximum Goal: 0h for 30 days : "
@@ -70,11 +71,11 @@ class GoalProgress : AppCompatActivity() {
                 minGoalTextView.text = "Daily Minimum Goal: ${goals.first}h for 30 days : "
                 maxGoalTextView.text = "Daily Maximum Goal: ${goals.second}h for 30 days : "
 
-                // Once progress value is available, retrieve goals
                 analytics.getMonthlyGoals { goals ->
                     minGoalValue = goals.first
                     maxGoalValue = goals.second
 
+                    //add the goal values for 30 days to the text views
                     minGoalTextView.append("${minGoalValue}h")
                     maxGoalTextView.append("${maxGoalValue}h")
 

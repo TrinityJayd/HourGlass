@@ -79,7 +79,7 @@ class NewCategory : AppCompatActivity() {
                         return@isCategoryExists
                     } else {
                         val category = Category(categoryName.text.toString(), defaultColor, uid)
-                        if(!hasInternet){
+                        if (!hasInternet) {
                             val alertDialogBuilder = AlertDialog.Builder(this)
                             alertDialogBuilder.setTitle("Save Category")
                             alertDialogBuilder.setMessage("You are offline. This category will be saved locally and uploaded when you are online.")
@@ -94,7 +94,7 @@ class NewCategory : AppCompatActivity() {
                                 startActivity(intent)
                             }
                             alertDialogBuilder.show()
-                        }else{
+                        } else {
                             ///save category to database
                             categoryManagement.saveCategory(category)
 
@@ -103,7 +103,6 @@ class NewCategory : AppCompatActivity() {
                             //start activity
                             startActivity(intent)
                         }
-
 
 
                     }

@@ -187,46 +187,48 @@ class HoursPerDay : AppCompatActivity() {
             if (startDateFormatted!!.after(endDateFormatted)) {
                 Toast.makeText(this, "Please select a valid date range.", Toast.LENGTH_LONG).show()
                 return
-            }
+            }else{
+                //get the difference between the two dates in days
+                val difference = endDateFormatted!!.time - startDateFormatted.time
+                val daysBetween = TimeUnit.MILLISECONDS.toDays(difference).toInt()
 
-            //get the difference between the two dates in days
-            val difference = endDateFormatted!!.time - startDateFormatted.time
-            val daysBetween = TimeUnit.MILLISECONDS.toDays(difference).toInt()
+                if (daysBetween != 7) {
+                    Toast.makeText(this, "Please select a date range of 7 days.", Toast.LENGTH_LONG)
+                        .show()
+                    return
+                } else {
+                    data.hoursPerDay(startDate, endDate) { userEntries ->
+                        val entries = ArrayList<BarEntry>()
+                        for (i in userEntries.indices) {
+                            val time = userEntries[i]
+                            val hours = time.toInt()
+                            val minutes = ((time - hours) * 100).roundToInt()
 
-            if (daysBetween != 7) {
-                Toast.makeText(this, "Please select a date range of 7 days.", Toast.LENGTH_LONG)
-                    .show()
-                return
-            } else {
-                data.hoursPerDay(startDate, endDate) { userEntries ->
-                    val entries = ArrayList<BarEntry>()
-                    for (i in userEntries.indices) {
-                        val time = userEntries[i]
-                        val hours = time.toInt()
-                        val minutes = ((time - hours) * 60).roundToInt()
-
-                        val formattedTime = String.format("%02d:%02d", hours, minutes)
-                        entries.add(BarEntry(i.toFloat(), time, formattedTime))
-                    }
-
-                    val barDataSet = BarDataSet(entries, "Time Per Day hh:mm")
-                    val barColor = ContextCompat.getColor(this, R.color.blue_300)
-                    barDataSet.color = barColor
-                    barDataSet.valueTextColor = Color.WHITE
-
-                    barDataSet.valueFormatter = object : ValueFormatter() {
-                        override fun getFormattedValue(value: Float): String {
-                            val hours = value.toInt()
-                            val minutes = ((value - hours) * 100).roundToInt()
-
-                            return String.format("%02d:%02d", hours, minutes)
+                            val formattedTime = String.format("%02d:%02d", hours, minutes)
+                            entries.add(BarEntry(i.toFloat(), time, formattedTime))
                         }
-                    }
 
-                    val barData = BarData(barDataSet)
-                    callback(barData)
+                        val barDataSet = BarDataSet(entries, "Time Per Day hh:mm")
+                        val barColor = ContextCompat.getColor(this, R.color.blue_300)
+                        barDataSet.color = barColor
+                        barDataSet.valueTextColor = Color.WHITE
+
+                        barDataSet.valueFormatter = object : ValueFormatter() {
+                            override fun getFormattedValue(value: Float): String {
+                                val hours = value.toInt()
+                                val minutes = ((value - hours) * 100).roundToInt()
+
+                                return String.format("%02d:%02d", hours, minutes)
+                            }
+                        }
+
+                        val barData = BarData(barDataSet)
+                        callback(barData)
+                    }
                 }
             }
+
+
         }
 
     }

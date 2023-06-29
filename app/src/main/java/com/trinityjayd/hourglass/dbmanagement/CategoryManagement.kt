@@ -19,7 +19,7 @@ class CategoryManagement {
     fun isCategoryExists(uid: String, categoryName: String, callback: (Boolean) -> Unit) {
         val categoryRef = database.child("categories").child(uid)
         categoryRef.keepSynced(true)
-        //check if category exists already with the same name
+        //check if category exists already with the same name for the current user
         categoryRef.child(categoryName)
             .addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {

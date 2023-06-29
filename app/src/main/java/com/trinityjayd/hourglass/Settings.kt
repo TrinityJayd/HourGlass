@@ -47,17 +47,14 @@ class Settings : AppCompatActivity() {
         //set email text view to user's email
         emailTextView.text = currentUser.email
 
-        //get home Image View
+
         val homeImageView = findViewById<ImageView>(R.id.homeImageView)
-        //set on click listener
         homeImageView.setOnClickListener {
             val intent = Intent(this, Home::class.java)
             startActivity(intent)
         }
 
-        //get sign out button
         val signOutButton = findViewById<Button>(R.id.signOutButton)
-        //set on click listener
         signOutButton.setOnClickListener {
             auth.signOut()
 

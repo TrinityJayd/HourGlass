@@ -7,6 +7,7 @@ import com.google.firebase.database.FirebaseDatabase
 class Utils : Application() {
     override fun onCreate() {
         super.onCreate()
+        // Enable disk persistence
         FirebaseDatabase.getInstance().setPersistenceEnabled(true)
     }
 }
