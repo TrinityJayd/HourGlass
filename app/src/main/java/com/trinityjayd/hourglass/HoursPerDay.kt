@@ -92,6 +92,7 @@ class HoursPerDay : AppCompatActivity() {
                 } else {
                     // Update the axis minimum and maximum values here
                     barChart.axisLeft.axisMinimum = 0f
+                    barChart.axisLeft.axisMaximum = maximumGoal + 1
 
                     val minimumGoalLine = LimitLine(minimumGoal, "Minimum Goal Per Day")
                     minimumGoalLine.labelPosition = LimitLine.LimitLabelPosition.RIGHT_BOTTOM
@@ -114,7 +115,7 @@ class HoursPerDay : AppCompatActivity() {
                     yAxis.addLimitLine(maximumGoalLine)
 
                     // Set data and display the chart
-                    generateBarData { barData ->
+                    generateBarData(maximumGoal) { barData ->
                         barChart.data = barData
                         val xAxisLabels = data.getDayLabels()
                         xAxis.valueFormatter = IndexAxisValueFormatter(xAxisLabels)
@@ -140,7 +141,7 @@ class HoursPerDay : AppCompatActivity() {
         }
     }
 
-    private fun generateBarData(callback: (BarData) -> Unit) {
+    private fun generateBarData(maximumGoal : Float, callback: (BarData) -> Unit) {
 
         val startDate = startDateButton.text.toString()
         val endDate = endDateButton.text.toString()
@@ -149,8 +150,12 @@ class HoursPerDay : AppCompatActivity() {
             data.hoursPerDay("Start", "End") { userEntries ->
                 val entries = ArrayList<BarEntry>()
 
-                val highestEntry = userEntries.maxOrNull() ?: 0f
-                barChart.axisLeft.axisMaximum = highestEntry + 1
+                if(!userEntries.isEmpty()) {
+                    val highestEntry = userEntries.maxOrNull() ?: 0f
+                    if(highestEntry > maximumGoal){
+                        barChart.axisLeft.axisMaximum = highestEntry + 1
+                    }
+                }
 
                 for (i in userEntries.indices) {
                     entries.add(BarEntry(i.toFloat(), userEntries[i]))
@@ -206,6 +211,13 @@ class HoursPerDay : AppCompatActivity() {
 
                             val formattedTime = String.format("%02d:%02d", hours, minutes)
                             entries.add(BarEntry(i.toFloat(), time, formattedTime))
+                        }
+
+                        if(!userEntries.isEmpty()) {
+                            val highestEntry = userEntries.maxOrNull() ?: 0f
+                            if(highestEntry > maximumGoal){
+                                barChart.axisLeft.axisMaximum = highestEntry + 1
+                            }
                         }
 
                         val barDataSet = BarDataSet(entries, "Time Per Day hh:mm")

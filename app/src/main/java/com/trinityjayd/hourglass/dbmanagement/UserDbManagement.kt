@@ -42,7 +42,6 @@ class UserDbManagement {
     fun isUserExistsWithUid(uid: String, onComplete: (Boolean) -> Unit) {
         //check if the user exists
         val userRef = database.child("users").child(uid)
-        userRef.keepSynced(true)
 
         userRef.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -63,7 +62,6 @@ class UserDbManagement {
     fun getUserFullName(uid: String, callback: (String?) -> Unit) {
         //get users name
         val userRef = database.child("users").child(uid)
-        userRef.keepSynced(true)
         userRef.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 val user = snapshot.getValue(User::class.java)

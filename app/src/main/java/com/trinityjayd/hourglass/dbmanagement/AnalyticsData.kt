@@ -24,8 +24,6 @@ class AnalyticsData {
 
         // get minimum and maximum goal from database
         val goalRef = database.child("goals").child(uid.toString())
-        // keep the data synced for offline use
-        goalRef.keepSynced(true)
 
         goalRef.get().addOnSuccessListener {
             if (it.exists()) {

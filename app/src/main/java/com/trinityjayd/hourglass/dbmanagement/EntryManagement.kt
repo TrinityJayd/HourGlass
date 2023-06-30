@@ -24,8 +24,6 @@ class EntryManagement {
     //get all entries for a user
     fun getAllEntriesForUser(uid: String, callback: (List<Entry>) -> Unit) {
         val entriesRef = database.child("entries").child(uid)
-        entriesRef.keepSynced(true)
-
 
         entriesRef.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
