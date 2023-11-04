@@ -4,15 +4,16 @@ HourGlass is an Android Kotlin application that helps users track their time ent
 
 Demo: https://www.youtube.com/watch?v=BPyBpohNSB0
 
-## Students
+## Team Members
 
-Trinity Jayd Tiratram ST10083735
+[@TrinityJayd](https://github.com/TrinityJayd)
 
-Afsaana Bibi Mahomed ST10083504
+[@afsaana03](https://github.com/afsaana03)
 
-Jessica Leigh De Sousa Caldeira ST10083342
+[@hiJesss](https://github.com/hiJesss)
 
-Mahomed Zafir Haniff ST10083832
+[@ZxfirH](https://github.com/ZxfirH)
+
 
 ## Table of Contents
 
